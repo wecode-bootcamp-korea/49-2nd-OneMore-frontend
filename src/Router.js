@@ -6,7 +6,7 @@ function Router(props) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />}></Route>
+        <Route path="/" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );
