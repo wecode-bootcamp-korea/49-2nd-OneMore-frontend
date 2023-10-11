@@ -23,6 +23,7 @@ button {
   background-color: transparent;
   cursor: pointer;
 }
+
 `;
 
 export default GlobalStyle;
