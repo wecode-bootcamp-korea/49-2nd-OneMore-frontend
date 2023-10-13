@@ -10,5 +10,5 @@ root.render(
   <ThemeProvider theme={theme}>
     <GlobalStyle />
     <Router />
-  </ThemeProvider>
+  </ThemeProvider>,
 );
