@@ -1,6 +1,7 @@
 ## OneMore
 
 > - Repository: https://github.com/wecode-bootcamp-korea/49-3rd-OneMore-frontend.git
+> -
 
 > - Team
 >   - Product Manager: 홍지수(BE)
