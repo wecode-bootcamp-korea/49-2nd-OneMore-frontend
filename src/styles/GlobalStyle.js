@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body {
+    @media (min-width:1024px){
     height:100vh;
     background-color: #e6e6e6;
     display: flex;
@@ -16,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
   }
+}
 	
 li {
   list-style: none;
