@@ -7,16 +7,15 @@ const GlobalStyle = createGlobalStyle`
 	* {
     box-sizing: border-box;
   }
-  
   body {
+    width: 100%;
     height:100vh;
-    background-color: #e6e6e6;
+	  background-color: #e6e6e6;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-	
+}
 li {
   list-style: none;
 }
