@@ -2,57 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Input({
-  className,
   placeholder,
   type = 'text',
   name,
   value,
   onChange,
   disabled,
+  ...props
 }) {
   return (
     <DefaultInput
-      className={className}
       placeholder={placeholder}
       type={type}
       name={name}
       value={value}
       onChange={onChange}
       disabled={disabled}
+      {...props}
     />
   );
 }
 
-const getInputStatus = ({ status, error, done }) => {
-  if (status === 'error') {
-    return `
-      border-color: #FF3636; 
-    `;
-  } else if (status === 'done') {
-    return `
-      border-color: #2D71F7;
-    `;
-  } else {
-    return `
-    border-color: #E0E0E0; 
-  `;
-  }
-};
-
-const INPUT_SIZE = {
-  default: {
+const INPUT_HEIGHT = {
+  low: {
     height: '42px',
   },
-  login: {
+  high: {
     height: '50px',
   },
 };
 
 const DefaultInput = styled.input`
-  width: ${({ size }) => (size ? INPUT_SIZE[size]?.width : '100%')};
-  height: ${({ size }) => (size ? INPUT_SIZE[size]?.height : '50px')};
+  width: 100%
+  height: ${({ size }) => INPUT_HEIGHT[size]?.height || '50px'};
   padding: 4px 10px;
-  border: 1px solid ${props => getInputStatus(props)};
+  border: 1px solid transparent;
   border-radius: 10px;
   font-size: 15px;
   line-height: 1.5;
@@ -66,6 +50,23 @@ const DefaultInput = styled.input`
   &:focus {
     border: 1px solid #8bc34a;
   }
+
+  ${props => {
+    if (props.status === 'error') {
+      return `
+      border-color: #FF3636; 
+
+      `;
+    } else if (props.status === 'done') {
+      return `
+        border-color : #2D71F7;
+      `;
+    } else {
+      return `
+      border-color : #E0E0E0; 
+      `;
+    }
+  }}
 `;
 
 export default Input;
@@ -73,7 +74,6 @@ export default Input;
 /*
 props
 
-className = [string] 클래스 이름
 placeholder = [string] placeholder
 type = [string] 입력 타입 / 기본값 : text
 name = [string] 식별을 위한 속성
