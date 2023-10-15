@@ -3,18 +3,17 @@ import styled from 'styled-components';
 import Swiper from '../../components/Swiper/Swiper';
 import Tab from '../../components/Tab/Tab';
 
-function Main(props) {
+function Report(props) {
   return (
-    <MainStyle>
-      <Swiper />
+    <ReportStyle>
       <Tab />
-    </MainStyle>
+    </ReportStyle>
   );
 }
 
-export default Main;
+export default Report;
 
-const MainStyle = styled.div`
+const ReportStyle = styled.div`
   width: 390px;
   height: 844px;
   background-color: #e6e6e6;
