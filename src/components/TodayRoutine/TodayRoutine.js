@@ -19,14 +19,6 @@ const TodayRoutine = () => {
       });
   }, []);
 
-  // [] = 배열의 길이를 재면 얘가 값이 있는건지 없는건지 알 수 있음 -> 0보다 크면 값이 있음 0이면 값이 없음 -> Array.length 길이반환 해줌
-  // {} = 객체는 기본적으로 object.length를 할 수가 없음 그래서 object.length > 0 이런 조건 자체를 줄 수 없음
-  // 그래서 데이터의 초기값이 객체라면 다른방법으로 객체가 비어있는지 차있는지를 판단해야됨
-  // 객체를 배열로 만들면 그 true/false를 확인할 수 있음
-  //  객체를 배열로 만드는 방법
-  // 1. Object.keys(aboutData) => aboutData가지고 있는 모든'키' 를 모아서 배열만들어줌 => 빈객체일때는 빈배열이 나올거고 아니면, 빈배열이 아니다.
-  // 2. Object.values(aboutData)
-  //  early return
   if (Object.keys(aboutData).length <= 0) return null;
 
   const sliceData = aboutData.exercises.slice(0, 3);
