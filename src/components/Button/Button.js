@@ -17,16 +17,16 @@ function Button({ type = 'button', name, label, onClick, disabled, ...props }) {
 
 const BUTTON_SIZE = {
   small: {
-    height: '45px',
+    padding: '8px',
     fontSize: '14px',
   },
   medium: {
-    height: '50px',
+    padding: '12px',
     fontSize: '16px',
   },
   large: {
-    height: '60px',
-    fontSize: '24px',
+    padding: '16px',
+    fontSize: '20px',
   },
 };
 
@@ -39,12 +39,11 @@ const FLEX_CENTER = `
 const DefaultButton = styled.button`
   ${FLEX_CENTER}
   width: 100%;
-  padding: 12px;
+  padding: ${({ size }) =>
+    BUTTON_SIZE[size]?.padding || BUTTON_SIZE.medium.padding};
   border-radius: 10px;
   background-color: #8bc34a;
   color: #ffffff;
-  height: ${({ size }) =>
-    BUTTON_SIZE[size]?.height || BUTTON_SIZE.medium.height};
   font-size: ${({ size }) => BUTTON_SIZE[size]?.height || '20px'};
 
   &:hover {
