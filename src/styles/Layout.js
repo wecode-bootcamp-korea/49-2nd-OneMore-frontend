@@ -2,15 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const LayoutBox = styled.div`
-  width: 200px;
-  height: 200px;
-  background-color: pink;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: #e6e6e6;
 
-  /* @media (min-width: 1024px) {
+  @media (min-width: 1024px) {
     width: 390px;
     height: 844px;
-    background-color: #fff;
-  } */
+    background-color: #e6e6e6;
+  }
 `;
 
 function Layout(props) {

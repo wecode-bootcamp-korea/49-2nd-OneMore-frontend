@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     @media (min-width:1024px){
     height:100vh;
-    background-color: #e6e6e6;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
