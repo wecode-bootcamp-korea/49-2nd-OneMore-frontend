@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ExerciseCard from '../../components/ExerciseCard/ExerciseCard';
 
 const StyledButton1 = styled.button`
   padding: 6px 12px;
@@ -64,6 +65,7 @@ function Main(props) {
       <StyledButton4>600</StyledButton4>
       <StyledButton5>700</StyledButton5>
       <StyledButton6>800</StyledButton6>
+      <ExerciseCard></ExerciseCard>
     </div>
   );
 }
