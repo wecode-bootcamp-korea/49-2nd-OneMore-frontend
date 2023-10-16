@@ -16,8 +16,8 @@ const LayoutBox = styled.div`
   }
 `;
 
-function Layout(props) {
-  return <LayoutBox />;
+function Layout({ children }) {
+  return <LayoutBox>{children}</LayoutBox>;
 }
 
 export default Layout;
