@@ -1,23 +1,48 @@
 import styled from 'styled-components';
 import RoutineThumbNail from '../RoutineThumbNail/RoutineThumbNail';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-const TodayRoutine = props => {
-  const { nickName, routineId, name, totalDuration, totalCaloriesUsed } = props;
+const TodayRoutine = () => {
+  const [aboutData, setaboutData] = useState({});
+  const NickNameToken = localStorage.getItem('userNickname');
 
+  useEffect(() => {
+    fetch('/data/soonwoo.json', {
+      method: 'GET',
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        setaboutData(result.data);
+      });
+  }, []);
+
+  if (Object.keys(aboutData).length <= 0) return null;
+
+  const sliceData = aboutData.exercises.slice(0, 3);
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
         <GreetingWrapper>
-          <HowAbuotLetter>{nickName}</HowAbuotLetter>
-          <HowAbuotLetter>님, 오늘은 {routineId} 어떠세요?</HowAbuotLetter>
+          <HowAbuotLetter>{NickNameToken}</HowAbuotLetter>
+          <HowAbuotLetter>
+            님, 오늘은 {aboutData.routineId} 어떠세요?
+          </HowAbuotLetter>
         </GreetingWrapper>
         <MiddleWrapper>
-          <div>
-            <ExerciseWrapper>
-              <RoutineThumbNail alt={name} />
-              <ExerciseNameWrapper>{name}</ExerciseNameWrapper>
-            </ExerciseWrapper>
-          </div>
+          <MapWrapper>
+            {sliceData.map(product => {
+              const { thumbnailURL, name, exerciseId } = product;
+              return (
+                <ExerciseWrapper key={exerciseId}>
+                  <RoutineThumbNail alt={name} url={thumbnailURL} />
+                  <ExerciseNameWrapper>{name}</ExerciseNameWrapper>
+                </ExerciseWrapper>
+              );
+            })}
+          </MapWrapper>
           <ButtonAndInfWrapper>
             <PlayButton
               className="playButton"
@@ -26,11 +51,11 @@ const TodayRoutine = props => {
             />
             <TotalTime>
               <TimeLetter>시간</TimeLetter>
-              <TimeLetter>{totalDuration}</TimeLetter>
+              <TimeLetter>{aboutData.totalDuration}</TimeLetter>
             </TotalTime>
             <TotalCalorie>
               <CalorieLetter>칼로리</CalorieLetter>
-              <CalorieLetter>{totalCaloriesUsed}</CalorieLetter>
+              <CalorieLetter>{aboutData.totalCaloriesUsed}</CalorieLetter>
             </TotalCalorie>
           </ButtonAndInfWrapper>
         </MiddleWrapper>
@@ -45,7 +70,6 @@ const StyledTodayRoutine = styled.div`
   width: 390px;
   height: 250px;
   border: 1px solid black;
-  /* cursor: pointer; */
 `;
 
 const CommonTextStyles = styled.span`
@@ -140,4 +164,10 @@ const CalorieLetter = styled.p`
     font-size: 15px;
     color: #8bc34a;
   }
+`;
+
+const MapWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 `;

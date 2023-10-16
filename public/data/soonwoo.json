@@ -3,25 +3,29 @@
     "routineId": "상체쑥쑥",
     "exercises": [
       {
+        "exerciseId": 1,
         "thumbnailURL": "https://i.postimg.cc/gJCY7Lb0/image2.png",
         "name": "윗몸일으키기"
       },
       {
+        "exerciseId": 2,
         "thumbnailURL": "https://i.postimg.cc/kgQ7pgTJ/image1.png",
         "name": "팔굽"
       },
       {
+        "exerciseId": 3,
         "thumbnailURL": "https://i.postimg.cc/gJCY7Lb0/image2.png",
         "name": "사레레"
       },
       {
+        "exerciseId": 4,
         "thumbnailURL": "https://i.postimg.cc/gJCY7Lb0/image2.png",
         "name": "스쿼트"
       }
     ],
-
     "totalDuration": "10:00",
     "totalCaloriesUsed": "900kcal",
-    "completed": ""
+    "completed": "",
+    "nickName": ""
   }
 }
