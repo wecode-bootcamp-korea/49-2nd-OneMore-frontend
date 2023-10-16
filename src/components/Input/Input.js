@@ -8,6 +8,7 @@ function Input({
   value,
   onChange,
   disabled,
+  size = 'low',
   ...props
 }) {
   return (
@@ -18,6 +19,7 @@ function Input({
       value={value}
       onChange={onChange}
       disabled={disabled}
+      size={size}
       {...props}
     />
   );
@@ -33,10 +35,11 @@ const INPUT_HEIGHT = {
 };
 
 const DefaultInput = styled.input`
-  width: 100%
-  height: ${({ size }) => INPUT_HEIGHT[size]?.height || '50px'};
+  width: 100%;
+  height: ${({ size }) => INPUT_HEIGHT[size].height};
   padding: 4px 10px;
   border: 1px solid transparent;
+  border-color: #e0e0e0;
   border-radius: 10px;
   font-size: 15px;
   line-height: 1.5;
@@ -51,22 +54,8 @@ const DefaultInput = styled.input`
     border: 1px solid #8bc34a;
   }
 
-  ${props => {
-    if (props.status === 'error') {
-      return `
-      border-color: #FF3636; 
-
-      `;
-    } else if (props.status === 'done') {
-      return `
-        border-color : #2D71F7;
-      `;
-    } else {
-      return `
-      border-color : #E0E0E0; 
-      `;
-    }
-  }}
+  ${props => props.status === 'error' && 'border-color:black'};
+  ${props => props.status === 'done' && 'border-color:green'};
 `;
 
 export default Input;
