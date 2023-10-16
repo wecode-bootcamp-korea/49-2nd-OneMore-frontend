@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Nav from '../Nav/Nav';
 
 const HeaderStyle = styled.div`
   width: 100%;
@@ -43,11 +44,15 @@ function Header(props) {
   ].includes(window.location.pathname);
 
   return (
-    <HeaderStyle>
-      {isPrevButtonVisible ? <PrevButtonBox /> : <PrevButton />}
-      <Logo>OneMore</Logo>
-      <HamburgerButton />
-    </HeaderStyle>
+    <>
+      <HeaderStyle>
+        {isPrevButtonVisible ? <PrevButtonBox /> : <PrevButton />}
+        <Logo>OneMore</Logo>
+        <HamburgerButton />
+      </HeaderStyle>
+
+      <Nav />
+    </>
   );
 }
 
