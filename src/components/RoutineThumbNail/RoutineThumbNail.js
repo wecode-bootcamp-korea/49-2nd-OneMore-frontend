@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const RoutineThumbNail = props => {
-  const { alt, url } = props;
+  const { alt, src } = props;
 
   return (
     <StyledRoutineThumbNail>
-      <StyledImage src={url} alt={alt} />
+      <StyledImage src={src} alt={alt} />
     </StyledRoutineThumbNail>
   );
 };

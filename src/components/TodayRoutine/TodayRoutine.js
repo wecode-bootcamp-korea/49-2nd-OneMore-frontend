@@ -37,7 +37,7 @@ const TodayRoutine = () => {
               const { thumbnailURL, name, exerciseId } = product;
               return (
                 <ExerciseWrapper key={exerciseId}>
-                  <RoutineThumbNail alt={name} url={thumbnailURL} />
+                  <RoutineThumbNail alt={name} src={thumbnailURL} />
                   <ExerciseNameWrapper>{name}</ExerciseNameWrapper>
                 </ExerciseWrapper>
               );
