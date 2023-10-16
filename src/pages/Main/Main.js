@@ -1,7 +1,6 @@
 import React from 'react';
-
-function Main() {
-  return <div></div>;
-}
-
+import styled from 'styled-components';
 export default Main;
+function Main(props) {
+  return <div />;
+}
