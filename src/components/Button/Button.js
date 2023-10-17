@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Button({ type = 'button', name, label, onClick, disabled, ...props }) {
+function Button({
+  type = 'button',
+  name,
+  label,
+  onClick,
+  disabled,
+  children,
+  ...props
+}) {
   return (
     <DefaultButton
       type={type}
@@ -10,7 +18,7 @@ function Button({ type = 'button', name, label, onClick, disabled, ...props }) {
       disabled={disabled}
       {...props}
     >
-      {label}
+      {children}
     </DefaultButton>
   );
 }
@@ -42,8 +50,8 @@ const DefaultButton = styled.button`
   padding: ${({ size }) =>
     BUTTON_SIZE[size]?.padding || BUTTON_SIZE.medium.padding};
   border-radius: 10px;
-  background-color: #8bc34a;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.green};
+  color: ${({ theme }) => theme.white};
   font-size: ${({ size }) => BUTTON_SIZE[size]?.height || '20px'};
 
   &:hover {
