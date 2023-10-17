@@ -69,37 +69,34 @@ const ExerciseThumbNail = styled.img`
   height: 203px;
 `;
 
-const LetterWrapper = styled.div``;
-
 const LetterForm = styled.span`
   color: #000;
-
   font-feature-settings:
     'clig' off,
     'liga' off;
   font-family: Inter;
   font-style: normal;
   line-height: normal;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: ${({ larger }) => (larger ? '24px' : '20px')};
+  font-weight: ${({ bold }) => (bold ? 700 : 500)};
 `;
-const FirstLineWrapper = styled(LetterWrapper)`
+const FirstLineWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 15px;
 `;
 
-const SecondLineWrapper = styled(LetterWrapper)`
+const SecondLineWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ThirdLineWrapper = styled(LetterWrapper)`
+const ThirdLineWrapper = styled.div`
   margin-top: 20px;
 `;
 const ExerciseName = styled(LetterForm)`
-  font-size: 24px;
-  font-weight: 700;
+  font-size: larger;
+  font-weight: bold;
 `;
 
 const ExerciseCount = styled(LetterForm)``;
