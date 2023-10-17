@@ -21,29 +21,31 @@ const ExerciseCard = () => {
 
   const exerciseDetail = exerciseData.exercises;
 
+  const {
+    exerciseId,
+    name,
+    thumbnailURL,
+    setCount,
+    counts,
+    caloriesUsed,
+    description,
+  } = exerciseDetail;
+
   return (
     <TemporaryContainer>
-      <ExerciseThumbNail
-        key={exerciseDetail.exerciseId}
-        alt={exerciseDetail.name}
-        src={exerciseDetail.thumbnailURL}
-      />
+      <ExerciseThumbNail key={exerciseId} alt={name} src={thumbnailURL} />
       <LetterContainer>
         <FirstLineWrapper>
-          <ExerciseName>팔굽{exerciseDetail.name}</ExerciseName>
+          <ExerciseName>{name}</ExerciseName>
           <ExerciseCount>
-            20회{exerciseDetail.counts}/3세트{exerciseDetail.setCount}
+            {counts}/{setCount}
           </ExerciseCount>
         </FirstLineWrapper>
         <SecondLineWrapper>
-          <ExerciseCalorie>
-            20칼{exerciseDetail.caloriesUsed} 소모
-          </ExerciseCalorie>
+          <ExerciseCalorie>{caloriesUsed}</ExerciseCalorie>
         </SecondLineWrapper>
         <ThirdLineWrapper>
-          <ExerciseDescriotion>
-            효과{exerciseDetail.description}
-          </ExerciseDescriotion>
+          <ExerciseDescriotion>{description}</ExerciseDescriotion>
         </ThirdLineWrapper>
       </LetterContainer>
       <ButtonWrapper>
