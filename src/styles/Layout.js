@@ -12,7 +12,7 @@ const LayoutBox = styled.div`
 
   @media (min-width: 1024px) {
     width: 390px;
-    height: 844px;
+    max-height: 844px;
   }
 `;
 
