@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
 	* {
     box-sizing: border-box;
   }
+
   body {
     height:100vh;
     background-color: #fff;
@@ -14,22 +15,22 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-li {
-  list-style: none;
-}
+  }
+  
+  li {
+    list-style: none;
+  }
 
-a {
-  color: initial;
-  text-decoration: none;
-}
+  a {
+    color: initial;
+    text-decoration: none;
+  }
 
-button {
-  border: 0;
-  background-color: transparent;
-  cursor: pointer;
-}
-
+  button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
