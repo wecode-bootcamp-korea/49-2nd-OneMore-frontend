@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Nav() {
@@ -18,13 +19,10 @@ function Nav() {
 }
 
 const NavBox = styled.div`
-  width: 40%;
-  height: 50%;
+  width: 35%;
   background-color: #fff;
   color: #333;
-  position: fixed;
-  top: 50px;
-  right: 0;
+  outline: 2px solid red;
 `;
 
 const NavWrap = styled.div`
@@ -37,7 +35,11 @@ const NavWrap = styled.div`
 `;
 
 const NavList = styled.span`
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-top: 30px;
+  }
 `;
 
 const MyPage = styled.div`

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Nav from '../Nav/Nav';
+import Nav from './Nav/Nav';
 
 function Header() {
   const isPrevButtonVisible = [
@@ -20,7 +20,9 @@ function Header() {
         <Logo>OneMore</Logo>
         <HamburgerButton />
       </HeaderStyle>
-      <Nav />
+      <SubNavBox>
+        <Nav />
+      </SubNavBox>
     </>
   );
 }
@@ -59,6 +61,15 @@ const HamburgerButton = styled.div`
   width: 26px;
   height: 26px;
   background-color: pink;
+`;
+
+const SubNavBox = styled.div`
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row-reverse;
+  //position: fixed;
+  outline: 2px solid blue;
 `;
 
 export default Header;
