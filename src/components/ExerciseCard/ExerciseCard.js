@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 const ExerciseCard = () => {
   const [exerciseData, setExerciseData] = useState({});
@@ -21,31 +20,24 @@ const ExerciseCard = () => {
 
   const exerciseDetail = exerciseData.exercises;
 
-  const {
-    exerciseId,
-    name,
-    thumbnailURL,
-    setCount,
-    counts,
-    caloriesUsed,
-    description,
-  } = exerciseDetail;
+  const { name, thumbnailURL, setCount, counts, caloriesUsed, description } =
+    exerciseDetail;
 
   return (
     <TemporaryContainer>
-      <ExerciseThumbNail key={exerciseId} alt={name} src={thumbnailURL} />
+      <ExerciseThumbNail alt={name} src={thumbnailURL} />
       <LetterContainer>
         <FirstLineWrapper>
           <ExerciseName>{name}</ExerciseName>
-          <ExerciseCount>
+          <ExerciseExplanation>
             {counts}/{setCount}
-          </ExerciseCount>
+          </ExerciseExplanation>
         </FirstLineWrapper>
         <SecondLineWrapper>
-          <ExerciseCalorie>{caloriesUsed}</ExerciseCalorie>
+          <ExerciseExplanation>{caloriesUsed}</ExerciseExplanation>
         </SecondLineWrapper>
         <ThirdLineWrapper>
-          <ExerciseDescriotion>{description}</ExerciseDescriotion>
+          <ExerciseExplanation>{description}</ExerciseExplanation>
         </ThirdLineWrapper>
       </LetterContainer>
       <ButtonWrapper>
@@ -60,8 +52,6 @@ export default ExerciseCard;
 const TemporaryContainer = styled.div`
   width: 360px;
   height: 634px;
-  border: 1px solid black;
-  /* pr할때 테두리 없애기 */
 `;
 
 const ExerciseThumbNail = styled.img`
@@ -99,11 +89,7 @@ const ExerciseName = styled(LetterForm)`
   font-weight: bold;
 `;
 
-const ExerciseCount = styled(LetterForm)``;
-
-const ExerciseCalorie = styled(LetterForm)``;
-
-const ExerciseDescriotion = styled(LetterForm)``;
+const ExerciseExplanation = styled(LetterForm)``;
 
 const LetterContainer = styled.div`
   position: relative;
@@ -115,8 +101,8 @@ const CheckButton = styled.button`
   width: 208px;
   height: 80px;
   border-radius: 5px;
-  border: 3px solid #000;
-  color: #000;
+  border: 3px solid ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.black};
   text-align: center;
   font-feature-settings:
     'clig' off,
