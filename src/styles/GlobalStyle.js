@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  
 }
 li {
   list-style: none;
