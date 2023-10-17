@@ -96,7 +96,7 @@ function Swiper() {
       </Carousel.Item>
 
       <Carousel.Item>
-        <CarouselImg src="/images/greenTea.jpg" alt="Second slide" />
+        <CarouselImg src="/images/playButton.png" alt="Second slide" />
       </Carousel.Item>
     </SwiperStyle>
   );
