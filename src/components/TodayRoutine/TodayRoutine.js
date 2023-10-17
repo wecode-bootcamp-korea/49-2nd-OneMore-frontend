@@ -1,11 +1,10 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import RoutineThumbNail from '../RoutineThumbNail/RoutineThumbNail';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 const TodayRoutine = () => {
-  const [aboutData, setaboutData] = useState({});
-  const NickNameToken = localStorage.getItem('userNickname');
+  const [TodayRoutineData, setTodayRoutineData] = useState({});
+  const userNickName = localStorage.getItem('userNickname');
 
   useEffect(() => {
     fetch('/data/soonwoo.json', {
@@ -15,21 +14,22 @@ const TodayRoutine = () => {
         return response.json();
       })
       .then(result => {
-        setaboutData(result.data);
+        setTodayRoutineData(result.data);
       });
   }, []);
 
-  if (Object.keys(aboutData).length <= 0) return null;
+  if (Object.keys(TodayRoutineData).length <= 0) return null;
 
-  const sliceData = aboutData.exercises.slice(0, 3);
+  const sliceData = exercises.slice(0, 3);
+
+  const { routineId, totalDuration, totalCaloriesUsed, exercises } =
+    TodayRoutineData;
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
         <GreetingWrapper>
-          <HowAbuotLetter>{NickNameToken}</HowAbuotLetter>
-          <HowAbuotLetter>
-            님, 오늘은 {aboutData.routineId} 어떠세요?
-          </HowAbuotLetter>
+          <HowAbuotLetter>{userNickName}</HowAbuotLetter>
+          <HowAbuotLetter>님, 오늘은 {routineId} 어떠세요?</HowAbuotLetter>
         </GreetingWrapper>
         <MiddleWrapper>
           <MapWrapper>
@@ -44,18 +44,14 @@ const TodayRoutine = () => {
             })}
           </MapWrapper>
           <ButtonAndInfWrapper>
-            <PlayButton
-              className="playButton"
-              alt="재생버튼"
-              src="/images/playButton.png"
-            />
+            <PlayButton alt="재생버튼" src="/images/playButton.png" />
             <TotalTime>
               <TimeLetter>시간</TimeLetter>
-              <TimeLetter>{aboutData.totalDuration}</TimeLetter>
+              <TimeLetter>{totalDuration}</TimeLetter>
             </TotalTime>
             <TotalCalorie>
               <CalorieLetter>칼로리</CalorieLetter>
-              <CalorieLetter>{aboutData.totalCaloriesUsed}</CalorieLetter>
+              <CalorieLetter>{totalCaloriesUsed}</CalorieLetter>
             </TotalCalorie>
           </ButtonAndInfWrapper>
         </MiddleWrapper>
