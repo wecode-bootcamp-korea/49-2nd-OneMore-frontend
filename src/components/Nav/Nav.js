@@ -18,7 +18,7 @@ function Nav() {
 }
 
 const NavBox = styled.div`
-  width: 30%;
+  width: 40%;
   height: 50%;
   background-color: #fff;
   color: #333;
@@ -33,11 +33,11 @@ const NavWrap = styled.div`
   justify-content: center;
   margin-top: 20px;
   text-indent: 10%;
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const NavList = styled.span`
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 `;
 
 const MyPage = styled.div`
@@ -48,8 +48,8 @@ const MyPage = styled.div`
 `;
 
 const MyPageList = styled.span`
-  margin-bottom: 10px;
-  font-size: 16px;
+  margin-bottom: 12px;
+  font-size: 14px;
 `;
 
 export default Nav;
