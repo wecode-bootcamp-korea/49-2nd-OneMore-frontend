@@ -12,73 +12,49 @@ import { FaDumbbell } from 'react-icons/fa6';
 
 function Tab() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(2);
+
+  const DEFAULT_TAB_ID = 2;
+
+  const [activeTab, setActiveTab] = useState(DEFAULT_TAB_ID);
   const handleTabClick = index => {
     setActiveTab(index);
   };
 
+  const tabItems = [
+    {
+      icon: <BsFillFileBarGraphFill size="100%" />,
+      route: '/report',
+      label: '분석',
+    },
+    {
+      icon: <BsFillCartFill size="100%" />,
+      route: '/product-list',
+      label: '상품',
+    },
+    { icon: <FaDumbbell size="100%" />, route: '/', label: '메인' },
+    {
+      icon: <BsFillChatHeartFill size="100%" />,
+      route: '/feed',
+      label: '피드',
+    },
+    { icon: <BsFillBookFill size="100%" />, route: '/info', label: '정보' },
+  ];
+
   return (
     <TabStyle>
-      <TabList
-        onClick={() => {
-          handleTabClick(0);
-          navigate('/report');
-        }}
-        active={activeTab === 0}
-      >
-        <IconBox>
-          <BsFillFileBarGraphFill size="100%" />
-        </IconBox>
-        <IconName>분석</IconName>
-      </TabList>
-      <TabList
-        onClick={() => {
-          handleTabClick(1);
-          navigate('/product-list');
-        }}
-        active={activeTab === 1}
-      >
-        <IconBox>
-          <BsFillCartFill size="100%" />
-        </IconBox>
-        <IconName>상품</IconName>
-      </TabList>
-      <TabList
-        onClick={() => {
-          handleTabClick(2);
-          navigate('/');
-        }}
-        active={activeTab === 2}
-      >
-        <IconBox>
-          <FaDumbbell size="100%" />
-        </IconBox>
-        <IconName>메인</IconName>
-      </TabList>
-      <TabList
-        onClick={() => {
-          handleTabClick(3);
-          navigate('/feed');
-        }}
-        active={activeTab === 3}
-      >
-        <IconBox>
-          <BsFillChatHeartFill size="100%" />
-        </IconBox>
-        <IconName>피드</IconName>
-      </TabList>
-      <TabList
-        onClick={() => {
-          handleTabClick(4);
-          navigate('/info');
-        }}
-        active={activeTab === 4}
-      >
-        <IconBox>
-          <BsFillBookFill size="100%" />
-        </IconBox>
-        <IconName>정보</IconName>
-      </TabList>
+      {tabItems.map((item, index) => (
+        <TabList
+          key={index}
+          onClick={() => {
+            handleTabClick(index);
+            navigate(item.route);
+          }}
+          active={activeTab === index}
+        >
+          <IconBox>{item.icon}</IconBox>
+          <IconName>{item.label}</IconName>
+        </TabList>
+      ))}
     </TabStyle>
   );
 }
