@@ -65,10 +65,14 @@ const DefaultCheckBox = styled.input`
   justify-content: center;
   width: ${({ size }) => CHECKBOX_SIZE[size]?.width || '20px'};
   height: ${({ size }) => CHECKBOX_SIZE[size]?.height || '20px'};
-  border: 1px solid ${({ theme }) => theme.lightGray};
+  border: 1px solid ${({ theme }) => theme.darkgray};
   border-radius: ${({ shape }) => SHAPE_BORDER_RADIUS[shape] || 0};
   appearance: none;
   cursor: pointer;
+
+  &:after {
+    content: '터치해서 체크하기!';
+  }
 
   &:checked {
     padding-bottom: ${({ size }) => (size === 'large' ? '10px' : '2px')};

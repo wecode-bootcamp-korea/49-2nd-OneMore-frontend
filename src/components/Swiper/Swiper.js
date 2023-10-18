@@ -1,25 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BASE_API from '../../config';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
-function Swiper() {
-  const [exerciseList, setExerciseList] = useState([]);
-
-  useEffect(() => {
-    fetch('/data/gyeongjae.json', {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(result => {
-        setExerciseList(result.data.exercises);
-      });
-  }, []);
-
+function Swiper({ list, checkedList, onClick }) {
   // const ROUTINE-TEST = '6';
 
   // useEffect(() => {
@@ -36,7 +22,7 @@ function Swiper() {
 
   return (
     <SwiperStyle indicators={false} interval={null}>
-      {exerciseList.map(data => (
+      {list.map(data => (
         <Carousel.Item key={data.id}>
           <ExerciseCard
             name={data.name}
@@ -44,8 +30,10 @@ function Swiper() {
             setCounts={data.setCounts}
             caloriesUsed={data.caloriesUsed}
             description={data.description}
+            isCompleted={checkedList.includes(data.id)}
             alt={data.name}
             src={data.thumbnailURL}
+            onClick={() => onClick(data.id)}
           />
         </Carousel.Item>
       ))}

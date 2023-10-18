@@ -1,8 +1,18 @@
 import styled from 'styled-components';
+import CheckBox from '../CheckBox/CheckBox';
 
 const ExerciseCard = props => {
-  const { alt, src, name, countsPerSet, setCounts, caloriesUsed, description } =
-    props;
+  const {
+    alt,
+    src,
+    name,
+    countsPerSet,
+    setCounts,
+    caloriesUsed,
+    description,
+    isCompleted,
+    onClick,
+  } = props;
 
   return (
     <TemporaryContainer>
@@ -11,7 +21,7 @@ const ExerciseCard = props => {
         <FirstLineWrapper>
           <ExerciseName>{name}</ExerciseName>
           <ExerciseExplanation>
-            {countsPerSet}/{setCounts}
+            {countsPerSet}/{setCounts}세트
           </ExerciseExplanation>
         </FirstLineWrapper>
         <SecondLineWrapper>
@@ -22,7 +32,7 @@ const ExerciseCard = props => {
         </ThirdLineWrapper>
       </LetterContainer>
       <ButtonWrapper>
-        <CheckButton>터치해서 체크하기!</CheckButton>
+        <CheckBox size="large" checked={isCompleted} onChange={onClick} />
       </ButtonWrapper>
     </TemporaryContainer>
   );
@@ -34,7 +44,7 @@ const TemporaryContainer = styled.div``;
 
 const ExerciseThumbNail = styled.img`
   width: 100%;
-  height: 203px;
+  height: 35vh;
 `;
 
 const LetterForm = styled.span`
@@ -75,25 +85,8 @@ const LetterContainer = styled.div`
   margin: 0 15px;
 `;
 
-const CheckButton = styled.button`
-  width: 208px;
-  height: 80px;
-  border-radius: 5px;
-  border: 3px solid ${({ theme }) => theme.black};
-  color: ${({ theme }) => theme.black};
-  text-align: center;
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-  font-family: Noto Sans;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 127px;
+  margin-top: 20vh;
 `;
