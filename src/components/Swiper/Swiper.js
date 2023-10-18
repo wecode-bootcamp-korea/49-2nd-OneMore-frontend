@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import BASE_API from '../../config';
 
 function Swiper() {
-  const [exerciseData, setExerciseData] = useState([]);
+  const [exerciseList, setExerciseList] = useState([]);
 
   useEffect(() => {
     fetch('/data/gyeongjae.json', {
@@ -15,16 +15,30 @@ function Swiper() {
         return response.json();
       })
       .then(result => {
-        setExerciseData(result.data[0].exercises);
+        setExerciseList(result.data.exercises);
       });
   }, []);
 
+  // const ROUTINE-TEST = '6';
+
+  // useEffect(() => {
+  //   fetch(`${BASE_API}/routines/${ROUTINE-TEST}`, {
+  //     method: 'GET',
+  //   })
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(result => {
+  //       setExerciseList(result.data.exercises);
+  //     });
+  // }, []);
+
   return (
     <SwiperStyle indicators={false} interval={null}>
-      {exerciseData.map(card => (
+      {exerciseList.map(data => (
         <Carousel.Item>
-          <CarouselImg src="/images/다람쥐.jfif" alt="First slide" />
-          <div>{card.name}</div>
+          <CarouselImg src={data.thumbnailURL} alt="First slide" />
+          <div>{data.name}</div>
         </Carousel.Item>
       ))}
     </SwiperStyle>
