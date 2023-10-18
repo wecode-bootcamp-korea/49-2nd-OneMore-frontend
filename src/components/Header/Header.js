@@ -9,7 +9,6 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
-  console.log(!isOpen);
   const isPrevButtonVisible = [
     '/report',
     '/product-list',
@@ -21,15 +20,14 @@ function Header() {
   return (
     <>
       <HeaderStyle>
-        <PrevButtonBox isVisible={isPrevButtonVisible}>
-          <PrevButton />
+        <PrevButtonBox>
+          <PrevButton isVisible={isPrevButtonVisible} />
         </PrevButtonBox>
         <Logo>OneMore</Logo>
         <HamburgerButton onClick={handleOpen} />
       </HeaderStyle>
-      <SubNavBox style={{ display: isOpen ? 'flex' : 'none' }}>
-        <Nav />
-      </SubNavBox>
+
+      {isOpen && <Nav />}
     </>
   );
 }
@@ -48,7 +46,7 @@ const PrevButton = styled.div`
   width: 20px;
   height: 20px;
   background-color: pink;
-  display: ${props => (props.isVisible ? 'block' : 'none')};
+  display: ${props => (props.isVisible ? 'none' : 'block')};
 `;
 
 const PrevButtonBox = styled.div`
@@ -69,14 +67,6 @@ const HamburgerButton = styled.div`
   height: 26px;
   background-color: pink;
   cursor: pointer;
-`;
-
-const SubNavBox = styled.div`
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: row-reverse;
-  outline: 2px solid blue;
 `;
 
 export default Header;

@@ -39,6 +39,11 @@ const NavBox = styled.div`
   height: 200px;
   background-color: #fff;
   color: #333;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  z-index: 100;
+  //position: fixed;
 `;
 
 const NavWrap = styled.div`
