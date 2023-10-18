@@ -36,7 +36,7 @@ function Swiper() {
   return (
     <SwiperStyle indicators={false} interval={null}>
       {exerciseList.map(data => (
-        <Carousel.Item>
+        <Carousel.Item key={data.id}>
           <CarouselImg src={data.thumbnailURL} alt="First slide" />
           <div>{data.name}</div>
         </Carousel.Item>
