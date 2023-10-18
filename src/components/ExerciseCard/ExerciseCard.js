@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const ExerciseCard = props => {
-  const { alt, src, name, counts, setCount, caloriesUsed, description } = props;
+  const { alt, src, name, countsPerSet, setCounts, caloriesUsed, description } =
+    props;
 
   return (
     <TemporaryContainer>
@@ -10,11 +11,11 @@ const ExerciseCard = props => {
         <FirstLineWrapper>
           <ExerciseName>{name}</ExerciseName>
           <ExerciseExplanation>
-            {counts}/{setCount}
+            {countsPerSet}/{setCounts}
           </ExerciseExplanation>
         </FirstLineWrapper>
         <SecondLineWrapper>
-          <ExerciseExplanation>{caloriesUsed}</ExerciseExplanation>
+          <ExerciseExplanation>{caloriesUsed}Kcal 소모</ExerciseExplanation>
         </SecondLineWrapper>
         <ThirdLineWrapper>
           <ExerciseExplanation>{description}</ExerciseExplanation>
@@ -29,10 +30,7 @@ const ExerciseCard = props => {
 
 export default ExerciseCard;
 
-const TemporaryContainer = styled.div`
-  width: 360px;
-  height: 634px;
-`;
+const TemporaryContainer = styled.div``;
 
 const ExerciseThumbNail = styled.img`
   width: 100%;

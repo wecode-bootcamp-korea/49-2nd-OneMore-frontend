@@ -38,8 +38,15 @@ function Swiper() {
     <SwiperStyle indicators={false} interval={null}>
       {exerciseList.map(data => (
         <Carousel.Item key={data.id}>
-          <CarouselImg src={data.thumbnailURL} alt="First slide" />
-          <div>{data.name}</div>
+          <ExerciseCard
+            name={data.name}
+            countsPerSet={data.countsPerSet}
+            setCounts={data.setCounts}
+            caloriesUsed={data.caloriesUsed}
+            description={data.description}
+            alt={data.name}
+            src={data.thumbnailURL}
+          />
         </Carousel.Item>
       ))}
     </SwiperStyle>
@@ -91,11 +98,4 @@ const SwiperStyle = styled(Carousel)`
   .carousel-control-next-icon {
     display: none;
   }
-`;
-
-const CarouselImg = styled.img`
-  width: 100%;
-  height: 300px;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
 `;
