@@ -1,12 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 
 function Completed(props) {
+  const navigate = useNavigate();
+
+  const goToMain = e => {
+    e.preventDefault();
+    navigate('/');
+  };
   return (
     <Article>
       <CompletedImage src="/images/2.jpg" alt="운동완료" />
-      <Button children="운동완료!" />
+      <Button children="운동완료!" onClick={goToMain} />
     </Article>
   );
 }
