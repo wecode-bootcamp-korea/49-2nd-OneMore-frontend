@@ -7,22 +7,22 @@ import BASE_API from '../../config';
 function Swiper() {
   const [exerciseList, setExerciseList] = useState([]);
 
-  useEffect(() => {
-    fetch('/data/gyeongjae.json', {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(result => {
-        setExerciseList(result.data.exercises);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('/data/gyeongjae.json', {
+  //     method: 'GET',
+  //   })
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(result => {
+  //       setExerciseList(result.data.exercises);
+  //     });
+  // }, []);
 
-  // const ROUTINE-TEST = '6';
+  // const ROUTINE_TEST = '6';
 
   // useEffect(() => {
-  //   fetch(`${BASE_API}/routines/${ROUTINE-TEST}`, {
+  //   fetch(`${BASE_API}/routines/${ROUTINE_TEST}`, {
   //     method: 'GET',
   //   })
   //     .then(response => {
