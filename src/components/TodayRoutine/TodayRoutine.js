@@ -20,10 +20,11 @@ const TodayRoutine = () => {
 
   if (Object.keys(TodayRoutineData).length <= 0) return null;
 
-  const sliceData = exercises.slice(0, 3);
-
   const { routineId, totalDuration, totalCaloriesUsed, exercises } =
     TodayRoutineData;
+
+  const sliceData = exercises.slice(0, 3);
+
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
