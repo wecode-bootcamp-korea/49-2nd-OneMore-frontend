@@ -4,6 +4,7 @@ import Layout from './styles/Layout';
 import Header from './components/Header/Header';
 import MainContainer from './styles/MainContainer';
 import Main from './pages/Main/Main';
+import Tab from './components/Tab/Tab';
 
 function Router() {
   return (
@@ -15,6 +16,7 @@ function Router() {
             <Route path="/" element={<Main />} />
           </Routes>
         </MainContainer>
+        <Tab />
       </Layout>
     </BrowserRouter>
   );
