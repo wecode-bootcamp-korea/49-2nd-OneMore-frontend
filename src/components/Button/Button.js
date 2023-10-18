@@ -38,6 +38,11 @@ const BUTTON_SIZE = {
   },
 };
 
+const SHAPE_BORDER_RADIUS = {
+  square: '10px',
+  round: '25px',
+};
+
 const FLEX_CENTER = `
   display: flex;
   justify-content: center;
@@ -49,7 +54,7 @@ const DefaultButton = styled.button`
   width: 100%;
   padding: ${({ size }) =>
     BUTTON_SIZE[size]?.padding || BUTTON_SIZE.medium.padding};
-  border-radius: 10px;
+  border-radius: ${({ shape }) => SHAPE_BORDER_RADIUS[shape] || '10px'};
   background-color: ${({ theme }) => theme.green};
   color: ${({ theme }) => theme.white};
   font-size: ${({ size }) => BUTTON_SIZE[size]?.height || '20px'};

@@ -25,7 +25,16 @@ const GlobalStyle = createGlobalStyle`
     color: initial;
     text-decoration: none;
   }
+  a {
+    color: initial;
+    text-decoration: none;
+  }
 
+  button {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
   button {
     border: 0;
     background-color: transparent;
