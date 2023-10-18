@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Nav from './Nav/Nav';
 
 function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  console.log(!isOpen);
   const isPrevButtonVisible = [
     '/report',
     '/product-list',
@@ -18,9 +25,9 @@ function Header() {
           <PrevButton />
         </PrevButtonBox>
         <Logo>OneMore</Logo>
-        <HamburgerButton />
+        <HamburgerButton onClick={handleOpen} />
       </HeaderStyle>
-      <SubNavBox>
+      <SubNavBox style={{ display: isOpen ? 'flex' : 'none' }}>
         <Nav />
       </SubNavBox>
     </>
@@ -61,6 +68,7 @@ const HamburgerButton = styled.div`
   width: 26px;
   height: 26px;
   background-color: pink;
+  cursor: pointer;
 `;
 
 const SubNavBox = styled.div`
@@ -68,7 +76,6 @@ const SubNavBox = styled.div`
   height: 50%;
   display: flex;
   flex-direction: row-reverse;
-  //position: fixed;
   outline: 2px solid blue;
 `;
 
