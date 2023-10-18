@@ -69,11 +69,6 @@ const DefaultCheckBox = styled.input`
   border-radius: ${({ shape }) => SHAPE_BORDER_RADIUS[shape] || 0};
   appearance: none;
   cursor: pointer;
-
-  &:after {
-    content: '터치해서 체크하기!';
-  }
-
   &:checked {
     padding-bottom: ${({ size }) => (size === 'large' ? '10px' : '2px')};
     border-color: ${({ theme }) => theme.green};
