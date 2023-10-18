@@ -1,31 +1,11 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const ExerciseCard = () => {
-  const [exerciseData, setExerciseData] = useState({});
-
-  useEffect(() => {
-    fetch('/data/soonwooSecond.json', {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(result => {
-        setExerciseData(result.data);
-      });
-  }, []);
-
-  // if (Object.keys(exerciseData).length <= 0) return null;
-
-  const exerciseDetail = exerciseData.exercises;
-
-  const { name, thumbnailURL, setCount, counts, caloriesUsed, description } =
-    exerciseDetail;
+const ExerciseCard = props => {
+  const { alt, src, name, counts, setCount, caloriesUsed, description } = props;
 
   return (
     <TemporaryContainer>
-      <ExerciseThumbNail alt={name} src={thumbnailURL} />
+      <ExerciseThumbNail alt={alt} src={src} />
       <LetterContainer>
         <FirstLineWrapper>
           <ExerciseName>{name}</ExerciseName>

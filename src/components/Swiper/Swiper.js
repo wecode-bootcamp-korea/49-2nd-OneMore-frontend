@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BASE_API from '../../config';
+import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
 function Swiper() {
   const [exerciseList, setExerciseList] = useState([]);
