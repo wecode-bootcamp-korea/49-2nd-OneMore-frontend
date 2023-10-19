@@ -45,6 +45,7 @@ const TemporaryContainer = styled.div``;
 const ExerciseThumbNail = styled.img`
   width: 100%;
   height: 35vh;
+  border-radius: 16px;
 `;
 
 const LetterForm = styled.span`
@@ -88,5 +89,4 @@ const LetterContainer = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20vh;
 `;

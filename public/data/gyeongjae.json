@@ -8,7 +8,7 @@
     "exercises": [
       {
         "id": 10,
-        "name": "Burpee",
+        "name": "Burpee-첫페이지",
         "videoURL": "https://www.youtube.com/watch?v=Uly8jUuscOw",
         "createdAt": "2023-10-17 19:26:01.000000",
         "isPremium": 1,
@@ -23,6 +23,20 @@
       {
         "id": 5,
         "name": "Running",
+        "videoURL": "https://www.youtube.com/watch?v=9CPrrmusOuQ",
+        "createdAt": "2023-10-17 19:26:01.000000",
+        "isPremium": 0,
+        "setCounts": 1,
+        "description": "달리기",
+        "caloriesUsed": 300,
+        "countsPerSet": 1,
+        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAyMTVfMTAz%2FMDAxNjc2NDMwNzE1OTQz.AONqot_moGXaoMZteCiTr4Q2QQZ5HpPBY-0ks3R5_lEg.-qzTc7WykgA6xoL5bpKcY3gPGiDuDHHjJGxoXThPSAQg.JPEG.swchoi624%2FIMG_8741.jpg&type=sc960_832",
+        "exerciseCategory": 4,
+        "durationInSecondsPerSet": 840
+      },
+      {
+        "id": 3,
+        "name": "마지막",
         "videoURL": "https://www.youtube.com/watch?v=9CPrrmusOuQ",
         "createdAt": "2023-10-17 19:26:01.000000",
         "isPremium": 0,
