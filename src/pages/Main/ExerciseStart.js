@@ -26,6 +26,7 @@ function ExerciseStart() {
     }
   };
   const token = localStorage.getItem('token');
+
   const updateCompletedExercise = () => {
     fetch(`${BASE_API}/routines/${id}`, {
       method: 'PATCH',
@@ -46,7 +47,7 @@ function ExerciseStart() {
       });
   };
 
-  useEffect(() => {
+  const getExerciseCardData = () => {
     // fetch('/data/gyeongjae.json', {
     fetch(`${BASE_API}/routines/${id}`, {
       method: 'GET',
@@ -72,6 +73,10 @@ function ExerciseStart() {
 
         setRoutineId(result.data.routineId);
       });
+  };
+
+  useEffect(() => {
+    getExerciseCardData();
   }, []);
 
   // useEffect(() => {
@@ -87,13 +92,13 @@ function ExerciseStart() {
   //     });
   // }, []);
 
-  useEffect(() => {
-    window.addEventListener('beforeunload', updateCompletedExercise);
+  // useEffect(() => {
+  //   window.addEventListener('beforeunload', updateCompletedExercise);
 
-    return () => {
-      window.removeEventListener('beforeunload', updateCompletedExercise);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', updateCompletedExercise);
+  //   };
+  // }, []);
 
   return (
     <ExerciseStartStyle>
