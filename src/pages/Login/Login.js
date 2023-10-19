@@ -91,24 +91,23 @@ const Login = () => {
         />
       </LoginInputWrap>
       <LoginButtonWrap>
+        <Button type="submit" onClick={handleLogin} disabled={!isValidCheck}>
+          로그인
+        </Button>
         <Button
           type="submit"
-          children="로그인"
-          onClick={handleLogin}
-          disabled={!isValidCheck}
-        />
-        <Button
-          type="submit"
-          children="회원가입"
           backgroundColor="white"
           color="green"
           onClick={handleSignUp}
-        />
+        >
+          회원가입
+        </Button>
         <Button
           type="submit"
-          children="카카오로그인"
           // onClick={handleKakaoLogin}
-        />
+        >
+          카카오로그인
+        </Button>
       </LoginButtonWrap>
     </LoginWrap>
   );
