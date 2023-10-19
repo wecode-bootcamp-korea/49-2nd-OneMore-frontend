@@ -2,16 +2,22 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from '../Modal/Modal';
 
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
-function Swiper({ list, checkedList, onClick }) {
+function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
   const ref = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const handleGoToNext = () => {
     if (currentSlide === list.length - 1) {
-      alert('마지막페이지');
+      handleModalOpen();
     } else {
       ref.current.next();
     }
@@ -23,22 +29,13 @@ function Swiper({ list, checkedList, onClick }) {
     }
   };
 
-  // const handleLastItemClick = () => {
-  //   alert('마지막');
-  // };
-  // const ROUTINE-TEST = '6';
-
-  // useEffect(() => {
-  //   fetch(`${BASE_API}/routines/${ROUTINE-TEST}`, {
-  //     method: 'GET',
-  //   })
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then(result => {
-  //       setExerciseList(result.data.exercises);
-  //     });
-  // }, []);
+  let checkedEx = [...list];
+  let arr = [];
+  for (let i = 0; i < checkedEx.length; i++) {
+    if (checkedList.indexOf(checkedEx[i].id) >= 0) {
+      arr.push(checkedEx[i]);
+    }
+  }
 
   return (
     <div>
@@ -69,6 +66,14 @@ function Swiper({ list, checkedList, onClick }) {
       </NextButton>
       {currentSlide === 0 ? null : (
         <BackButton onClick={handleGoToPrev}>이전</BackButton>
+      )}
+      {isModalOpen && (
+        <Modal
+          checkedExerciseArray={arr}
+          handleModalOpen={handleModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          updateCompletedExercise={updateCompletedExercise}
+        />
       )}
     </div>
   );

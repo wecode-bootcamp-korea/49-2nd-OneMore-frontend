@@ -1,7 +1,4 @@
-import React from 'react';
-import Swiper from '../../components/Swiper/Swiper';
-
-function Main(props) {
-  return;
+function Main() {
+  return <div></div>;
 }
 export default Main;

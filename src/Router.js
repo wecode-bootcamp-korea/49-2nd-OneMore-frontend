@@ -12,7 +12,7 @@ function Router() {
         <MainContainer>
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/exercise-start" element={<ExerciseStart />} />
+            <Route path="/exercise-start/:id" element={<ExerciseStart />} />
           </Routes>
         </MainContainer>
       </Layout>
