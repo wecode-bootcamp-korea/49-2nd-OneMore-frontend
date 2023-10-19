@@ -82,7 +82,7 @@ const TodayRoutine = () => {
   const displayRoutineCounts = 3;
   const sliceData = exercises.slice(0, displayRoutineCounts);
 
-  console.log(sliceData);
+  console.log(todayRoutineData);
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
@@ -158,9 +158,7 @@ const MiddleWrapper = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 `;
-const GreetingWrapper = styled.div`
-  /* margin-top: 20px; */
-`;
+const GreetingWrapper = styled.div``;
 
 const ExerciseWrapper = styled.div`
   display: flex;
