@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import RoutineThumbNail from '../RoutineThumbNail/RoutineThumbNail';
 
 const TodayRoutine = () => {
-  const [TodayRoutineData, setTodayRoutineData] = useState({});
+  const [todayRoutineData, setTodayRoutineData] = useState({});
   const userNickName = localStorage.getItem('userNickname');
 
   useEffect(() => {
@@ -18,12 +18,14 @@ const TodayRoutine = () => {
       });
   }, []);
 
-  if (Object.keys(TodayRoutineData).length <= 0) return null;
-
-  const sliceData = exercises.slice(0, 3);
+  if (Object.keys(todayRoutineData).length <= 0) return null;
 
   const { routineId, totalDuration, totalCaloriesUsed, exercises } =
-    TodayRoutineData;
+    todayRoutineData;
+
+  const displayRoutineCounts = 3;
+  const sliceData = exercises.slice(0, displayRoutineCounts);
+
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
