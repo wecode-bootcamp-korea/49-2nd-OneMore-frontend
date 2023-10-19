@@ -3,44 +3,14 @@
   "data": {
     "exercises": [
       {
-        "exerciseId": 4,
-        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjFfMTI0%2FMDAxNjk1Mjg0MjE3MDc1.sJ77yv6IE3srA4SPDeJ859WVjrZZnNevYH5A5BJtBSYg.T2lV0O1O4EO898VPKmJ5RRSkjfsAM6pouG_hyb0pmwIg.PNG.gdind0420%2Fimage.png&type=sc960_832",
-        "name": "Push Up",
-        "isPremium": 0,
-        "calories": 175,
-        "durationInSecondsPerSet": 257,
-        "categoryId": 2,
-        "categoryName": "상체"
-      },
-      {
-        "exerciseId": 2,
-        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA0MjhfNzQg%2FMDAxNjgyNjMxNTc3NDE3.yoM5npeBSs8-CqVI1K44aq5JtLEPeYA1ytYkxnKaEaAg.zF8Wzq_U2X83X7TSGdziIuolwmggaBZXaBu5Q_OPKMUg.JPEG.inssagym3%2Fa.jpg&type=sc960_832",
-        "name": "Squat",
-        "isPremium": 0,
-        "calories": 150,
-        "durationInSecondsPerSet": 700,
-        "categoryId": 3,
-        "categoryName": "하체"
-      },
-      {
-        "exerciseId": 5,
-        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAyMTVfMTAz%2FMDAxNjc2NDMwNzE1OTQz.AONqot_moGXaoMZteCiTr4Q2QQZ5HpPBY-0ks3R5_lEg.-qzTc7WykgA6xoL5bpKcY3gPGiDuDHHjJGxoXThPSAQg.JPEG.swchoi624%2FIMG_8741.jpg&type=sc960_832",
-        "name": "Running",
-        "isPremium": 0,
-        "calories": 300,
-        "durationInSecondsPerSet": 840,
-        "categoryId": 4,
-        "categoryName": "유산소"
-      },
-      {
-        "exerciseId": 8,
-        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTAzMTdfMjkx%2FMDAxNjE1OTY0MDc5NTUy.f9lA_mr1Ssy2CmuFp7YIdNQWIL4dPpVHjtU6n4-0UtAg.r9uchKvkGwRE_yD98Oe283wvChKwoa5MH2nPqSZKLi8g.JPEG.robinkk0%2Ftrd032tg08221.jpg&type=sc960_832",
-        "name": "Cycling",
-        "isPremium": 0,
-        "calories": 1300,
-        "durationInSecondsPerSet": 1320,
-        "categoryId": 4,
-        "categoryName": "유산소"
+        "exerciseId": 10,
+        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA5MDVfMzYg%2FMDAxNjYyMzc0MDI5Mjk3.8nHYkZq7zupRta5Am8oVpzvlCVCf5jblNMMzVfwVsjAg.D2l6nw3QWAXQ_QJ0eMwyfZJ8ad3PITayVTz3CDbTZVIg.PNG.yyeosuk%2F20220905_193332_3.png&type=sc960_832",
+        "name": "Burpee",
+        "isPremium": 1,
+        "calories": 15000,
+        "durationInSecondsPerSet": 714,
+        "categoryId": 1,
+        "categoryName": "전신"
       },
       {
         "exerciseId": 1,
@@ -51,13 +21,44 @@
         "durationInSecondsPerSet": 352,
         "categoryId": 3,
         "categoryName": "하체"
+      },
+      {
+        "exerciseId": 4,
+        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjFfMTI0%2FMDAxNjk1Mjg0MjE3MDc1.sJ77yv6IE3srA4SPDeJ859WVjrZZnNevYH5A5BJtBSYg.T2lV0O1O4EO898VPKmJ5RRSkjfsAM6pouG_hyb0pmwIg.PNG.gdind0420%2Fimage.png&type=sc960_832",
+        "name": "Push Up",
+        "isPremium": 0,
+        "calories": 175,
+        "durationInSecondsPerSet": 257,
+        "categoryId": 2,
+        "categoryName": "상체"
+      },
+      {
+        "exerciseId": 7,
+        "thumbnailURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Roman_chair_%28hyperextension%29_animation.gif/440px-Roman_chair_%28hyperextension%29_animation.gif",
+        "name": "Back Extension",
+        "isPremium": 1,
+        "calories": 33,
+        "durationInSecondsPerSet": 60,
+        "categoryId": 2,
+        "categoryName": "상체"
+      },
+      {
+        "exerciseId": 6,
+        "thumbnailURL": "https://postfiles.pstatic.net/MjAyMzA1MTRfMTgz/MDAxNjg0MDM5Njk2Mzg0.jjfb82CtFmYJBM20VH5ezcmEa7MxxbC8CrFJD1tEdeYg.7s42r0hCSuEcsbkUbNMe3HL8FRdyxjRAZQjpg6ALdF4g.JPEG.shghwhd1/1684039695777.jpg?type=w966",
+        "name": "Plank",
+        "isPremium": 1,
+        "calories": 56,
+        "durationInSecondsPerSet": 268,
+        "categoryId": 1,
+        "categoryName": "전신"
       }
     ],
-    "totalDurationInMinute": 57,
-    "totalCalories": 2025,
+    "totalDurationInMinute": 27,
+    "totalCalories": 15364,
     "mostFrequent": {
       "count": 2,
-      "category": "하체"
-    }
+      "category": "전신"
+    },
+    "routineCompleted": false
   }
 }

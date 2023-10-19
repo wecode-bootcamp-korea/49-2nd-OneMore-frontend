@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import TodayRoutine from '../../components/TodayRoutine/TodayRoutine';
@@ -8,7 +8,14 @@ import BASE_API from '../../config';
 
 function Main(props) {
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate('/login');
+  //   }
+  // }, []);
+  // if (!token) return null;
   return (
     <MainStyle>
       <TodayRoutineTitle>오늘의 루틴</TodayRoutineTitle>

@@ -13,30 +13,30 @@ const TodayRoutine = () => {
     todayRoutineData.exercises?.map(({ exerciseId }) => exerciseId) || [];
 
   const getTodayRoutine = () => {
-    // fetch('/data/getTodayRoutine.json', {
-    //   method: 'GET',
-    // })
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(result => {
-    //     setTodayRoutineData(result.data);
-    //   });
-    fetch(`${BASE_API}/exercises/recommended`, {
+    fetch('/data/getTodayRoutine.json', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        token: token,
-      },
     })
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(result => {
-        console.log(result.data);
         setTodayRoutineData(result.data);
       });
+    // fetch(`${BASE_API}/exercises/recommended`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //     token: token,
+    //   },
+    // })
+    //   .then(response => {
+    //     console.log(response);
+    //     return response.json();
+    //   })
+    //   .then(result => {
+    //     console.log(result.data);
+    //     setTodayRoutineData(result.data);
+    //   });
   };
 
   const token = localStorage.getItem('token');
