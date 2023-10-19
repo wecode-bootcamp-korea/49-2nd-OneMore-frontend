@@ -57,8 +57,7 @@ const TodayRoutine = () => {
         return response.json();
       })
       .then(result => {
-        console.log(result);
-        if (result.message == 'SUCCESS') {
+        if (result.message === 'SUCCESS') {
           navigate(`/exercise-start/${result.routineId}`);
           console.log('성공');
         } else console.log('실패');
@@ -76,19 +75,18 @@ const TodayRoutine = () => {
     totalCalories,
     exercises,
     mostFrequent,
-    isCompleted,
+    routineCompleted,
   } = todayRoutineData;
 
   const displayRoutineCounts = 3;
   const sliceData = exercises.slice(0, displayRoutineCounts);
 
-  console.log(todayRoutineData);
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
         <GreetingWrapper>
           <HowAbuotLetter>{userNickName}</HowAbuotLetter>
-          {isCompleted ? (
+          {routineCompleted ? (
             <HowAbuotLetter>님, 오늘 운동 고생했어요!</HowAbuotLetter>
           ) : (
             <HowAbuotLetter>
