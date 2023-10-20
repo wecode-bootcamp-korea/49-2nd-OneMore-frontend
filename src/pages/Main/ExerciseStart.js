@@ -10,11 +10,13 @@ function ExerciseStart() {
   const [routineId, setRoutineId] = useState();
   const navigate = useNavigate();
 
+  console.log(completedIds, '<<');
+
   const { id } = useParams();
 
   // 머지되면 희진님 운동 완료 페이지로 이동
   const goToComplete = () => {
-    navigate('exerciseDone');
+    navigate('/');
   };
 
   const handleComplete = id => {
@@ -29,28 +31,33 @@ function ExerciseStart() {
   const token = localStorage.getItem('token');
 
   const updateCompletedExercise = () => {
-    // fetch(`${BASE_API}/routines/${id}`, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //     token: token,
-    //   },
-    //   body: JSON.stringify({
-    //     routineId: routineId,
-    //     exercisesId: completedIds,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     if (data.message === 'EXERCISE UPDATE SUCCESS') {
-    //       goToComplete();
-    //     }
-    //   });
+    const completdIdSArray = localStorage.getItem('completedIds')
+      ? localStorage.getItem('completedIds').split(',')
+      : [];
+
+    console.log(completdIdSArray, '??');
+    fetch(`${BASE_API}/routines/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        token: token,
+      },
+      body: JSON.stringify({
+        exercisesId: completdIdSArray.length ? completdIdSArray : [],
+      }),
+      keepalive: true,
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'EXERCISE UPDATE SUCCESS') {
+          goToComplete();
+        }
+      });
   };
 
   const getExerciseCardData = () => {
-    fetch('/data/gyeongjae.json', {
-      // fetch(`${BASE_API}/routines/${id}`, {
+    // fetch('/data/gyeongjae.json', {
+    fetch(`${BASE_API}/routines/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -80,26 +87,17 @@ function ExerciseStart() {
     getExerciseCardData();
   }, []);
 
-  // useEffect(() => {
-  //   fetch(`${BASE_API}/routines/${params}`, {
-  //     method: 'GET',
-  //   })
-  //     .then(response => {
-  //       return response.json();
-  //     })
-  //     .then(result => {
-  //       setExerciseList(result.data.exercises);
-  //       setCompletedIds(result.data.completedExerciseIds);
-  //     });
-  // }, []);
+  useEffect(() => {
+    localStorage.setItem('completedIds', completedIds);
+  }, [completedIds]);
 
-  // useEffect(() => {
-  //   window.addEventListener('beforeunload', updateCompletedExercise);
-
-  //   return () => {
-  //     window.removeEventListener('beforeunload', updateCompletedExercise);
-  //   };
-  // }, []);
+  useEffect(() => {
+    console.log('ll');
+    window.addEventListener('beforeunload', updateCompletedExercise);
+    return () => {
+      window.removeEventListener('beforeunload', updateCompletedExercise);
+    };
+  }, []);
 
   return (
     <ExerciseStartStyle>
