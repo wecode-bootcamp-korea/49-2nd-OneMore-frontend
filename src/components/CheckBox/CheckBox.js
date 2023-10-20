@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 function CheckBox({
   name,
@@ -55,8 +55,8 @@ const CheckboxWrapper = styled.div`
 `;
 
 const CheckboxLabel = styled.label`
-  padding-left: 3px;
-  font-size: 15px;
+  padding-left: 5px;
+  font-size: 14px;
 `;
 
 const DefaultCheckBox = styled.input`
@@ -65,10 +65,18 @@ const DefaultCheckBox = styled.input`
   justify-content: center;
   width: ${({ size }) => CHECKBOX_SIZE[size]?.width || '20px'};
   height: ${({ size }) => CHECKBOX_SIZE[size]?.height || '20px'};
-  border: 1px solid ${({ theme }) => theme.lightGray};
+  border: 1px solid ${({ theme }) => theme.darkgray};
   border-radius: ${({ shape }) => SHAPE_BORDER_RADIUS[shape] || 0};
   appearance: none;
   cursor: pointer;
+
+  &:after {
+    ${props =>
+      props.size === 'large' &&
+      css`
+        content: '터치해서 체크하기!';
+      `}
+  }
 
   &:checked {
     padding-bottom: ${({ size }) => (size === 'large' ? '10px' : '2px')};

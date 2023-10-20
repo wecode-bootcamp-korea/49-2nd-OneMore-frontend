@@ -44,9 +44,12 @@ const DefaultInput = styled.input`
   font-size: 15px;
   line-height: 1.5;
   outline: none;
+  background-color: ${props =>
+    props.backgroundColor || 'white'}; // 속성에서 받아온 배경 색상을 설정
 
   &::placeholder {
     color: #e0e0e0;
+    font-size: 14px;
   }
 
   &:hover,
@@ -54,8 +57,8 @@ const DefaultInput = styled.input`
     border: 1px solid #8bc34a;
   }
 
-  ${props => props.status === 'error' && 'border-color:black'};
-  ${props => props.status === 'done' && 'border-color:green'};
+  ${props => props.status === 'error' && 'border-color:red'};
+  ${props => props.status === 'done' && 'border-color:blue'};
 `;
 
 export default Input;
