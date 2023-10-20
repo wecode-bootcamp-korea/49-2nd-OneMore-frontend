@@ -69,9 +69,10 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
       )}
       {isModalOpen && (
         <Modal
-          checkedExerciseArray={arr}
+          textFirstLine={arr.map((text, index) => (
+            <div key={index}>{text.name}</div>
+          ))}
           handleRightModalButton={handleModalOpen}
-          setIsModalOpen={setIsModalOpen}
           handleLeftModalButton={updateCompletedExercise}
           textSecondLine="를 완료하셨습니다"
           textThirdLine="완료하시겠습니까?"

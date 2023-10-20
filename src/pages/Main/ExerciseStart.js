@@ -12,8 +12,9 @@ function ExerciseStart() {
 
   const { id } = useParams();
 
+  // 머지되면 희진님 운동 완료 페이지로 이동
   const goToComplete = () => {
-    navigate('/exercise-success');
+    navigate('exerciseDone');
   };
 
   const handleComplete = id => {

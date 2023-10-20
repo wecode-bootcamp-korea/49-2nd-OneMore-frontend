@@ -4,7 +4,7 @@ const Modal = props => {
   const {
     handleLeftModalButton,
     handleRightModalButton,
-    checkedExerciseArray,
+    textFirstLine,
     textSecondLine,
     textThirdLine,
     leftModalText,
@@ -15,11 +15,7 @@ const Modal = props => {
     <PaddingContainer>
       <ModalContainer>
         <NotFinishedWrapper>
-          <NotFinishedExercise>
-            {checkedExerciseArray.map((text, index) => (
-              <div key={index}>{text.name}</div>
-            ))}
-          </NotFinishedExercise>
+          <NotFinishedExercise>{textFirstLine}</NotFinishedExercise>
           <div>
             <BottomText>{textSecondLine}</BottomText>
             <BottomText>{textThirdLine}</BottomText>
