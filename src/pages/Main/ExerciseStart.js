@@ -28,28 +28,28 @@ function ExerciseStart() {
   const token = localStorage.getItem('token');
 
   const updateCompletedExercise = () => {
-    fetch(`${BASE_API}/routines/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        token: token,
-      },
-      body: JSON.stringify({
-        routineId: routineId,
-        exercisesId: completedIds,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message === 'EXERCISE UPDATE SUCCESS') {
-          goToComplete();
-        }
-      });
+    // fetch(`${BASE_API}/routines/${id}`, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //     token: token,
+    //   },
+    //   body: JSON.stringify({
+    //     routineId: routineId,
+    //     exercisesId: completedIds,
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     if (data.message === 'EXERCISE UPDATE SUCCESS') {
+    //       goToComplete();
+    //     }
+    //   });
   };
 
   const getExerciseCardData = () => {
-    // fetch('/data/gyeongjae.json', {
-    fetch(`${BASE_API}/routines/${id}`, {
+    fetch('/data/gyeongjae.json', {
+      // fetch(`${BASE_API}/routines/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

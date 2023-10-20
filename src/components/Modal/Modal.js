@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 
 const Modal = props => {
-  const { updateCompletedExercise, handleModalOpen, checkedExerciseArray } =
-    props;
+  const {
+    handleLeftModalButton,
+    handleRightModalButton,
+    checkedExerciseArray,
+    textSecondLine,
+    textThirdLine,
+    leftModalText,
+    rightModalText,
+  } = props;
 
   return (
     <PaddingContainer>
@@ -14,13 +21,13 @@ const Modal = props => {
             ))}
           </NotFinishedExercise>
           <div>
-            <AreyouSure>를 완료하셨네요</AreyouSure>
-            <AreyouSure>완료하시겠어요?</AreyouSure>
+            <BottomText>{textSecondLine}</BottomText>
+            <BottomText>{textThirdLine}</BottomText>
           </div>
         </NotFinishedWrapper>
         <ButtonWrapper>
-          <YesButton onClick={updateCompletedExercise}>네</YesButton>
-          <NoButton onClick={handleModalOpen}>아니요</NoButton>
+          <YesButton onClick={handleLeftModalButton}>{leftModalText}</YesButton>
+          <NoButton onClick={handleRightModalButton}>{rightModalText}</NoButton>
         </ButtonWrapper>
       </ModalContainer>
     </PaddingContainer>
@@ -68,7 +75,7 @@ const NotFinishedExercise = styled.div`
   font-weight: 700;
 `;
 
-const AreyouSure = styled.p`
+const BottomText = styled.p`
   font-size: 20px;
 `;
 
