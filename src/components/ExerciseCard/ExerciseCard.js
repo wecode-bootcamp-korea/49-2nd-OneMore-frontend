@@ -16,7 +16,14 @@ const ExerciseCard = props => {
 
   return (
     <TemporaryContainer>
-      <ExerciseThumbNail alt={alt} src={src} />
+      <ExerciseThumbNail
+        alt={alt}
+        src={src}
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      />
       <LetterContainer>
         <FirstLineWrapper>
           <ExerciseName>{name}</ExerciseName>
@@ -42,7 +49,7 @@ export default ExerciseCard;
 
 const TemporaryContainer = styled.div``;
 
-const ExerciseThumbNail = styled.img`
+const ExerciseThumbNail = styled.iframe`
   width: 100%;
   height: 35vh;
   border-radius: 16px;

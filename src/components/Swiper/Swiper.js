@@ -55,7 +55,7 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
               description={data.description}
               isCompleted={checkedList.includes(data.id)}
               alt={data.name}
-              src={data.thumbnailURL}
+              src={data.videoURL}
               onClick={() => onClick(data.id)}
             />
           </Carousel.Item>
