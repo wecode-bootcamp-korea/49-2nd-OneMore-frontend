@@ -6,10 +6,10 @@ import Banner from '../../components/Banner/Banner';
 import Button from '../../components/Button/Button';
 import BASE_API from '../../config';
 
+
 function Main(props) {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-
   // useEffect(() => {
   //   if (!token) {
   //     navigate('/login');
@@ -51,6 +51,7 @@ function Main(props) {
       </ButtonBox>
     </MainStyle>
   );
+
 }
 export default Main;
 
