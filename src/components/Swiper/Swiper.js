@@ -5,11 +5,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import BASE_API from '../../config';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
-function Swiper({ list, checkedList, onClick }) {
-  // const ROUTINE-TEST = '6';
+
+function Swiper() {
+  const [exerciseList, setExerciseList] = useState([]);
 
   // useEffect(() => {
-  //   fetch(`${BASE_API}/routines/${ROUTINE-TEST}`, {
+  //   fetch('/data/gyeongjae.json', {
+  //     method: 'GET',
+  //   })
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(result => {
+  //       setExerciseList(result.data.exercises);
+  //     });
+  // }, []);
+
+  // const ROUTINE_TEST = '6';
+
+  // useEffect(() => {
+  //   fetch(`${BASE_API}/routines/${ROUTINE_TEST}`, {
   //     method: 'GET',
   //   })
   //     .then(response => {

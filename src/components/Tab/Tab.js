@@ -49,7 +49,7 @@ function Tab() {
             handleTabClick(index);
             navigate(item.route);
           }}
-          active={activeTab === index}
+          $active={activeTab === index}
         >
           <IconBox>{item.icon}</IconBox>
           <IconName>{item.label}</IconName>
@@ -78,7 +78,7 @@ const TabList = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: ${props => (props.active ? '#8bc34a' : '#999999')};
+  color: ${props => (props.$active ? '#8bc34a' : '#999999')};
 
   &:hover {
     color: #8bc34a;
