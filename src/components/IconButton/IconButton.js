@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function IconButton({ type = 'button', name, size, onClick, ...props }) {
+function IconButton({ type = 'button', name, size, icon, onClick, ...props }) {
   return (
     <DefaultButton
       type={type}
       name={name}
       size={size}
+      icon={icon}
       onClick={onClick}
       {...props}
     />
@@ -28,10 +29,13 @@ const BUTTON_SIZE = {
   },
 };
 
-// const BUTTON_IMAGE = {
-//   square: '10px',
-//   round: '25px',
-// };
+const BUTTON_IMAGE = {
+  kakao: '/images/icon_kakao.png',
+  google: '/images/icon_google.png',
+  naver: '/images/icon_naver.png',
+  play: '/images/icon_play.png',
+  hamberger: '/images/icon_berger.png',
+};
 
 const FLEX_CENTER = `
   display: flex;
@@ -41,22 +45,15 @@ const FLEX_CENTER = `
 
 const DefaultButton = styled.button`
   ${FLEX_CENTER}
-  width:${({ size }) => BUTTON_SIZE[size]?.width || BUTTON_SIZE.medium.width};
+  appearance: none;
+  width: ${({ size }) => BUTTON_SIZE[size]?.width || BUTTON_SIZE.medium.width};
   height: ${({ size }) =>
     BUTTON_SIZE[size]?.height || BUTTON_SIZE.medium.height};
-  /* background-image: url(${({ icon }) => icon || ''}); */
+  background-image: url(${({ icon }) => BUTTON_IMAGE[icon] || ''});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 `;
 
 export default IconButton;
-
-/*
-props
-
-type = [string] 입력 타입 / 기본값 : button
-name = [string] 식별을 위한 속성
-onClick = [function] 클릭 변경 이벤트
-disabled = [boolean] 비활성화 여부
-*/
