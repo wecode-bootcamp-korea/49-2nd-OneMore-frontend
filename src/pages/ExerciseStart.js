@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Swiper from '../../components/Swiper/Swiper';
+import Swiper from '../components/Swiper/Swiper';
 import styled from 'styled-components';
-import BASE_API from '../../config';
+import BASE_API from '../config';
 
 function ExerciseStart() {
   const [exerciseList, setExerciseList] = useState([]);
