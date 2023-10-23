@@ -4,6 +4,7 @@ import Layout from './styles/Layout';
 import MainContainer from './styles/MainContainer';
 import Main from './pages/Main/Main';
 import ExerciseStart from './pages/ExerciseStart';
+import NotHaveRoutine from './pages/NotHaveRoutine';
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/exercise-start/:id" element={<ExerciseStart />} />
+            <Route path="notHaveRoutine" element={<NotHaveRoutine />} />
           </Routes>
         </MainContainer>
       </Layout>
