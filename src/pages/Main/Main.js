@@ -51,7 +51,6 @@ function Main(props) {
       </ButtonBox>
     </MainStyle>
   );
-
 }
 export default Main;
 

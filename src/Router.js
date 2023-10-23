@@ -4,10 +4,13 @@ import Layout from './styles/Layout';
 import Header from './components/Header/Header';
 import MainContainer from './styles/MainContainer';
 import Main from './pages/Main/Main';
+import ExerciseStart from './pages/ExerciseStart';
+import NotHaveRoutine from './pages/NotHaveRoutine';
 import Tab from './components/Tab/Tab';
 import Login from './pages/Login/Login';
-// import Signup from './pages/Signup/Signup';
-import SignupTerms from './pages/Signup/SignupTerms';
+import Signup from './pages/Signup/Signup';
+import KakaoLogin from './pages/Login/Oauth/KakaoLogin';
+import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 
 function Router() {
   return (
@@ -17,8 +20,11 @@ function Router() {
         <MainContainer>
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/exercise-start/:id" element={<ExerciseStart />} />
+            <Route path="notHaveRoutine" element={<NotHaveRoutine />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignupTerms />} />
+            <Route path="/oauth/kakao" element={<KakaoLogin />} />
+            <Route path="/oauth/google" element={<GoogleLogin />} />
           </Routes>
         </MainContainer>
         <Tab />
