@@ -1,0 +1,32 @@
+{
+  "message": "MY_ROUTINES_SUCCESS",
+  "data": [
+    {
+      "routineId": 13,
+      "routineName": "my2",
+      "total_routine_duration": "168",
+      "createDate": "2023-10-21T12:11:03.000Z",
+      "exercise_names": "Reverse Lunge",
+      "completed": 0,
+      "user_id": 11
+    },
+    {
+      "routineId": 11,
+      "routinename": "my",
+      "total_routine_duration": "1056",
+      "createDate": "2023-10-21T12:10:39.000Z",
+      "exercise_names": "Leg raise",
+      "completed": 0,
+      "user_id": 11
+    },
+    {
+      "routineId": 11,
+      "routinename": "my",
+      "totalroutineduration": "333",
+      "reateDate": "2023-10-21T12:10:39.000Z",
+      "exercise_names": "Bicycle Crunch",
+      "completed": 0,
+      "user_id": 11
+    }
+  ]
+}
