@@ -57,8 +57,8 @@ function ExerciseStart() {
   };
 
   const getExerciseCardData = () => {
-    // fetch('/data/gyeongjae.json', {
-    fetch(`${BASE_API}/routines/${id}`, {
+    fetch('/data/gyeongjae.json', {
+      // fetch(`${BASE_API}/routines/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

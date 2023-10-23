@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,6 +8,23 @@ import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
 function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
   const ref = useRef(null);
+  useEffect(() => {
+    window.addEventListener('message', event => {
+      if (event.origin === 'http://external-domain.com') {
+        const message = event.data;
+
+        // 메시지에 따른 동작 수행
+        if (message === 'StopVideo') {
+          // 영상을 중지하는 코드를 실행
+          const iframe = document.querySelector('iframe');
+          iframe.contentWindow.postMessage(
+            'stop',
+            'http://external-domain.com',
+          );
+        }
+      }
+    });
+  }, []);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,7 +62,7 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
         interval={null}
         onSelect={(index, e) => setCurrentSlide(index)}
       >
-        {list.map(data => (
+        {list.map((data, i) => (
           <Carousel.Item key={data.id}>
             <ExerciseCard
               name={data.name}
@@ -56,6 +73,8 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
               isCompleted={checkedList.includes(data.id)}
               alt={data.name}
               src={data.videoURL}
+              currentSlide={currentSlide}
+              isActive={currentSlide === i}
               onClick={() => onClick(data.id)}
             />
           </Carousel.Item>

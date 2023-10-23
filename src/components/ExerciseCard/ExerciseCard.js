@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import CheckBox from '../CheckBox/CheckBox';
 
@@ -12,11 +13,23 @@ const ExerciseCard = props => {
     description,
     isCompleted,
     onClick,
+    isActive,
+    currentSlide,
   } = props;
+  const iframeRef = useRef();
+
+  useEffect(() => {
+    if (!isActive) {
+      iframeRef.current.src = '';
+    } else {
+      iframeRef.current.src = src;
+    }
+  }, [currentSlide]);
 
   return (
     <TemporaryContainer>
       <ExerciseThumbNail
+        ref={iframeRef}
         alt={alt}
         src={src}
         title="YouTube video player"
