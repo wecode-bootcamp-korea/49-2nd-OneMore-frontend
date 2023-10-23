@@ -34,7 +34,7 @@ const CarouselBox = styled(Carousel)`
     display: none;
   }
 
-  .carousel-control-next {
+  .carousel-control-next-icon {
     display: none;
   }
 `;
