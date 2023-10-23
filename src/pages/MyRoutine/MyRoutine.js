@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import NotHaveRoutine from './NotHaveRoutine/NotHaveRoutine';
+import NotHaveRoutine from '../NotHaveRoutine/NotHaveRoutine';
 import { useNavigate } from 'react-router-dom';
-import BASE_API from '../config';
+import BASE_API from '../../config';
 
 function MyRoutine() {
   const [myRoutineData, setMyRoutineData] = useState([]);

@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './styles/Layout';
 import MainContainer from './styles/MainContainer';
 import Main from './pages/Main/Main';
-import ExerciseStart from './pages/ExerciseStart';
+import ExerciseStart from './pages/ExerciseStart/ExerciseStart';
 import NotHaveRoutine from './pages/NotHaveRoutine/NotHaveRoutine';
-import MyCustomRoutine from './pages/MyRoutine';
+import MyCustomRoutine from './pages/MyRoutine/MyRoutine';
 
 function Router() {
   return (
