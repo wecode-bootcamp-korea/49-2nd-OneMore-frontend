@@ -1,0 +1,64 @@
+{
+  "message": "success",
+  "data": {
+    "exercises": [
+      {
+        "exerciseId": 10,
+        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjA5MDVfMzYg%2FMDAxNjYyMzc0MDI5Mjk3.8nHYkZq7zupRta5Am8oVpzvlCVCf5jblNMMzVfwVsjAg.D2l6nw3QWAXQ_QJ0eMwyfZJ8ad3PITayVTz3CDbTZVIg.PNG.yyeosuk%2F20220905_193332_3.png&type=sc960_832",
+        "name": "Burpee",
+        "isPremium": 1,
+        "calories": 15000,
+        "durationInSecondsPerSet": 714,
+        "categoryId": 1,
+        "categoryName": "전신"
+      },
+      {
+        "exerciseId": 1,
+        "thumbnailURL": "https://terms.naver.com/imageDetail.naver?docId=938922&imageUrl=https%3A%2F%2Fdbscthumb-phinf.pstatic.net%2F2009_000_1%2F20120315140501336_RYAG85YP7.jpg%2FWEIGHT_087_pic_2.jpg%3Ftype%3Dm4500_4500_fst%26wm%3DN",
+        "name": "Leg raise",
+        "isPremium": 0,
+        "calories": 100,
+        "durationInSecondsPerSet": 352,
+        "categoryId": 3,
+        "categoryName": "하체"
+      },
+      {
+        "exerciseId": 4,
+        "thumbnailURL": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjFfMTI0%2FMDAxNjk1Mjg0MjE3MDc1.sJ77yv6IE3srA4SPDeJ859WVjrZZnNevYH5A5BJtBSYg.T2lV0O1O4EO898VPKmJ5RRSkjfsAM6pouG_hyb0pmwIg.PNG.gdind0420%2Fimage.png&type=sc960_832",
+        "name": "Push Up",
+        "isPremium": 0,
+        "calories": 175,
+        "durationInSecondsPerSet": 257,
+        "categoryId": 2,
+        "categoryName": "상체"
+      },
+      {
+        "exerciseId": 7,
+        "thumbnailURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Roman_chair_%28hyperextension%29_animation.gif/440px-Roman_chair_%28hyperextension%29_animation.gif",
+        "name": "Back Extension",
+        "isPremium": 1,
+        "calories": 33,
+        "durationInSecondsPerSet": 60,
+        "categoryId": 2,
+        "categoryName": "상체"
+      },
+      {
+        "exerciseId": 6,
+        "thumbnailURL": "https://postfiles.pstatic.net/MjAyMzA1MTRfMTgz/MDAxNjg0MDM5Njk2Mzg0.jjfb82CtFmYJBM20VH5ezcmEa7MxxbC8CrFJD1tEdeYg.7s42r0hCSuEcsbkUbNMe3HL8FRdyxjRAZQjpg6ALdF4g.JPEG.shghwhd1/1684039695777.jpg?type=w966",
+        "name": "Plank",
+        "isPremium": 1,
+        "calories": 56,
+        "durationInSecondsPerSet": 268,
+        "categoryId": 1,
+        "categoryName": "전신"
+      }
+    ],
+    "totalDurationInMinute": 27,
+    "totalCalories": 15364,
+    "mostFrequent": {
+      "count": 2,
+      "category": "하체"
+    },
+    "routineCompleted": false
+  }
+}

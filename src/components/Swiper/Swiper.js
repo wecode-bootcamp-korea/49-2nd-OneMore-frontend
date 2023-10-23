@@ -6,6 +6,7 @@ import Modal from '../Modal/Modal';
 
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 
+
 function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
   const ref = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -36,6 +37,7 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
       arr.push(checkedEx[i]);
     }
   }
+
 
   return (
     <div>

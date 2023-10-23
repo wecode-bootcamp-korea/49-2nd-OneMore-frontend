@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RoutineThumbNail from '../RoutineThumbNail/RoutineThumbNail';
+import BASE_API from '../../config';
 
 const TodayRoutine = () => {
-  const [TodayRoutineData, setTodayRoutineData] = useState({});
+
+  const navigate = useNavigate();
+
+  const [todayRoutineData, setTodayRoutineData] = useState({});
   const userNickName = localStorage.getItem('userNickname');
 
-  useEffect(() => {
-    fetch('/data/soonwoo.json', {
+  const exerciseIdList =
+    todayRoutineData.exercises?.map(({ exerciseId }) => exerciseId) || [];
+
+  const getTodayRoutine = () => {
+    fetch('/data/getTodayRoutine.json', {
       method: 'GET',
     })
       .then(response => {
@@ -16,24 +24,81 @@ const TodayRoutine = () => {
       .then(result => {
         setTodayRoutineData(result.data);
       });
+    // fetch(`${BASE_API}/exercises/recommended`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //     token: token,
+    //   },
+    // })
+    //   .then(response => {
+    //     console.log(response);
+    //     return response.json();
+    //   })
+    //   .then(result => {
+    //     console.log(result.data);
+    //     setTodayRoutineData(result.data);
+    //   });
+  };
+
+  const token = localStorage.getItem('token');
+
+  const postMakeTodayRoutine = () => {
+    fetch(`${BASE_API}/routines`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        token: token,
+      },
+      body: JSON.stringify({
+        exercises: exerciseIdList,
+        isCustom: false,
+      }),
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        if (result.message === 'SUCCESS') {
+          navigate(`/exercise-start/${result.routineId}`);
+          console.log('성공');
+        } else console.log('실패');
+      });
+  };
+
+  useEffect(() => {
+    getTodayRoutine();
   }, []);
 
-  if (Object.keys(TodayRoutineData).length <= 0) return null;
+  if (Object.keys(todayRoutineData).length <= 0) return null;
 
-  const sliceData = exercises.slice(0, 3);
+  const {
+    totalDurationInMinute,
+    totalCalories,
+    exercises,
+    mostFrequent,
+    routineCompleted,
+  } = todayRoutineData;
 
-  const { routineId, totalDuration, totalCaloriesUsed, exercises } =
-    TodayRoutineData;
+  const displayRoutineCounts = 3;
+  const sliceData = exercises.slice(0, displayRoutineCounts);
+
   return (
     <StyledTodayRoutine>
       <TotalWrapper>
         <GreetingWrapper>
           <HowAbuotLetter>{userNickName}</HowAbuotLetter>
-          <HowAbuotLetter>님, 오늘은 {routineId} 어떠세요?</HowAbuotLetter>
+          {routineCompleted ? (
+            <HowAbuotLetter>님, 오늘 운동 고생했어요!</HowAbuotLetter>
+          ) : (
+            <HowAbuotLetter>
+              님, 오늘은 {mostFrequent.category} 운동 어떠세요?
+            </HowAbuotLetter>
+          )}
         </GreetingWrapper>
         <MiddleWrapper>
           <MapWrapper>
-            {sliceData.map(product => {
+            {sliceData?.map(product => {
               const { thumbnailURL, name, exerciseId } = product;
               return (
                 <ExerciseWrapper key={exerciseId}>
@@ -44,14 +109,18 @@ const TodayRoutine = () => {
             })}
           </MapWrapper>
           <ButtonAndInfWrapper>
-            <PlayButton alt="재생버튼" src="/images/playButton.png" />
+            <PlayButton
+              alt="재생버튼"
+              src="/images/playButton.png"
+              onClick={postMakeTodayRoutine}
+            />
             <TotalTime>
-              <TimeLetter>시간</TimeLetter>
-              <TimeLetter>{totalDuration}</TimeLetter>
+              <TimeLetterTitle>시간</TimeLetterTitle>
+              <TimeLetter>{totalDurationInMinute} 분</TimeLetter>
             </TotalTime>
             <TotalCalorie>
-              <CalorieLetter>칼로리</CalorieLetter>
-              <CalorieLetter>{totalCaloriesUsed}</CalorieLetter>
+              <CalorieLetterTitle>칼로리</CalorieLetterTitle>
+              <CalorieLetter>{totalCalories}kcal</CalorieLetter>
             </TotalCalorie>
           </ButtonAndInfWrapper>
         </MiddleWrapper>
@@ -63,9 +132,9 @@ const TodayRoutine = () => {
 export default TodayRoutine;
 
 const StyledTodayRoutine = styled.div`
-  width: 390px;
+  width: 100%;
   height: 250px;
-  border: 1px solid black;
+  background-color: #fff;
 `;
 
 const CommonTextStyles = styled.span`
@@ -75,21 +144,21 @@ const CommonTextStyles = styled.span`
     'liga' off;
   font-family: Inter;
   font-style: normal;
-  line-height: normal;
+  line-height: 18px;
 `;
 const TotalWrapper = styled.div`
-  margin: 0 15px;
+  padding: 20px 15px 20px 15px;
+  background-color: #fff;
+  height: 100%;
 `;
 
 const MiddleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 25px;
-`;
-const GreetingWrapper = styled.div`
   margin-top: 20px;
 `;
+const GreetingWrapper = styled.div``;
 
 const ExerciseWrapper = styled.div`
   display: flex;
@@ -120,11 +189,15 @@ const HowAbuotLetter = styled(CommonTextStyles)`
 const ButtonAndInfWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  align-items: center;
 `;
 
 const PlayButton = styled.img`
   margin-top: 15px;
   cursor: pointer;
+  width: 55px;
+  height: 55px;
 `;
 
 const TotalTime = styled.div`
@@ -133,9 +206,15 @@ const TotalTime = styled.div`
   align-items: flex-end;
   margin-top: 8px;
   width: 65px;
-  height: 30px;
+  height: 40px;
 `;
+
+const TimeLetterTitle = styled(CommonTextStyles)`
+  font-weight: 500;
+`;
+
 const TimeLetter = styled(CommonTextStyles)`
+  font-weight: 600;
   &:first-child {
     font-size: 15px;
   }
@@ -149,11 +228,17 @@ const TotalCalorie = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 8px;
+  margin-top: 4px;
   width: 65px;
-  height: 30px;
+  height: 40px;
 `;
-const CalorieLetter = styled.p`
+
+const CalorieLetterTitle = styled(CommonTextStyles)`
+  font-weight: 500;
+`;
+
+const CalorieLetter = styled(CommonTextStyles)`
+  font-weight: 600;
   &:first-child {
     font-size: 15px;
   }
