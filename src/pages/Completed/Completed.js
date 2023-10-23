@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 
-function Completed(props) {
+function Completed() {
   const navigate = useNavigate();
 
   const goToMain = e => {
@@ -13,7 +13,7 @@ function Completed(props) {
   return (
     <Article>
       <CompletedImage src="/images/2.jpg" alt="운동완료" />
-      <Button children="운동완료!" onClick={goToMain} />
+      <Button onClick={goToMain}>운동완료</Button>
     </Article>
   );
 }
