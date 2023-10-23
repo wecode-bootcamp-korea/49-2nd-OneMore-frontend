@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -51,6 +52,7 @@ function Main(props) {
       </ButtonBox>
     </MainStyle>
   );
+
 
 }
 export default Main;
