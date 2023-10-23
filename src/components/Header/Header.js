@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from './Nav/Nav';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { asPath, pathname } = useLocation();
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
-
   const isPrevButtonVisible = [
     '/report',
     '/product-list',
     '/',
     '/feed',
     '/info',
-  ].includes(window.location.pathname);
+  ].includes(pathname);
 
   return (
     <>
       <HeaderStyle>
         <PrevButtonBox>
-          <PrevButton isVisible={isPrevButtonVisible} />
+          <PrevButton $isVisible={isPrevButtonVisible} />
         </PrevButtonBox>
         <Logo>OneMore</Logo>
         <HamburgerButton onClick={handleOpen} />
@@ -46,7 +46,7 @@ const PrevButton = styled.div`
   width: 20px;
   height: 20px;
   background-color: pink;
-  display: ${props => (props.isVisible ? 'none' : 'block')};
+  display: ${props => (props.$isVisible ? 'none' : 'block')};
 `;
 
 const PrevButtonBox = styled.div`
