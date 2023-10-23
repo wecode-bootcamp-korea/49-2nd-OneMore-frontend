@@ -6,7 +6,6 @@ import Banner from '../../components/Banner/Banner';
 import Button from '../../components/Button/Button';
 import BASE_API from '../../config';
 
-
 function Main(props) {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -21,7 +20,7 @@ function Main(props) {
       <TodayRoutineTitle>오늘의 루틴</TodayRoutineTitle>
       <TodayRoutine />
       <BannerBox>
-        <Banner></Banner>
+        <Banner />
       </BannerBox>
       <ButtonBox>
         <Button

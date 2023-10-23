@@ -70,8 +70,6 @@ const DefaultCheckBox = styled.input`
   appearance: none;
   cursor: pointer;
 
-
-
   &:after {
     ${props =>
       props.size === 'large' &&

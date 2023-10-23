@@ -5,7 +5,6 @@ import RoutineThumbNail from '../RoutineThumbNail/RoutineThumbNail';
 import BASE_API from '../../config';
 
 const TodayRoutine = () => {
-
   const navigate = useNavigate();
 
   const [todayRoutineData, setTodayRoutineData] = useState({});
