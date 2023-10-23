@@ -70,6 +70,8 @@ const DefaultCheckBox = styled.input`
   appearance: none;
   cursor: pointer;
 
+
+
   &:after {
     ${props =>
       props.size === 'large' &&
@@ -77,6 +79,7 @@ const DefaultCheckBox = styled.input`
         content: '터치해서 체크하기!';
       `}
   }
+
   &:checked {
     padding-bottom: ${({ size }) => (size === 'large' ? '10px' : '2px')};
     border-color: ${({ theme }) => theme.green};

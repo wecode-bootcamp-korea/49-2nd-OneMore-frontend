@@ -1,0 +1,54 @@
+{
+  "data": {
+    "routineId": "상체쑥쑥",
+    "exercises": [
+      {
+        "exerciseId": 1,
+        "thumbnailURL": "https://i.postimg.cc/gJCY7Lb0/image2.png",
+        "name": "윗몸일으키기",
+        "videoURL": "",
+        "description": "",
+        "counts": "",
+        "setCounts": "",
+        "duration": "",
+        "caloriesUsed": ""
+      },
+      {
+        "exerciseId": 2,
+        "thumbnailURL": "https://i.postimg.cc/kgQ7pgTJ/image1.png",
+        "name": "팔굽",
+        "videoURL": "",
+        "description": "",
+        "counts": "50회",
+        "setCounts": "1세트",
+        "duration": "",
+        "caloriesUsed": ""
+      },
+      {
+        "exerciseId": 3,
+        "thumbnailURL": "https://i.postimg.cc/gJCY7Lb0/image2.png",
+        "name": "사레레",
+        "videoURL": "",
+        "description": "",
+        "counts": "",
+        "setCounts": "",
+        "duration": "",
+        "caloriesUsed": ""
+      },
+      {
+        "exerciseId": 4,
+        "thumbnailURL": "https://i.postimg.cc/gJCY7Lb0/image2.png",
+        "name": "스쿼트",
+        "videoURL": "",
+        "description": "",
+        "counts": "",
+        "setCounts": "",
+        "duration": "",
+        "caloriesUsed": ""
+      }
+    ],
+    "totalDuration": "10:00",
+    "totalCaloriesUsed": "900kcal",
+    "completed": ""
+  }
+}
