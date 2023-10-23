@@ -4,8 +4,8 @@ import Layout from './styles/Layout';
 import MainContainer from './styles/MainContainer';
 import Main from './pages/Main/Main';
 import ExerciseStart from './pages/ExerciseStart';
-import NotHaveRoutine from './pages/NotHaveRoutine';
-import MyCustomRoutine from './pages/MyCustomRoutine';
+import NotHaveRoutine from './pages/NotHaveRoutine/NotHaveRoutine';
+import MyCustomRoutine from './pages/MyRoutine';
 
 function Router() {
   return (
@@ -15,8 +15,8 @@ function Router() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/exercise-start/:id" element={<ExerciseStart />} />
-            <Route path="/notHaveRoutine" element={<NotHaveRoutine />} />
-            <Route path="/my-custom-routine" element={<MyCustomRoutine />} />
+            <Route path="/not-have-routine" element={<NotHaveRoutine />} />
+            <Route path="/my-routine" element={<MyCustomRoutine />} />
           </Routes>
         </MainContainer>
       </Layout>

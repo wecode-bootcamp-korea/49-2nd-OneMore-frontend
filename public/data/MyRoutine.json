@@ -2,31 +2,39 @@
   "message": "MY_ROUTINES_SUCCESS",
   "data": [
     {
-      "routineId": 13,
+      "routineId": 6,
+      "routineName": "my",
+      "exerciseNames": ["Leg raise", "Bicycle Crunch", "2331", "12315412"],
+      "totalDuration": "13:89",
+      "createDate": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 2,
+      "routineName": "custom",
+      "exerciseNames": ["Squat"],
+      "totalDuration": "21:00",
+      "createDate": "2023-10-23T03:48:10.000Z"
+    },
+    {
+      "routineId": 4,
       "routineName": "my2",
-      "total_routine_duration": "168",
-      "createDate": "2023-10-21T12:11:03.000Z",
-      "exercise_names": "Reverse Lunge",
-      "completed": 0,
-      "user_id": 11
+      "exerciseNames": ["Reverse Lunge"],
+      "totalDuration": "1:68",
+      "createDate": "2023-10-21T12:11:03.000Z"
     },
     {
-      "routineId": 11,
-      "routinename": "my",
-      "total_routine_duration": "1056",
-      "createDate": "2023-10-21T12:10:39.000Z",
-      "exercise_names": "Leg raise",
-      "completed": 0,
-      "user_id": 11
+      "routineId": 6,
+      "routineName": "my",
+      "exerciseNames": ["Leg raise", "Bicycle Crunch", "2331", "12315412"],
+      "totalDuration": "13:89",
+      "createDate": "2023-10-23T03:48:12.000Z"
     },
     {
-      "routineId": 11,
-      "routinename": "my",
-      "totalroutineduration": "333",
-      "reateDate": "2023-10-21T12:10:39.000Z",
-      "exercise_names": "Bicycle Crunch",
-      "completed": 0,
-      "user_id": 11
+      "routineId": 6,
+      "routineName": "my",
+      "exerciseNames": ["Leg raise", "Bicycle Crunch", "2331", "12315412"],
+      "totalDuration": "13:89",
+      "createDate": "2023-10-23T03:48:12.000Z"
     }
   ]
 }
