@@ -8,6 +8,7 @@ import ExerciseStart from './pages/ExerciseStart';
 import NotHaveRoutine from './pages/NotHaveRoutine';
 import Tab from './components/Tab/Tab';
 import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
 import KakaoLogin from './pages/Login/Oauth/KakaoLogin';
 import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 
