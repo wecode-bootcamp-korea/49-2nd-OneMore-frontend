@@ -4,8 +4,7 @@ import styled from 'styled-components';
 function NotHaveRoutine() {
   const navigate = useNavigate();
   const goToMakeRoutine = () => {
-    //주소 추가하기
-    navigate('/');
+    navigate('/exercise-list');
   };
   return (
     <ExerciseStartStyle>

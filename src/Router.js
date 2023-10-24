@@ -4,14 +4,17 @@ import Layout from './styles/Layout';
 import Header from './components/Header/Header';
 import MainContainer from './styles/MainContainer';
 import Main from './pages/Main/Main';
-import ExerciseStart from './pages/ExerciseStart';
-import NotHaveRoutine from './pages/NotHaveRoutine';
+import ExerciseStart from './pages/ExerciseStart/ExerciseStart';
+import NotHaveRoutine from './pages/NotHaveRoutine/NotHaveRoutine';
+import MyCustomRoutine from './pages/MyRoutine/MyRoutine';
 import Tab from './components/Tab/Tab';
 import Login from './pages/Login/Login';
 import KakaoLogin from './pages/Login/Oauth/KakaoLogin';
 import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 import ExerciseList from './pages/ExerciseList/ExerciseList';
 import SignupTerms from './pages/Signup/SignupTerms';
+import Completed from './pages/Completed/Completed';
+
 
 function Router() {
   return (
@@ -22,12 +25,14 @@ function Router() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/exercise-start/:id" element={<ExerciseStart />} />
-            <Route path="notHaveRoutine" element={<NotHaveRoutine />} />
+            <Route path="/not-have-routine" element={<NotHaveRoutine />} />
+            <Route path="/my-routine" element={<MyCustomRoutine />} />
             <Route path="/login" element={<Login />} />
             <Route path="/exercise-list" element={<ExerciseList />} />
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
             <Route path="/oauth/google" element={<GoogleLogin />} />
             <Route path="/signup" element={<SignupTerms />} />
+            <Route path="/completed" element={<Completed />} />
           </Routes>
         </MainContainer>
         <Tab />
