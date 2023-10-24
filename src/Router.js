@@ -8,10 +8,11 @@ import ExerciseStart from './pages/ExerciseStart';
 import NotHaveRoutine from './pages/NotHaveRoutine';
 import Tab from './components/Tab/Tab';
 import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
 import KakaoLogin from './pages/Login/Oauth/KakaoLogin';
 import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 import ExerciseList from './pages/ExerciseList/ExerciseList';
+import SignupTerms from './pages/Signup/SignupTerms';
+
 function Router() {
   return (
     <BrowserRouter>
@@ -26,6 +27,7 @@ function Router() {
             <Route path="/exercise-list" element={<ExerciseList />} />
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
             <Route path="/oauth/google" element={<GoogleLogin />} />
+            <Route path="/signup" element={<SignupTerms />} />
           </Routes>
         </MainContainer>
         <Tab />
