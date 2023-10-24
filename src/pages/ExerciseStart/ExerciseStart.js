@@ -93,7 +93,6 @@ function ExerciseStart() {
   }, [completedIds]);
 
   useEffect(() => {
-    console.log('ll');
     window.addEventListener('beforeunload', updateCompletedExercise);
     return () => {
       window.removeEventListener('beforeunload', updateCompletedExercise);

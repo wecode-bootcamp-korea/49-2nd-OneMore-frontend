@@ -1,50 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import NotHaveRoutine from '../NotHaveRoutine/NotHaveRoutine';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import BASE_API from '../../config';
 
 function MyRoutine() {
   const [myRoutineData, setMyRoutineData] = useState([]);
-
+  const listBox = useRef();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const page = queryParams.get('page') || '1';
+  const limit = queryParams.get('limit') || '5';
+
   const goToMyRoutine = id => {
     navigate(`/exercise-start/${id}`);
   };
-
   const DataLength = myRoutineData.length;
 
   const handleNotHaveMyRoutine = DataLength === 0;
 
-  useEffect(() => {
-    fetch('/data/MyRoutine.json', {
-      // fetch(`${BASE_API}/routines/my`, {
+  const getMyRoutineList = () => {
+    // const fetchURL = `${BASE_API}/routines/my?page=${page}&limit=${limit}`;
+
+    const fetchURL = `/data/MyRoutine.json`;
+
+    fetch(fetchURL, {
       method: 'GET',
-      // headers: {
-      //   'Content-Type': 'application/json;charset=utf-8',
-      //   authorization:
-      //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE2OTc4OTAwNTR9.FX8Trf7wprbM5rYp2rVQBxVmwuezJedWOZj6JbvjSBo',
-      // },
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: localStorage.getItem('token'),
+      },
     })
       .then(response => {
         return response.json();
       })
       .then(result => {
-        console.log(result);
-        setMyRoutineData(result.data);
+        const newItems = result.data;
+        setMyRoutineData(prevMyRoutineList => [
+          ...prevMyRoutineList,
+          ...newItems,
+        ]);
       });
+  };
+
+  useEffect(() => {
+    getMyRoutineList();
   }, []);
 
-  console.log(myRoutineData);
-
-  // fetch(`${BASE_API}/routines/my/`, {
-  //   method: 'post',
-  //   headers: {
-  //     'Content-Type': 'application/json;charset=utf-8',
-  //     token:
-  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTY5NzY5NDU0OX0.a420s2Kh9RfaUnUC4TliiMEfv4nWD5j4aw9RljMpSPo',
-  //   },
-  // });
+  const handleScroll = () => {
+    if (
+      listBox.current.scrollHeight - listBox.current.scrollTop ===
+      listBox.current.clientHeight
+    ) {
+      getMyRoutineList();
+      navigate(`/My-routine?page=${parseInt(page) + 1}&limit=${limit}`);
+    }
+  };
 
   return (
     <div>
@@ -52,7 +64,7 @@ function MyRoutine() {
         <NotHaveRoutine />
       ) : (
         <ExerciseStartStyle>
-          <PaddingContainer>
+          <PaddingContainer ref={listBox} onScroll={handleScroll}>
             <H1>내 루틴</H1>
             <ButtonWrapper>필터들어올 부분</ButtonWrapper>
             {myRoutineData.map(product => {
@@ -63,7 +75,6 @@ function MyRoutine() {
                 exerciseNames,
                 createDate,
               } = product;
-
               return (
                 <Container
                   key={routineId}
@@ -112,6 +123,9 @@ const ExerciseStartStyle = styled.div``;
 const PaddingContainer = styled.div`
   width: 100%;
   padding: 0 15px 0 15px;
+
+  height: 700px;
+  overflow: auto;
 `;
 
 const LetterForm = styled.p`
