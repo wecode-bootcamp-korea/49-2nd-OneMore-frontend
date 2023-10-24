@@ -30,12 +30,17 @@ const BUTTON_SIZE = {
   },
   medium: {
     padding: '12px',
-    fontSize: '16px',
+    fontSize: '15px',
   },
   large: {
     padding: '16px',
     fontSize: '20px',
   },
+};
+
+const SHAPE_BORDER_RADIUS = {
+  square: '10px',
+  round: '25px',
 };
 
 const FLEX_CENTER = `
@@ -49,16 +54,22 @@ const DefaultButton = styled.button`
   width: 100%;
   padding: ${({ size }) =>
     BUTTON_SIZE[size]?.padding || BUTTON_SIZE.medium.padding};
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.green};
-  color: ${({ theme }) => theme.white};
-  font-size: ${({ size }) => BUTTON_SIZE[size]?.height || '20px'};
+  border-radius: ${({ shape }) => SHAPE_BORDER_RADIUS[shape] || '10px'};
+  border: 1px solid;
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor || theme.green};
+  color: ${({ theme, backgroundColor }) =>
+    backgroundColor === 'white' ? theme.green : theme.white};
+  font-size: ${({ size }) =>
+    BUTTON_SIZE[size]?.height || BUTTON_SIZE.medium.font - size};
+  line-height: 25px;
 
   &:hover {
-    background-color: #7daf42;
+    background-color: ${({ backgroundColor }) =>
+      backgroundColor === 'white' ? '' : '#7daf42'};
   }
-  & [disabled] {
-    background-color: #c4e0a2;
+  &:disabled {
+    background-color: #bed7a0;
     cursor: not-allowed;
   }
 `;

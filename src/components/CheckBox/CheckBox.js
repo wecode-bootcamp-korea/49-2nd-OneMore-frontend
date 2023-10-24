@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 function CheckBox({
   name,
@@ -69,6 +69,15 @@ const DefaultCheckBox = styled.input`
   border-radius: ${({ shape }) => SHAPE_BORDER_RADIUS[shape] || 0};
   appearance: none;
   cursor: pointer;
+
+  &:after {
+    ${props =>
+      props.size === 'large' &&
+      css`
+        content: '터치해서 체크하기!';
+      `}
+  }
+
   &:checked {
     padding-bottom: ${({ size }) => (size === 'large' ? '10px' : '2px')};
     border-color: ${({ theme }) => theme.green};

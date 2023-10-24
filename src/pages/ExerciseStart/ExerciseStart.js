@@ -12,9 +12,8 @@ function ExerciseStart() {
 
   const { id } = useParams();
 
-  // 머지되면 희진님 운동 완료 페이지로 이동
   const goToComplete = () => {
-    navigate('/');
+    navigate('/completed');
   };
 
   const handleComplete = id => {
@@ -36,7 +35,6 @@ function ExerciseStart() {
       alert('완료한 운동이 없습니다');
       return;
     }
-
     fetch(`${BASE_API}/routines/${id}`, {
       method: 'PATCH',
       headers: {
@@ -57,8 +55,8 @@ function ExerciseStart() {
   };
 
   const getExerciseCardData = () => {
-    // fetch('/data/gyeongjae.json', {
-    fetch(`${BASE_API}/routines/${id}`, {
+    fetch('/data/gyeongjae.json', {
+      // fetch(`${BASE_API}/routines/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -127,7 +125,8 @@ const Container = styled.div`
   width: 100%;
   background-color: white;
   border-radius: 16px;
-  height: 70vh;
+  margin-top: 30px;
+  height: 75vh;
   position: relative;
 `;
 
