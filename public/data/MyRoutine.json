@@ -5,6 +5,7 @@
       "routineId": 6,
       "routineName": "1",
       "exerciseNames": ["Leg raise", "Bicycle Crunch", "2331", "12315412"],
+      "exerciseSetCount": ["1", "1", "1", "2"],
       "totalDuration": "13:89",
       "createDate": "2023-10-23T03:48:12.000Z"
     },
@@ -12,6 +13,7 @@
       "routineId": 2,
       "routineName": "2",
       "exerciseNames": ["Squat"],
+      "exerciseSetCount": ["1"],
       "totalDuration": "21:00",
       "createDate": "2023-10-23T03:48:10.000Z"
     },
@@ -19,6 +21,7 @@
       "routineId": 4,
       "routineName": "3",
       "exerciseNames": ["Reverse Lunge"],
+      "exerciseSetCount": ["1"],
       "totalDuration": "1:68",
       "createDate": "2023-10-21T12:11:03.000Z"
     },
@@ -27,6 +30,7 @@
       "routineId": 6,
       "routineName": "4",
       "exerciseNames": ["Leg raise", "Bicycle Crunch", "2331", "12315412"],
+      "exerciseSetCount": ["1", "1", "1", "2"],
       "totalDuration": "13:89",
       "createDate": "2023-10-23T03:48:12.000Z"
     },
@@ -34,6 +38,7 @@
       "routineId": 6,
       "routineName": "5",
       "exerciseNames": ["Leg raise", "Bicycle Crunch", "2331", "12315412"],
+      "exerciseSetCount": ["1", "1", "1", "2"],
       "totalDuration": "13:89",
       "createDate": "2023-10-23T03:48:12.000Z"
     }

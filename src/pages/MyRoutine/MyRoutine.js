@@ -16,6 +16,10 @@ function MyRoutine() {
   const goToMyRoutine = id => {
     navigate(`/exercise-start/${id}`);
   };
+
+  const goToExerciseList = () => {
+    navigate('/exercise-list');
+  };
   const DataLength = myRoutineData.length;
 
   const handleNotHaveMyRoutine = DataLength === 0;
@@ -43,7 +47,6 @@ function MyRoutine() {
         ]);
       });
   };
-
   useEffect(() => {
     getMyRoutineList();
   }, []);
@@ -57,24 +60,26 @@ function MyRoutine() {
       navigate(`/My-routine?page=${parseInt(page) + 1}&limit=${limit}`);
     }
   };
-
+  console.log(myRoutineData);
   return (
     <div>
       {handleNotHaveMyRoutine ? (
         <NotHaveRoutine />
       ) : (
         <ExerciseStartStyle>
+          <H1>내 루틴</H1>
           <PaddingContainer ref={listBox} onScroll={handleScroll}>
-            <H1>내 루틴</H1>
-            <ButtonWrapper>필터들어올 부분</ButtonWrapper>
+            <FilterWrapper>필터들어올 부분</FilterWrapper>
             {myRoutineData.map(product => {
               const {
                 routineId,
                 routineName,
                 totalDuration,
                 exerciseNames,
+                exerciseSetCount,
                 createDate,
               } = product;
+
               return (
                 <Container
                   key={routineId}
@@ -94,16 +99,23 @@ function MyRoutine() {
                       <ExerciseContainer>
                         <FirstExerciseNameWrapper>
                           {exerciseNames.map(exerciseName => (
-                            <FirstExercise>{exerciseName}</FirstExercise>
+                            <FirstExercise key={exerciseName}>
+                              {exerciseName}
+                            </FirstExercise>
                           ))}
                         </FirstExerciseNameWrapper>
                         <SecondExerciseNameWrapper>
-                          <TotalTime>총 시간</TotalTime>
-                          <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
+                          {exerciseSetCount.map(setCount => (
+                            <FirstExercise key={setCount}>
+                              {setCount}
+                            </FirstExercise>
+                          ))}
                         </SecondExerciseNameWrapper>
                       </ExerciseContainer>
                       <LastPlayWrapper>
                         <LastPlay>Last play : {createDate}</LastPlay>
+                        <TotalTime>총 시간</TotalTime>
+                        <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
                       </LastPlayWrapper>
                     </ContentWrapper>
                   </div>
@@ -111,6 +123,7 @@ function MyRoutine() {
               );
             })}
           </PaddingContainer>
+          <MakeRoutineButton onClick={goToExerciseList}>123</MakeRoutineButton>
         </ExerciseStartStyle>
       )}
     </div>
@@ -123,8 +136,7 @@ const ExerciseStartStyle = styled.div``;
 const PaddingContainer = styled.div`
   width: 100%;
   padding: 0 15px 0 15px;
-
-  height: 700px;
+  height: 725px;
   overflow: auto;
 `;
 
@@ -139,6 +151,8 @@ const LetterForm = styled.p`
   line-height: normal;
 `;
 const H1 = styled(LetterForm)`
+  margin-top: 30px;
+  margin-left: 15px;
   font-size: 20px;
 `;
 const Container = styled.div`
@@ -151,10 +165,11 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-const ButtonWrapper = styled.div`
+const FilterWrapper = styled.div`
   width: 100%;
   height: 20px;
   border: 1px solid;
+  margin: 15px 0;
 `;
 
 const ContentWrapper = styled.div`
@@ -200,7 +215,6 @@ const FirstExercise = styled(LetterForm)`
 const SecondExerciseNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 8px;
 `;
 const TotalTimeNumber = styled(LetterForm)`
@@ -233,4 +247,18 @@ const LastPlay = styled.p`
 const TotalTime = styled.span`
   font-size: 16px;
   color: ${({ theme }) => theme.green};
+`;
+
+const MakeRoutineButton = styled.button`
+  width: 100px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.green};
+  display: flex;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
 `;

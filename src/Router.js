@@ -14,6 +14,7 @@ import KakaoLogin from './pages/Login/Oauth/KakaoLogin';
 import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 import ExerciseList from './pages/ExerciseList/ExerciseList';
 import Completed from './pages/Completed/Completed';
+import Feed from './pages/Feed/Feed';
 
 function Router() {
   return (
@@ -31,6 +32,7 @@ function Router() {
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
             <Route path="/oauth/google" element={<GoogleLogin />} />
             <Route path="/completed" element={<Completed />} />
+            <Route path="/feed" element={<Feed />} />
           </Routes>
         </MainContainer>
         <Tab />
