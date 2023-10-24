@@ -1,19 +1,23 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../../components/Button/Button';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import BASE_API from '../../config';
 import RoutineThumbNail from '../../components/RoutineThumbNail/RoutineThumbNail';
 
 function ExerciseList(props) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const page = queryParams.get('page') || '1';
+  const limit = queryParams.get('limit') || '10';
+
   const token = localStorage.getItem('token');
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
   const [routineId, setRoutineId] = useState();
+  const [modalCheck, setModalCheck] = useState(false);
 
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const listBox = useRef();
@@ -28,10 +32,10 @@ function ExerciseList(props) {
         // setCompletedIds(result.data.selected);
         const newItems = result.data.exercises;
         setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
-        setPage(prevPage => prevPage + 1);
         setLoading(false);
       });
-    // fetch(`${BASE_API}/exercises/recommended`, {
+
+    // fetch(`${BASE_API}/exercises/recommended?page=${parseInt(page)+1}&limit=${limit}`, {
     //   method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json;charset=utf-8',
@@ -70,28 +74,47 @@ function ExerciseList(props) {
       getExerciseList();
     }
   };
+
+  const clickMakeBtn = status => {
+    setModalCheck(status);
+  };
+
+  let checkedEx = [...exerciseList];
+  let arr = [];
+  for (let i = 0; i < checkedEx.length; i++) {
+    if (completedIds.indexOf(checkedEx[i].exerciseId) >= 0) {
+      arr.push(checkedEx[i].name);
+    }
+  }
+
   if (Object.keys(exerciseList).length <= 0) return null;
 
+  console.log(arr);
   return (
     <ExerciseListStyle>
       <OutContainer>
         <FilterBox>필터</FilterBox>
         <ExerciseBox ref={listBox} onScroll={handleScroll}>
-          {exerciseList.map(data => (
-            <Container key={data.exerciseId}>
+          {exerciseList.map((data, index) => (
+            <Container key={index}>
               <ExerciseInfo>
-                <RoutineThumbNail alt={data.name} src={data.thumbnailURL} />
+                <ThumbnailBox>
+                  <RoutineThumbNail alt={data.name} src={data.thumbnailURL} />
+                </ThumbnailBox>
                 <ExerciseInfoBox>
                   <ExerciseTitle>{data.name}</ExerciseTitle>
                   <ExerciseDescription>{data.description}</ExerciseDescription>
-                  <ExerciseTime>{data.durationInMinute}</ExerciseTime>
-                  <ExerciseCaloriesUsed>
-                    {data.caloriesUsed}
-                  </ExerciseCaloriesUsed>
+                  <ExerciseDetail>
+                    <ExerciseTime>{data.durationInMinute}분</ExerciseTime>{' '}
+                    &nbsp;/&nbsp;
+                    <ExerciseCaloriesUsed>
+                      {data.caloriesUsed}kcal
+                    </ExerciseCaloriesUsed>
+                  </ExerciseDetail>
                 </ExerciseInfoBox>
               </ExerciseInfo>
               <CheckBox
-                size="medium"
+                size="mediumToLarge"
                 // checked={completedIds.includes(data.exerciseId)}
                 onChange={() => {
                   handleComplete(data.exerciseId);
@@ -101,7 +124,32 @@ function ExerciseList(props) {
           ))}
         </ExerciseBox>
         {loading && <p>Loading...</p>}
+        <MakeButton
+          onClick={() => {
+            clickMakeBtn(true);
+          }}
+        >
+          루틴 만들기
+        </MakeButton>
       </OutContainer>
+      <ExerciseListModal $check={modalCheck}>
+        <RoutineNameBox placeholder="나만의 루틴이름을 지어주세요!"></RoutineNameBox>
+        <>
+          {arr.map((data, index) => (
+            <ModalContent key={index}>{data}</ModalContent>
+          ))}
+        </>
+        <ModalBtnBox>
+          <ModalCancleBtn
+            onClick={() => {
+              clickMakeBtn(false);
+            }}
+          >
+            취소
+          </ModalCancleBtn>
+          <ModalOkBtn>확인</ModalOkBtn>
+        </ModalBtnBox>
+      </ExerciseListModal>
     </ExerciseListStyle>
   );
 }
@@ -117,7 +165,7 @@ const FilterBox = styled.div`
   margin-top: 15px;
   border: 1px solid black;
   width: 100%;
-  height: 75px;
+  height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,34 +179,132 @@ const ExerciseBox = styled.div`
   flex-direction: column;
   gap: 15px;
   overflow: auto;
-  height: 600px;
+  height: 560px;
+  @media (max-width: 1024px) {
+    height: 650px;
+    margin-bottom: 15px;
+  }
+  @media (max-height: 915px) {
+    height: 550px;
+  }
+  @media (max-height: 815px) {
+    height: 430px;
+  }
+  @media (max-height: 715px) {
+    height: 350px;
+  }
+  @media (max-height: 615px) {
+    height: 210px;
+  }
 `;
 
 const Container = styled.div`
   width: 100%;
   background-color: #fff;
   border-radius: 10px;
-  padding: 25px 15px;
+  padding: 20px 15px;
   display: flex;
   justify-content: space-between;
 `;
 
 const ExerciseInfo = styled.div`
   display: flex;
-  align-items: center;
+  margin-right: 15px;
+  align-items: flex-start;
 `;
 
+const ThumbnailBox = styled.div``;
+
 const ExerciseInfoBox = styled.div`
-  margin-left: 15px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ExerciseTitle = styled.div`
   font-size: 20px;
   font-weight: 700;
+  margin-bottom: 10px;
 `;
 
-const ExerciseDescription = styled.div``;
+const ExerciseDescription = styled.div`
+  margin-bottom: 15px;
+`;
+
+const ExerciseDetail = styled.div`
+  display: flex;
+`;
 
 const ExerciseTime = styled.div``;
 
 const ExerciseCaloriesUsed = styled.div``;
+
+const MakeButton = styled.div`
+  width: 130px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  background-color: #8bc34a;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  bottom: 10px;
+  right: 15px;
+  margin-left: auto;
+  cursor: pointer;
+  margin-top: 15px;
+`;
+
+const ExerciseListModal = styled.div`
+  padding: 20px 40px 20px 40px;
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: ${props => (props.$check ? 'flex' : 'none')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #c0c0c0;
+`;
+
+const ModalContent = styled.div`
+  margin-bottom: 20px;
+`;
+
+const RoutineNameBox = styled.input`
+  width: 250px;
+  padding: 20px 10px;
+  text-align: center;
+  border-radius: 15px;
+`;
+
+const ModalBtnBox = styled.div`
+  display: flex;
+  gap: 30px;
+`;
+
+const ModalCancleBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 40px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  border: 1px solid #cccccc;
+`;
+
+const ModalOkBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 40px;
+  border-radius: 5px;
+  background-color: #8bc34a;
+  color: white;
+`;

@@ -42,7 +42,7 @@ function ExerciseStart() {
         token: token,
       },
       body: JSON.stringify({
-        exercisesId: completdIdSArray.length ? completdIdSArray : [],
+        exerciseIds: completdIdSArray.length ? completdIdSArray : [],
       }),
       keepalive: true,
     })

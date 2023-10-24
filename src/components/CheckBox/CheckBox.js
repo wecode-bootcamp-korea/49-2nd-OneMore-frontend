@@ -37,6 +37,13 @@ const CHECKBOX_SIZE = {
     height: '24px',
     scale: 1,
   },
+
+  mediumToLarge: {
+    width: '40px',
+    height: '40px',
+    scale: 1,
+  },
+
   large: {
     width: '208px',
     height: '80px',
