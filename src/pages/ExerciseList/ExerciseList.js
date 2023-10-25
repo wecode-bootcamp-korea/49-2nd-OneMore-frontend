@@ -52,6 +52,21 @@ function ExerciseList(props) {
     //   });
   };
 
+  const getExerciseList2 = () => {
+    fetch('/data/getExerciseList2.json', {
+      method: 'GET',
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        // setCompletedIds(result.data.selected);
+        const newItems = result.data.exercises;
+        setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
+        setLoading(false);
+      });
+  };
+
   const handleComplete = id => {
     const hasId = completedIds.includes(id);
 
@@ -71,7 +86,7 @@ function ExerciseList(props) {
       listBox.current.scrollHeight - listBox.current.scrollTop ===
       listBox.current.clientHeight
     ) {
-      getExerciseList();
+      getExerciseList2();
     }
   };
 
@@ -83,12 +98,16 @@ function ExerciseList(props) {
   let arr = [];
   for (let i = 0; i < checkedEx.length; i++) {
     if (completedIds.indexOf(checkedEx[i].exerciseId) >= 0) {
-      arr.push(checkedEx[i].name);
+      arr.push({
+        name: checkedEx[i].name,
+        set: checkedEx[i].set,
+        id: checkedEx[i].exerciseId,
+      });
     }
   }
 
   if (Object.keys(exerciseList).length <= 0) return null;
-
+  console.log(completedIds);
   console.log(arr);
   return (
     <ExerciseListStyle>
@@ -132,11 +151,15 @@ function ExerciseList(props) {
           루틴 만들기
         </MakeButton>
       </OutContainer>
+      <ModalBackground $check={modalCheck} />
       <ExerciseListModal $check={modalCheck}>
-        <RoutineNameBox placeholder="나만의 루틴이름을 지어주세요!"></RoutineNameBox>
+        <RoutineNameBox placeholder="루틴이름을 지어주세요!"></RoutineNameBox>
         <>
-          {arr.map((data, index) => (
-            <ModalContent key={index}>{data}</ModalContent>
+          {arr.map(data => (
+            <ModalContent key={data.id}>
+              <ModalTitle>{data.name}</ModalTitle>
+              <ModalSet>{data.set} set</ModalSet>
+            </ModalContent>
           ))}
         </>
         <ModalBtnBox>
@@ -274,13 +297,39 @@ const ExerciseListModal = styled.div`
 
 const ModalContent = styled.div`
   margin-bottom: 20px;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const ModalTitle = styled.div`
+  font-weight: 700;
+`;
+
+const ModalSet = styled.div`
+  color: #999999;
+`;
+
+const ModalBackground = styled.div`
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  display: ${props => (props.$check ? 'block' : 'none')};
 `;
 
 const RoutineNameBox = styled.input`
-  width: 250px;
-  padding: 20px 10px;
+  width: 200px;
+  padding: 15px 5px;
   text-align: center;
-  border-radius: 15px;
+  outline: none;
+  margin-bottom: 35px;
+  border: none;
+  border-bottom: 1px solid black;
 `;
 
 const ModalBtnBox = styled.div`
