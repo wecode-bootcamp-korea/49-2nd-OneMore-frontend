@@ -270,9 +270,8 @@ const MakeRoutineButton = styled.button`
   position: absolute;
   right: 25px;
   bottom: 20px;
-  top: calc(100% - 60px); /* 화면 아래에서 60px 위에 고정 */
+  top: calc(100% - 60px);
   right: 25px;
-  margin-bottom: -60px; /* 아래로 끌어당기는 마진 추가 */
 `;
 
 const SetCount = styled(LetterForm)`
