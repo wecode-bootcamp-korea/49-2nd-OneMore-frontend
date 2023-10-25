@@ -170,7 +170,7 @@ const Container = styled.div`
 
 const FilterWrapper = styled.div`
   width: 100%;
-  margin: 8px 0;
+  margin: 12px 0;
   margin-left: 15px;
 `;
 
