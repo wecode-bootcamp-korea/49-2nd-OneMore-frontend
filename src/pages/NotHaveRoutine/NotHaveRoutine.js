@@ -32,6 +32,7 @@ export default NotHaveRoutine;
 const ExerciseStartStyle = styled.div``;
 
 const PaddingContainer = styled.div`
+  margin-top: 30px;
   width: 100%;
   padding: 0 15px 0 15px;
 `;
@@ -48,6 +49,7 @@ const LetterForm = styled.p`
 `;
 const H1 = styled(LetterForm)`
   font-size: 20px;
+  margin-bottom: 10px;
 `;
 const Container = styled.div`
   display: flex;
@@ -61,6 +63,8 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  height: 100%;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

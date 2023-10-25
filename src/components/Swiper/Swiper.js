@@ -87,17 +87,21 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
         <BackButton onClick={handleGoToPrev}>이전</BackButton>
       )}
       {isModalOpen && (
-        <Modal
-          textFirstLine={arr.map((text, index) => (
-            <div key={index}>{text.name}</div>
-          ))}
-          handleRightModalButton={handleModalOpen}
-          handleLeftModalButton={updateCompletedExercise}
-          textSecondLine="를 완료하셨습니다"
-          textThirdLine="완료하시겠습니까?"
-          leftModalText="네"
-          rightModalText="아니요"
-        />
+        <ModalWrapper>
+          <Modal
+            textFirstLine={arr.map((text, index) => (
+              <div key={index}>{text.name}</div>
+            ))}
+            handleLeftModalButton={handleModalOpen}
+            handleRightModalButton={updateCompletedExercise}
+            textSecondLine="를 완료하셨습니다"
+            textThirdLine="완료하시겠습니까?"
+            rightModalText="네"
+            leftModalText="아니요"
+            titleGap={15}
+            middleGap={15}
+          />
+        </ModalWrapper>
       )}
     </div>
   );
@@ -122,6 +126,14 @@ const SwiperStyle = styled(Carousel)`
   }
 `;
 
+const ModalWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  padding: 0 15px 0 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 const CarouselButton = styled.button`
   position: absolute;
   width: 97px;

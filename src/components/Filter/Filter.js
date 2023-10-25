@@ -84,10 +84,7 @@ function Filter(props) {
   );
 }
 
-const FilterBox = styled.div`
-  padding: 10px 0;
-  background-color: pink;
-`;
+const FilterBox = styled.div``;
 const Option = styled.button`
   padding: 8px 15px;
   margin-right: 10px;

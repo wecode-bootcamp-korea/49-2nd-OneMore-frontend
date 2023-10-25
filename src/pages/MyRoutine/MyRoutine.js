@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import NotHaveRoutine from '../NotHaveRoutine/NotHaveRoutine';
-import { useNavigate, useLocation } from 'react-router-dom';
+import Filter from '../../components/Filter/Filter';
 import BASE_API from '../../config';
 
 function MyRoutine() {
@@ -15,6 +16,10 @@ function MyRoutine() {
 
   const goToMyRoutine = id => {
     navigate(`/exercise-start/${id}`);
+  };
+
+  const goToExerciseList = () => {
+    navigate('/exercise-list');
   };
   const DataLength = myRoutineData.length;
 
@@ -43,7 +48,6 @@ function MyRoutine() {
         ]);
       });
   };
-
   useEffect(() => {
     getMyRoutineList();
   }, []);
@@ -64,17 +68,21 @@ function MyRoutine() {
         <NotHaveRoutine />
       ) : (
         <ExerciseStartStyle>
+          <H1>내 루틴</H1>
+          <FilterWrapper>
+            <Filter category="routine"></Filter>
+          </FilterWrapper>
           <PaddingContainer ref={listBox} onScroll={handleScroll}>
-            <H1>내 루틴</H1>
-            <ButtonWrapper>필터들어올 부분</ButtonWrapper>
             {myRoutineData.map(product => {
               const {
                 routineId,
                 routineName,
                 totalDuration,
                 exerciseNames,
+                exerciseSetCount,
                 createDate,
               } = product;
+
               return (
                 <Container
                   key={routineId}
@@ -98,12 +106,17 @@ function MyRoutine() {
                           ))}
                         </FirstExerciseNameWrapper>
                         <SecondExerciseNameWrapper>
-                          <TotalTime>총 시간</TotalTime>
-                          <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
+                          {exerciseSetCount.map(setCount => (
+                            <SetCount>{setCount} set</SetCount>
+                          ))}
                         </SecondExerciseNameWrapper>
                       </ExerciseContainer>
                       <LastPlayWrapper>
                         <LastPlay>Last play : {createDate}</LastPlay>
+                        <TotalDuration>
+                          <TotalTime>총 시간</TotalTime>
+                          <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
+                        </TotalDuration>
                       </LastPlayWrapper>
                     </ContentWrapper>
                   </div>
@@ -111,6 +124,9 @@ function MyRoutine() {
               );
             })}
           </PaddingContainer>
+          <MakeRoutineButton onClick={goToExerciseList}>
+            루틴 만들기
+          </MakeRoutineButton>
         </ExerciseStartStyle>
       )}
     </div>
@@ -123,8 +139,7 @@ const ExerciseStartStyle = styled.div``;
 const PaddingContainer = styled.div`
   width: 100%;
   padding: 0 15px 0 15px;
-
-  height: 700px;
+  height: 613px;
   overflow: auto;
 `;
 
@@ -139,6 +154,8 @@ const LetterForm = styled.p`
   line-height: normal;
 `;
 const H1 = styled(LetterForm)`
+  margin-top: 30px;
+  margin-left: 15px;
   font-size: 20px;
 `;
 const Container = styled.div`
@@ -151,10 +168,10 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-const ButtonWrapper = styled.div`
+const FilterWrapper = styled.div`
   width: 100%;
-  height: 20px;
-  border: 1px solid;
+  margin: 12px 0;
+  margin-left: 15px;
 `;
 
 const ContentWrapper = styled.div`
@@ -173,6 +190,11 @@ const RoutineName = styled(LetterForm)`
   font-size: 24px;
 `;
 
+const TotalDuration = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
 const MenuImg = styled.img`
   width: 4px;
   height: 15px;
@@ -200,7 +222,6 @@ const FirstExercise = styled(LetterForm)`
 const SecondExerciseNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 8px;
 `;
 const TotalTimeNumber = styled(LetterForm)`
@@ -219,6 +240,8 @@ const LastPlayWrapper = styled(WrapperForm)`
 `;
 
 const LastPlay = styled.p`
+  display: flex;
+  align-items: flex-end;
   color: #999;
   font-feature-settings:
     'clig' off,
@@ -233,4 +256,24 @@ const LastPlay = styled.p`
 const TotalTime = styled.span`
   font-size: 16px;
   color: ${({ theme }) => theme.green};
+`;
+
+const MakeRoutineButton = styled.button`
+  width: 130px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.green};
+  display: flex;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
+  top: calc(100% - 60px);
+  right: 25px;
+`;
+
+const SetCount = styled(LetterForm)`
+  font-size: 18px;
 `;

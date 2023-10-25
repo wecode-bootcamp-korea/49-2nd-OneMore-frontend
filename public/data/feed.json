@@ -1,0 +1,89 @@
+{
+  "data": [
+    {
+      "routineId": 1,
+      "nickName": "권순우",
+      "profileImage": "",
+      "feedImage": "https://one-more.s3.ap-northeast-2.amazonaws.com/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-ios-16-glyph/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-90.png",
+      "content": "밥주세요"
+    },
+    {
+      "routineId": 2,
+      "nickName": "박인국",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 3,
+      "nickName": "성희진",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+
+    {
+      "routineId": 4,
+      "nickName": "박민재",
+      "profileImage": "",
+      "feedImage": "https://www.shutterstock.com/ko/image-photo/asian-woman-practice-yoga-downward-facing-1426603991.png",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 5,
+      "nickName": "다나",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 6,
+      "nickName": "박경재",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 7,
+      "nickName": "박아영",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 8,
+      "nickName": "홍지수",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 9,
+      "nickName": "권순형",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 10,
+      "nickName": "조영준",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 11,
+      "nickName": "홍래영",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    },
+    {
+      "routineId": 12,
+      "nickName": "이승윤",
+      "profileImage": "",
+      "feedImage": "13:89",
+      "content": "2023-10-23T03:48:12.000Z"
+    }
+  ]
+}
