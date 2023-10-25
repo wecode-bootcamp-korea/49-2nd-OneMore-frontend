@@ -51,7 +51,7 @@ function Completed() {
         <LinkBox>
           <Text>오늘의 루틴이 마음에 드셨다면?</Text>
           <MyRoutineLink onClick={goToMyRoutine}>
-            내 루틴목록에 저장하기
+            내 루틴목록에 저장하기💪🏻
           </MyRoutineLink>
         </LinkBox>
       ) : null}
@@ -81,7 +81,7 @@ const Article = styled.article`
 `;
 
 const CompletedImage = styled.img`
-  height: 70%;
+  height: 60%;
 `;
 
 const ButtonBox = styled.div`
@@ -90,7 +90,9 @@ const ButtonBox = styled.div`
 const LinkBox = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 `;
 const Text = styled.span`
   font-size: 16px;
