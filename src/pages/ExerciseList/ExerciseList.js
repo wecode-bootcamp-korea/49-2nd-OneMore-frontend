@@ -183,11 +183,12 @@ function ExerciseList(props) {
       </OutContainer>
       <AlertModalBox>
         {exerciseListCheck && (
-          <AlertModal
-            handleLeftModalButton={() => {
-              modalCancle(false);
-            }}
-          ></AlertModal>
+          <AlertModal>
+            <AlertModalTitle>
+              최소 1개 이상의 운동을 선택해주세요.
+            </AlertModalTitle>
+            <AlertModalBtn>확인</AlertModalBtn>
+          </AlertModal>
         )}
       </AlertModalBox>
       <ModalBackground $check={modalCheck} />
@@ -324,10 +325,23 @@ const MakeButton = styled.div`
 const AlertModalBox = styled.div``;
 
 const AlertModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   height: 200px;
-  width: 100%;
+  width: 320px;
+  box-shadow: 5px 5px 5px 3px gray;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
+
+const AlertModalTitle = styled.div``;
+const AlertModalBtn = styled.div``;
 
 const ExerciseListModal = styled.div`
   padding: 20px 40px 20px 40px;
