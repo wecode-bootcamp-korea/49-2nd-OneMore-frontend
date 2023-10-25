@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
+import BASE_API from '../../config';
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -49,7 +50,7 @@ const Login = () => {
   const handleLogin = e => {
     e.preventDefault();
 
-    fetch('http://10.58.52.243:8000/users/login', {
+    fetch(`${BASE_API}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

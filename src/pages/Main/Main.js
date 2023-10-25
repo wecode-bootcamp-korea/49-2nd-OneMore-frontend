@@ -9,12 +9,12 @@ import BASE_API from '../../config';
 function Main(props) {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate('/login');
-  //   }
-  // }, []);
-  // if (!token) return null;
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
+  if (!token) return null;
   return (
     <MainStyle>
       <TodayRoutineTitle>오늘의 루틴</TodayRoutineTitle>
@@ -25,7 +25,7 @@ function Main(props) {
       <ButtonBox>
         <Button
           onClick={() => {
-            navigate('/routine');
+            navigate('/my-routine');
           }}
           size="large"
         >

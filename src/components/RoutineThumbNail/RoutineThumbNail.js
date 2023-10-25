@@ -23,7 +23,7 @@ const StyledRoutineThumbNail = styled.div`
 `;
 
 const StyledImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 10px;
 `;

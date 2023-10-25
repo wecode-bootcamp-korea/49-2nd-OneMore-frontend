@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import BASE_API from '../../config';
 
 const Signup = () => {
   const [userInfo, setUserInfo] = useState({
@@ -33,7 +34,7 @@ const Signup = () => {
     isEmailValid && isPwValid && isPwChkValid && isNicknameValid;
 
   const handleSignUp = () => {
-    fetch('http://10.58.52.243:8000/users/', {
+    fetch(`${BASE_API}/users/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,6 +53,7 @@ const Signup = () => {
         throw new Error('communication failure');
       })
       .then(result => {
+        console.log(result);
         if (result.message === 'USER_CREATED') {
           alert('회원가입 완료');
           navigate('/login');

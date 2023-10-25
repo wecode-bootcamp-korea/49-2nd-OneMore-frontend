@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import Swiper from '../../components/Swiper/Swiper';
 import styled from 'styled-components';
 import BASE_API from '../../config';
@@ -7,11 +7,13 @@ import BASE_API from '../../config';
 function ExerciseStart() {
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
-  const [routineId, setRoutineId] = useState();
-  const [isCustomed, setIsCustomed] = useState([]);
+  const [isCustomed, setIsCustomed] = useState(0);
   const navigate = useNavigate();
 
-  const { id } = useParams();
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryParams = new URLSearchParams(location.search);
+  const routineId = queryParams.get('routineid');
 
   const goToComplete = () => {
     navigate(`/completed?iscustomed=${isCustomed}&routineId=${routineId}`);
@@ -36,14 +38,14 @@ function ExerciseStart() {
       alert('완료한 운동이 없습니다');
       return;
     }
-    fetch(`${BASE_API}/routines/${id}`, {
+    fetch(`${BASE_API}/routines/${routineId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        token: token,
+        authorization: token,
       },
       body: JSON.stringify({
-        exercisesId: completdIdSArray.length ? completdIdSArray : [],
+        exerciseIds: completdIdSArray.length ? completdIdSArray : [],
       }),
       keepalive: true,
     })
@@ -56,18 +58,19 @@ function ExerciseStart() {
   };
 
   const getExerciseCardData = () => {
-    fetch('/data/gyeongjae.json', {
-      // fetch(`${BASE_API}/routines/${id}`, {
+    // fetch('/data/gyeongjae.json', {
+    fetch(`${BASE_API}/routines/${routineId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        token: token,
+        authorization: token,
       },
     })
       .then(response => {
         return response.json();
       })
       .then(result => {
+        console.log(result);
         const exerciseFilterList = result.data.exercises.filter(
           exercise => exercise.isCompleted === 1,
         );
@@ -79,9 +82,10 @@ function ExerciseStart() {
 
         setCompletedIds(resultIdList);
 
-        setRoutineId(result.data.routineId);
-
         setIsCustomed(result.data.isCustom);
+
+        searchParams.set('iscutomed', isCustomed);
+        setSearchParams(searchParams);
       });
   };
 
@@ -100,6 +104,7 @@ function ExerciseStart() {
     };
   }, []);
 
+  console.log(isCustomed);
   return (
     <ExerciseStartStyle>
       <PaddingContainer>
