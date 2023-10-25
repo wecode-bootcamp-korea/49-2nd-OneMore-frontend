@@ -7,7 +7,7 @@ function IconButton({ type = 'button', name, size, icon, onClick, ...props }) {
       type={type}
       name={name}
       size={size}
-      icon={icon}
+      $icon={icon}
       onClick={onClick}
       {...props}
     />

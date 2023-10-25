@@ -17,6 +17,7 @@ function ExerciseList(props) {
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
   const [routineId, setRoutineId] = useState();
+  const [subscriptionCheck, setSubscriptionCheck] = useState(false);
   const [exerciseListCheck, setExerciseListCheck] = useState(false);
   const [modalCheck, setModalCheck] = useState(false);
   const [routineTitle, setRoutineTitle] = useState('');
@@ -55,7 +56,7 @@ function ExerciseList(props) {
 
   const postExerciseList = () => {
     fetch('/data/getExerciseList.json', {
-      method: 'GET',
+      method: 'POST',
     })
       .then(response => {
         return response.json();
@@ -106,8 +107,12 @@ function ExerciseList(props) {
     }
   };
 
-  const modalCancle = status => {
-    setExerciseListCheck(status);
+  const SubscriptionClick = status => {
+    setSubscriptionCheck(status);
+  };
+
+  const AlertmodalCancle = () => {
+    setSubscriptionCheck(false);
   };
 
   const clickMakeBtn = status => {
@@ -135,7 +140,6 @@ function ExerciseList(props) {
 
   if (Object.keys(exerciseList).length <= 0) return null;
 
-  console.log(routineTitle);
   return (
     <ExerciseListStyle>
       <OutContainer>
@@ -144,53 +148,83 @@ function ExerciseList(props) {
           <Filter category="part" />
         </FilterBox>
         <ExerciseBox ref={listBox} onScroll={handleScroll}>
-          {exerciseList.map((data, index) => (
-            <Container key={index}>
-              <ExerciseInfo>
-                <ThumbnailBox>
-                  <RoutineThumbNail alt={data.name} src={data.thumbnailURL} />
-                </ThumbnailBox>
-                <ExerciseInfoBox>
-                  <ExerciseTitle>{data.name}</ExerciseTitle>
-                  <ExerciseDescription>{data.description}</ExerciseDescription>
-                  <ExerciseDetail>
-                    <ExerciseTime>{data.durationInMinute}분</ExerciseTime>{' '}
-                    &nbsp;/&nbsp;
-                    <ExerciseCaloriesUsed>
-                      {data.caloriesUsed}kcal
-                    </ExerciseCaloriesUsed>
-                  </ExerciseDetail>
-                </ExerciseInfoBox>
-              </ExerciseInfo>
-              <CheckBox
-                size="mediumToLarge"
-                // checked={completedIds.includes(data.exerciseId)}
-                onChange={() => {
-                  handleComplete(data.exerciseId);
-                }}
-              ></CheckBox>
-            </Container>
-          ))}
+          <>
+            {exerciseList.map((data, index) => (
+              <Container key={index}>
+                <SubscriptionBack
+                  onClick={() => {
+                    SubscriptionClick(true);
+                  }}
+                />
+                <SubscriptionLock
+                  onClick={() => {
+                    SubscriptionClick(true);
+                  }}
+                />
+                <ExerciseInfo>
+                  <ThumbnailBox>
+                    <RoutineThumbNail alt={data.name} src={data.thumbnailURL} />
+                  </ThumbnailBox>
+                  <ExerciseInfoBox>
+                    <ExerciseTitle>{data.name}</ExerciseTitle>
+                    <ExerciseDescription>
+                      {data.description}
+                    </ExerciseDescription>
+                    <ExerciseDetail>
+                      <ExerciseTime>{data.durationInMinute}분</ExerciseTime>{' '}
+                      &nbsp;/&nbsp;
+                      <ExerciseCaloriesUsed>
+                        {data.caloriesUsed}kcal
+                      </ExerciseCaloriesUsed>
+                    </ExerciseDetail>
+                  </ExerciseInfoBox>
+                </ExerciseInfo>
+                <CheckBox
+                  size="mediumToLarge"
+                  // checked={completedIds.includes(data.exerciseId)}
+                  onChange={() => {
+                    handleComplete(data.exerciseId);
+                  }}
+                ></CheckBox>
+              </Container>
+            ))}
+          </>
+          <MakeButton
+            onClick={() => {
+              clickMakeBtn(true);
+            }}
+          >
+            루틴 만들기
+          </MakeButton>
         </ExerciseBox>
         {loading && <p>Loading...</p>}
-        <MakeButton
-          onClick={() => {
-            clickMakeBtn(true);
-          }}
-        >
-          루틴 만들기
-        </MakeButton>
       </OutContainer>
+      <SubscriptionModalBox>
+        {subscriptionCheck && (
+          <SubscriptionModal>
+            <SubscriptionTitle>
+              구독자 전용 영상이에요! 구독하시겠어요?
+            </SubscriptionTitle>
+            <SubscriptionBtnBox>
+              <SubscriptionCancleBtn onClick={AlertmodalCancle}>
+                취소
+              </SubscriptionCancleBtn>
+              <SubsriptionGoBtn>구독하러 가기</SubsriptionGoBtn>
+            </SubscriptionBtnBox>
+          </SubscriptionModal>
+        )}
+      </SubscriptionModalBox>
       <AlertModalBox>
         {exerciseListCheck && (
           <AlertModal>
             <AlertModalTitle>
               최소 1개 이상의 운동을 선택해주세요.
             </AlertModalTitle>
-            <AlertModalBtn>확인</AlertModalBtn>
+            <AlertModalBtn onClick={AlertmodalCancle}>확인</AlertModalBtn>
           </AlertModal>
         )}
       </AlertModalBox>
+
       <ModalBackground $check={modalCheck} />
       <ExerciseListModal $check={modalCheck}>
         <RoutineNameBox
@@ -244,22 +278,10 @@ const ExerciseBox = styled.div`
   flex-direction: column;
   gap: 15px;
   overflow: auto;
-  height: 560px;
+  height: 630px;
+
   @media (max-width: 1024px) {
-    height: 650px;
-    margin-bottom: 15px;
-  }
-  @media (max-height: 915px) {
-    height: 550px;
-  }
-  @media (max-height: 815px) {
-    height: 430px;
-  }
-  @media (max-height: 715px) {
-    height: 350px;
-  }
-  @media (max-height: 615px) {
-    height: 260px;
+    position: static;
   }
 `;
 
@@ -270,6 +292,30 @@ const Container = styled.div`
   padding: 20px 15px;
   display: flex;
   justify-content: space-between;
+  position: relative;
+`;
+
+const SubscriptionBack = styled.div`
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.17);
+  position: absolute;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+
+const SubscriptionLock = styled.div`
+  width: 65px;
+  height: 65px;
+  background-image: url(/images/lock.png);
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
 `;
 
 const ExerciseInfo = styled.div`
@@ -314,12 +360,75 @@ const MakeButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: sticky;
-  bottom: 10px;
-  right: 15px;
+  position: absolute;
+  bottom: 15px;
+  right: 5px;
+
   margin-left: auto;
   cursor: pointer;
   margin-top: 15px;
+
+  @media (max-width: 1024px) {
+    right: 30px;
+  }
+`;
+
+const SubscriptionModalBox = styled.div``;
+
+const SubscriptionModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  height: 200px;
+  width: 320px;
+  box-shadow: 5px 5px 5px 1px gray;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SubscriptionTitle = styled.div`
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 25px;
+  width: 80%;
+  word-break: keep-all;
+  text-align: center;
+  line-height: 1.2;
+`;
+
+const SubscriptionBtnBox = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+
+const SubscriptionCancleBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 5px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+  width: 120px;
+`;
+
+const SubsriptionGoBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 5px;
+  border-radius: 5px;
+  background-color: #8bc34a;
+  color: white;
+  cursor: pointer;
+  width: 120px;
 `;
 
 const AlertModalBox = styled.div``;
@@ -332,7 +441,7 @@ const AlertModal = styled.div`
   background-color: white;
   height: 200px;
   width: 320px;
-  box-shadow: 5px 5px 5px 3px gray;
+  box-shadow: 5px 5px 5px 1px gray;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -340,13 +449,20 @@ const AlertModal = styled.div`
   align-items: center;
 `;
 
-const AlertModalTitle = styled.div``;
+const AlertModalTitle = styled.div`
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 25px;
+`;
 const AlertModalBtn = styled.div`
-  width: 150px;
-  padding: 10px 0;
+  width: 100px;
+  padding: 15px 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #8bc34a;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 
 const ExerciseListModal = styled.div`
@@ -415,6 +531,7 @@ const ModalCancleBtn = styled.div`
   background-color: white;
   color: black;
   border: 1px solid #cccccc;
+  cursor: pointer;
 `;
 
 const ModalOkBtn = styled.div`
@@ -425,4 +542,5 @@ const ModalOkBtn = styled.div`
   border-radius: 5px;
   background-color: #8bc34a;
   color: white;
+  cursor: pointer;
 `;

@@ -41,9 +41,9 @@ function Filter(props) {
           {MACHINE_LIST.map(({ id, text, machine }) => (
             <Option
               key={id}
-              text={text}
+              $text={text}
               onClick={() => machineClick(machine)}
-              isActive={queryParams.get('machine') == machine}
+              $isActive={queryParams.get('machine') == machine}
             >
               {text}
             </Option>
@@ -56,9 +56,9 @@ function Filter(props) {
           {PART_LIST.map(({ id, text, part }) => (
             <Option
               key={id}
-              text={text}
+              $text={text}
               onClick={() => partClick(part)}
-              isActive={queryParams.get('part') == part}
+              $isActive={queryParams.get('part') == part}
             >
               {text}
             </Option>
@@ -71,9 +71,9 @@ function Filter(props) {
           {ROUTINE_LIST.map(({ id, text, routine }) => (
             <Option
               key={id}
-              text={text}
+              $text={text}
               onClick={() => routineClick(routine)}
-              isActive={queryParams.get('routine') == routine}
+              $isActive={queryParams.get('routine') == routine}
             >
               {text}
             </Option>
@@ -89,8 +89,8 @@ const Option = styled.button`
   padding: 8px 15px;
   margin-right: 10px;
   border-radius: 15px;
-  background-color: ${props => (props.isActive ? '#8bc34a' : '#fff')};
-  color: ${props => (props.isActive ? '#fff' : '#8bc34a')};
+  background-color: ${props => (props.$isActive ? '#8bc34a' : '#fff')};
+  color: ${props => (props.$isActive ? '#fff' : '#8bc34a')};
 
   &:hover {
     background-color: #8bc34a;
