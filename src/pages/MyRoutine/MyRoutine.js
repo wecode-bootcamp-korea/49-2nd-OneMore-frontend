@@ -60,7 +60,7 @@ function MyRoutine() {
       navigate(`/My-routine?page=${parseInt(page) + 1}&limit=${limit}`);
     }
   };
-  console.log(myRoutineData);
+
   return (
     <div>
       {handleNotHaveMyRoutine ? (
@@ -99,23 +99,21 @@ function MyRoutine() {
                       <ExerciseContainer>
                         <FirstExerciseNameWrapper>
                           {exerciseNames.map(exerciseName => (
-                            <FirstExercise key={exerciseName}>
-                              {exerciseName}
-                            </FirstExercise>
+                            <FirstExercise>{exerciseName}</FirstExercise>
                           ))}
                         </FirstExerciseNameWrapper>
                         <SecondExerciseNameWrapper>
                           {exerciseSetCount.map(setCount => (
-                            <FirstExercise key={setCount}>
-                              {setCount}
-                            </FirstExercise>
+                            <SetCount>{setCount} set</SetCount>
                           ))}
                         </SecondExerciseNameWrapper>
                       </ExerciseContainer>
                       <LastPlayWrapper>
                         <LastPlay>Last play : {createDate}</LastPlay>
-                        <TotalTime>총 시간</TotalTime>
-                        <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
+                        <SSS>
+                          <TotalTime>총 시간</TotalTime>
+                          <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
+                        </SSS>
                       </LastPlayWrapper>
                     </ContentWrapper>
                   </div>
@@ -188,6 +186,11 @@ const RoutineName = styled(LetterForm)`
   font-size: 24px;
 `;
 
+const SSS = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
 const MenuImg = styled.img`
   width: 4px;
   height: 15px;
@@ -233,6 +236,8 @@ const LastPlayWrapper = styled(WrapperForm)`
 `;
 
 const LastPlay = styled.p`
+  display: flex;
+  align-items: flex-end;
   color: #999;
   font-feature-settings:
     'clig' off,
@@ -261,4 +266,8 @@ const MakeRoutineButton = styled.button`
   position: absolute;
   right: 25px;
   bottom: 20px;
+`;
+
+const SetCount = styled(LetterForm)`
+  font-size: 18px;
 `;
