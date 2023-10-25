@@ -11,9 +11,9 @@ function Completed() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParams = new URLSearchParams(location.search);
-
+  const token = localStorage.getItem('token');
   const isCustomed = queryParams.get('iscustomed');
-  const routineId = queryParams.get('routineid');
+  const routineId = queryParams.get('routine-id');
 
   const goToMain = e => {
     e.preventDefault();
@@ -22,22 +22,22 @@ function Completed() {
   };
 
   const goToMyRoutine = () => {
-    // fetch(`${BASE_API}/routines/${routineId}/completed`, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     //routineId: routineId,
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    if (true) {
-      searchParams.delete('iscustomed');
-      searchParams.delete('routineid');
-      navigate('/my-routine');
-    }
-    //     console.log(result);
-    //     navigate('/my-routine');
-    //   });
+    fetch(`${BASE_API}/routines/${routineId}/isCustom`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: token,
+      },
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result.message === 'SAVE_TO_CUSTOM_SUCCESS') {
+          searchParams.delete('iscustomed');
+          searchParams.delete('routineid');
+          return navigate('/my-routine');
+        }
+        console.log('나는 실패');
+      });
   };
 
   return (

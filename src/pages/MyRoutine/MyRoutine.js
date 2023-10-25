@@ -24,23 +24,24 @@ function MyRoutine() {
   const DataLength = myRoutineData.length;
 
   const handleNotHaveMyRoutine = DataLength === 0;
-
+  const token = localStorage.getItem('token');
   const getMyRoutineList = () => {
-    // const fetchURL = `${BASE_API}/routines/my?page=${page}&limit=${limit}`;
+    const fetchURL = `${BASE_API}/routines/my?page=${page}&limit=${limit}`;
 
-    const fetchURL = `/data/MyRoutine.json`;
+    // const fetchURL = `/data/MyRoutine.json`;
 
     fetch(fetchURL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        authorization: localStorage.getItem('token'),
+        authorization: token,
       },
     })
       .then(response => {
         return response.json();
       })
       .then(result => {
+        console.log(result);
         const newItems = result.data;
         setMyRoutineData(prevMyRoutineList => [
           ...prevMyRoutineList,
