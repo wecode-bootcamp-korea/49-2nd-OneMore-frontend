@@ -323,8 +323,10 @@ const MakeButton = styled.div`
 
 const AlertModalBox = styled.div``;
 
-const AlertBox = styled.div`
+const AlertModal = styled.div`
   background-color: white;
+  height: 200px;
+  width: 100%;
 `;
 
 const ExerciseListModal = styled.div`
