@@ -3,6 +3,7 @@
   "data": {
     "routineId": 4,
     "totalDuration": "4050",
+    "isCustom": 1,
     "totalCaloriesUsed": "3385",
     "exerciseIds": [5, 4, 8, 7, 9],
     "exercises": [

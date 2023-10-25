@@ -8,12 +8,13 @@ function ExerciseStart() {
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
   const [routineId, setRoutineId] = useState();
+  const [isCustomed, setIsCustomed] = useState([]);
   const navigate = useNavigate();
 
   const { id } = useParams();
 
   const goToComplete = () => {
-    navigate('/completed');
+    navigate(`/completed?iscustomed=${isCustomed}`);
   };
 
   const handleComplete = id => {
@@ -79,6 +80,8 @@ function ExerciseStart() {
         setCompletedIds(resultIdList);
 
         setRoutineId(result.data.routineId);
+
+        setIsCustomed(result.data.isCustom);
       });
   };
 

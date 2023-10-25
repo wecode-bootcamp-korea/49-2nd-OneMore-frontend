@@ -14,6 +14,10 @@ import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 import ExerciseList from './pages/ExerciseList/ExerciseList';
 import SignupTerms from './pages/Signup/SignupTerms';
 import Completed from './pages/Completed/Completed';
+<<<<<<< HEAD
+=======
+import Feed from './pages/Feed/Feed';
+>>>>>>> c1cd9d65a98b251f212f8fac2f062031c9bb6b88
 
 function Router() {
   return (
@@ -32,6 +36,7 @@ function Router() {
             <Route path="/oauth/google" element={<GoogleLogin />} />
             <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
+            <Route path="/feed" element={<Feed />} />
           </Routes>
         </MainContainer>
         <Tab />

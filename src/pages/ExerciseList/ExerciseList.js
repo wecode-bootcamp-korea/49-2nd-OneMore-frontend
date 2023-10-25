@@ -5,7 +5,6 @@ import Filter from '../../components/Filter/Filter';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import BASE_API from '../../config';
 import RoutineThumbNail from '../../components/RoutineThumbNail/RoutineThumbNail';
-import Modal from '../../components/Modal/Modal';
 
 function ExerciseList(props) {
   const navigate = useNavigate();
@@ -184,11 +183,11 @@ function ExerciseList(props) {
       </OutContainer>
       <AlertModalBox>
         {exerciseListCheck && (
-          <Modal
+          <AlertModal
             handleLeftModalButton={() => {
               modalCancle(false);
             }}
-          ></Modal>
+          ></AlertModal>
         )}
       </AlertModalBox>
       <ModalBackground $check={modalCheck} />
@@ -323,6 +322,10 @@ const MakeButton = styled.div`
 `;
 
 const AlertModalBox = styled.div``;
+
+const AlertBox = styled.div`
+  background-color: white;
+`;
 
 const ExerciseListModal = styled.div`
   padding: 20px 40px 20px 40px;
