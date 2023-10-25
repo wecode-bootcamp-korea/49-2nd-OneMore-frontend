@@ -68,9 +68,8 @@ const GridContainer = styled.div`
   justify-content: center;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  border: 1px solid pink;
 
-  height: 600px;
+  height: 480px;
   border-radius: 16px;
   position: relative;
   top: 50px;
@@ -88,14 +87,15 @@ const GridContainer = styled.div`
 const One = styled.div`
   /* border-bottom: 1px solid blue;
   border-right: 1px solid blue; */
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+  border: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 2px;
+  overflow: auto;
 `;
 
 const FeedImage = styled.img`
-  height: 140px;
-  width: 140px;
+  height: 110px;
+  width: 110px;
 `;
