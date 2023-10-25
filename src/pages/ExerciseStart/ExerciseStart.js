@@ -14,7 +14,7 @@ function ExerciseStart() {
   const { id } = useParams();
 
   const goToComplete = () => {
-    navigate(`/completed?iscustomed=${isCustomed}`);
+    navigate(`/completed?iscustomed=${isCustomed}&routineId=${routineId}`);
   };
 
   const handleComplete = id => {
