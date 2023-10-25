@@ -1,146 +1,121 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const exerciseOptions = ['전체', '무산소', '유산소'];
-const placeOption = ['전체', '상체', '하체'];
-const filterOptions = ['전체', 'filter01', 'filter02', 'filter03', 'filter04'];
+function Filter(props) {
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryParams = new URLSearchParams(location.search);
 
-function Filter() {
-  const initialFilters = {
-    exercise: exerciseOptions.reduce((options, option) => {
-      options[option] = option === '전체'; // '전체' 필터만 처음에 true로 설정
-      return options;
-    }, {}),
-    place: placeOption.reduce((options, option) => {
-      options[option] = option === '전체';
-      return options;
-    }, {}),
-    filters: filterOptions.reduce((options, option) => {
-      options[option] = option === '전체';
-      return options;
-    }, {}),
+  const machineClick = id => {
+    if (id === null) {
+      searchParams.delete('machine');
+    } else {
+      searchParams.set('machine', id);
+    }
+    setSearchParams(searchParams);
   };
 
-  const [checkedFilters, setCheckedFilters] = useState(initialFilters);
+  const partClick = id => {
+    if (id === null) {
+      searchParams.delete('part');
+    } else {
+      searchParams.set('part', id);
+    }
+    setSearchParams(searchParams);
+  };
 
-  const handleFilterChange = (filterType, category) => {
-    setCheckedFilters(prevFilters => {
-      const updatedCategory = {
-        ...prevFilters[category],
-        [filterType]: !prevFilters[category][filterType],
-      };
-
-      if (filterType === '전체') {
-        // '전체' 필터를 선택한 경우 해당 카테고리의 모든 필터를 선택 또는 해제
-        Object.keys(updatedCategory).forEach(key => {
-          if (key !== '전체') {
-            updatedCategory[key] = !prevFilters[category]['전체'];
-          }
-        });
-      } else {
-        // 다른 필터를 선택한 경우 '전체' 필터를 선택 해제
-        updatedCategory['전체'] = false;
-      }
-
-      // 만약 모든 필터가 false인 경우 '전체' 필터도 선택 해제
-      if (
-        !Object.keys(updatedCategory).some(
-          key => key !== '전체' && updatedCategory[key],
-        )
-      ) {
-        updatedCategory['전체'] = false;
-      }
-
-      return {
-        ...prevFilters,
-        [category]: updatedCategory,
-      };
-    });
+  const routineClick = id => {
+    if (id === null) {
+      searchParams.delete('routine');
+    } else {
+      searchParams.set('routine', id);
+    }
+    setSearchParams(searchParams);
   };
 
   return (
     <>
-      <FilterCategory
-        category="exercise"
-        options={exerciseOptions}
-        handleFilterChange={handleFilterChange}
-        checkedFilters={checkedFilters}
-      />
-      <FilterCategory
-        category="place"
-        options={placeOption}
-        handleFilterChange={handleFilterChange}
-        checkedFilters={checkedFilters}
-      />
-      <FilterCategory
-        category="filters"
-        options={filterOptions}
-        handleFilterChange={handleFilterChange}
-        checkedFilters={checkedFilters}
-      />
+      {props.category === 'machine' ? (
+        <FilterBox>
+          {MACHINE_LIST.map(({ id, text, machine }) => (
+            <Option
+              key={id}
+              text={text}
+              onClick={() => machineClick(machine)}
+              isActive={queryParams.get('machine') == machine}
+            >
+              {text}
+            </Option>
+          ))}
+        </FilterBox>
+      ) : null}
+
+      {props.category === 'part' ? (
+        <FilterBox>
+          {PART_LIST.map(({ id, text, part }) => (
+            <Option
+              key={id}
+              text={text}
+              onClick={() => partClick(part)}
+              isActive={queryParams.get('part') == part}
+            >
+              {text}
+            </Option>
+          ))}
+        </FilterBox>
+      ) : null}
+
+      {props.category === 'routine' ? (
+        <FilterBox>
+          {ROUTINE_LIST.map(({ id, text, routine }) => (
+            <Option
+              key={id}
+              text={text}
+              onClick={() => routineClick(routine)}
+              isActive={queryParams.get('routine') == routine}
+            >
+              {text}
+            </Option>
+          ))}
+        </FilterBox>
+      ) : null}
     </>
   );
 }
 
-const FilterCategory = ({
-  category,
-  options,
-  handleFilterChange,
-  checkedFilters,
-}) => {
-  return (
-    <FilterWrap>
-      {options.map(filterType => (
-        <FilterItem key={filterType}>
-          <FilterInput
-            type="checkbox"
-            checked={checkedFilters[category][filterType]}
-            readOnly
-          />
-          <FilterLabel
-            checked={checkedFilters[category][filterType]}
-            onClick={() => handleFilterChange(filterType, category)}
-          >
-            {filterType}
-          </FilterLabel>
-        </FilterItem>
-      ))}
-    </FilterWrap>
-  );
-};
-
-const FilterWrap = styled.ul`
-  display: flex;
-  list-style: none;
-  margin-bottom: 10px;
+const FilterBox = styled.div`
+  padding: 10px 0;
 `;
-
-const FilterItem = styled.li`
-  display: inline-block;
+const Option = styled.button`
+  padding: 8px 15px;
   margin-right: 10px;
-`;
+  border-radius: 15px;
+  background-color: ${props => (props.isActive ? '#8bc34a' : '#fff')};
+  color: ${props => (props.isActive ? '#fff' : '#8bc34a')};
 
-const FilterLabel = styled.label`
-  background-color: #fff;
-  border-radius: 10px;
-  //padding: 20px;
-  border: 1px solid #fff;
-  padding: 3px 7px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-
-  ${props =>
-    props.checked &&
-    `
-    border: 1px solid #8bc34a;
+  &:hover {
     background-color: #8bc34a;
     color: #fff;
-  `};
+  }
 `;
 
-const FilterInput = styled.input`
-  display: none;
-`;
+const MACHINE_LIST = [
+  { id: 1, text: '전체', machine: null },
+  { id: 2, text: '기구', machine: 1 },
+  { id: 3, text: '맨몸', machine: 2 },
+];
 
+const PART_LIST = [
+  { id: 1, text: '전체', part: null },
+  { id: 2, text: '전신', part: 1 },
+  { id: 3, text: '상체', part: 2 },
+  { id: 4, text: '하체', part: 3 },
+];
+
+const ROUTINE_LIST = [
+  { id: 1, text: '전체', routine: null },
+  { id: 2, text: '오늘의 루틴', routine: 1 },
+  { id: 3, text: '내 루틴', routine: 2 },
+];
 export default Filter;

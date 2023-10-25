@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import NotHaveRoutine from '../NotHaveRoutine/NotHaveRoutine';
-import { useNavigate, useLocation } from 'react-router-dom';
+import Filter from '../../components/Filter/Filter';
 import BASE_API from '../../config';
 
 function MyRoutine() {
@@ -68,8 +69,10 @@ function MyRoutine() {
       ) : (
         <ExerciseStartStyle>
           <H1>내 루틴</H1>
+          <FilterWrapper>
+            <Filter category="routine"></Filter>
+          </FilterWrapper>
           <PaddingContainer ref={listBox} onScroll={handleScroll}>
-            <FilterWrapper>필터들어올 부분</FilterWrapper>
             {myRoutineData.map(product => {
               const {
                 routineId,
@@ -110,10 +113,10 @@ function MyRoutine() {
                       </ExerciseContainer>
                       <LastPlayWrapper>
                         <LastPlay>Last play : {createDate}</LastPlay>
-                        <SSS>
+                        <TotalDuration>
                           <TotalTime>총 시간</TotalTime>
                           <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
-                        </SSS>
+                        </TotalDuration>
                       </LastPlayWrapper>
                     </ContentWrapper>
                   </div>
@@ -121,7 +124,9 @@ function MyRoutine() {
               );
             })}
           </PaddingContainer>
-          <MakeRoutineButton onClick={goToExerciseList}>123</MakeRoutineButton>
+          <MakeRoutineButton onClick={goToExerciseList}>
+            루틴 만들기
+          </MakeRoutineButton>
         </ExerciseStartStyle>
       )}
     </div>
@@ -134,7 +139,7 @@ const ExerciseStartStyle = styled.div``;
 const PaddingContainer = styled.div`
   width: 100%;
   padding: 0 15px 0 15px;
-  height: 725px;
+  height: 613px;
   overflow: auto;
 `;
 
@@ -165,9 +170,8 @@ const Container = styled.div`
 
 const FilterWrapper = styled.div`
   width: 100%;
-  height: 20px;
-  border: 1px solid;
-  margin: 15px 0;
+  margin: 8px 0;
+  margin-left: 15px;
 `;
 
 const ContentWrapper = styled.div`
@@ -186,7 +190,7 @@ const RoutineName = styled(LetterForm)`
   font-size: 24px;
 `;
 
-const SSS = styled.div`
+const TotalDuration = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -255,7 +259,7 @@ const TotalTime = styled.span`
 `;
 
 const MakeRoutineButton = styled.button`
-  width: 100px;
+  width: 130px;
   height: 40px;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.green};
@@ -266,6 +270,9 @@ const MakeRoutineButton = styled.button`
   position: absolute;
   right: 25px;
   bottom: 20px;
+  top: calc(100% - 60px); /* 화면 아래에서 60px 위에 고정 */
+  right: 25px;
+  margin-bottom: -60px; /* 아래로 끌어당기는 마진 추가 */
 `;
 
 const SetCount = styled(LetterForm)`

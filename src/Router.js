@@ -9,10 +9,10 @@ import NotHaveRoutine from './pages/NotHaveRoutine/NotHaveRoutine';
 import MyCustomRoutine from './pages/MyRoutine/MyRoutine';
 import Tab from './components/Tab/Tab';
 import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
 import KakaoLogin from './pages/Login/Oauth/KakaoLogin';
 import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 import ExerciseList from './pages/ExerciseList/ExerciseList';
+import SignupTerms from './pages/Signup/SignupTerms';
 import Completed from './pages/Completed/Completed';
 import Feed from './pages/Feed/Feed';
 
@@ -31,6 +31,7 @@ function Router() {
             <Route path="/exercise-list" element={<ExerciseList />} />
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
             <Route path="/oauth/google" element={<GoogleLogin />} />
+            <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
           </Routes>

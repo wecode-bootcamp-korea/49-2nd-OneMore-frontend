@@ -43,7 +43,6 @@ const NavBox = styled.div`
   top: 50px;
   right: 0;
   z-index: 100;
-  //position: fixed;
 `;
 
 const NavWrap = styled.div`
@@ -67,7 +66,7 @@ const MyPage = styled.div`
   justify-content: center;
   text-indent: 20%;
   margin-top: 15px;
-  color: #618264;
+  //color: #618264;
 `;
 
 const MyPageList = styled.span`
