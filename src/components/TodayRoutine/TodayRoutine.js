@@ -141,7 +141,6 @@ const CommonTextStyles = styled.span`
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-family: Inter;
   font-style: normal;
   line-height: 18px;
 `;

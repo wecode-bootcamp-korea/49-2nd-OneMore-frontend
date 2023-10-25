@@ -25,7 +25,7 @@ function Main(props) {
       <ButtonBox>
         <Button
           onClick={() => {
-            navigate('/routine');
+            navigate('/my-routine');
           }}
           size="large"
         >

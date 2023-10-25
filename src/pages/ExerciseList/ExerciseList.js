@@ -341,7 +341,13 @@ const AlertModal = styled.div`
 `;
 
 const AlertModalTitle = styled.div``;
-const AlertModalBtn = styled.div``;
+const AlertModalBtn = styled.div`
+  width: 150px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const ExerciseListModal = styled.div`
   padding: 20px 40px 20px 40px;
