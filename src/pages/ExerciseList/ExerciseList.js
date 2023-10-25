@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import Filter from '../../components/Filter/Filter';
 import CheckBox from '../../components/CheckBox/CheckBox';
 import BASE_API from '../../config';
 import RoutineThumbNail from '../../components/RoutineThumbNail/RoutineThumbNail';
+import Modal from '../../components/Modal/Modal';
 
 function ExerciseList(props) {
   const navigate = useNavigate();
@@ -11,13 +13,14 @@ function ExerciseList(props) {
   const queryParams = new URLSearchParams(location.search);
   const page = queryParams.get('page') || '1';
   const limit = queryParams.get('limit') || '10';
-
   const token = localStorage.getItem('token');
+
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
   const [routineId, setRoutineId] = useState();
+  const [exerciseListCheck, setExerciseListCheck] = useState(false);
   const [modalCheck, setModalCheck] = useState(false);
-
+  const [routineTitle, setRoutineTitle] = useState('');
   const [loading, setLoading] = useState(false);
 
   const listBox = useRef();
@@ -29,7 +32,6 @@ function ExerciseList(props) {
         return response.json();
       })
       .then(result => {
-        // setCompletedIds(result.data.selected);
         const newItems = result.data.exercises;
         setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
         setLoading(false);
@@ -52,19 +54,34 @@ function ExerciseList(props) {
     //   });
   };
 
-  const getExerciseList2 = () => {
-    fetch('/data/getExerciseList2.json', {
+  const postExerciseList = () => {
+    fetch('/data/getExerciseList.json', {
       method: 'GET',
     })
       .then(response => {
         return response.json();
       })
       .then(result => {
-        // setCompletedIds(result.data.selected);
         const newItems = result.data.exercises;
         setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
         setLoading(false);
       });
+
+    // fetch(`${BASE_API}/exercises/recommended?page=${parseInt(page)+1}&limit=${limit}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //     token: token,
+    //   },
+    // })
+    //   .then(response => {
+    //     console.log(response);
+    //     return response.json();
+    //   })
+    //   .then(result => {
+    //     console.log(result.data);
+    //     setTodayRoutineData(result.data);
+    //   });
   };
 
   const handleComplete = id => {
@@ -86,11 +103,18 @@ function ExerciseList(props) {
       listBox.current.scrollHeight - listBox.current.scrollTop ===
       listBox.current.clientHeight
     ) {
-      getExerciseList2();
+      getExerciseList();
     }
   };
 
+  const modalCancle = status => {
+    setExerciseListCheck(status);
+  };
+
   const clickMakeBtn = status => {
+    if (completedIds.length === 0) {
+      return setExerciseListCheck(true);
+    }
     setModalCheck(status);
   };
 
@@ -106,13 +130,20 @@ function ExerciseList(props) {
     }
   }
 
+  const handleName = e => {
+    setRoutineTitle(e.target.value);
+  };
+
   if (Object.keys(exerciseList).length <= 0) return null;
-  console.log(completedIds);
-  console.log(arr);
+
+  console.log(routineTitle);
   return (
     <ExerciseListStyle>
       <OutContainer>
-        <FilterBox>필터</FilterBox>
+        <FilterBox>
+          <Filter category="machine" />
+          <Filter category="part" />
+        </FilterBox>
         <ExerciseBox ref={listBox} onScroll={handleScroll}>
           {exerciseList.map((data, index) => (
             <Container key={index}>
@@ -151,9 +182,21 @@ function ExerciseList(props) {
           루틴 만들기
         </MakeButton>
       </OutContainer>
+      <AlertModalBox>
+        {exerciseListCheck && (
+          <Modal
+            handleLeftModalButton={() => {
+              modalCancle(false);
+            }}
+          ></Modal>
+        )}
+      </AlertModalBox>
       <ModalBackground $check={modalCheck} />
       <ExerciseListModal $check={modalCheck}>
-        <RoutineNameBox placeholder="루틴이름을 지어주세요!"></RoutineNameBox>
+        <RoutineNameBox
+          onChange={handleName}
+          placeholder="루틴이름을 지어주세요!"
+        ></RoutineNameBox>
         <>
           {arr.map(data => (
             <ModalContent key={data.id}>
@@ -186,12 +229,11 @@ const OutContainer = styled.div`
 
 const FilterBox = styled.div`
   margin-top: 15px;
-  border: 1px solid black;
+  gap: 10px;
   width: 100%;
-  height: 65px;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 `;
 
 const ExerciseBox = styled.div`
@@ -217,7 +259,7 @@ const ExerciseBox = styled.div`
     height: 350px;
   }
   @media (max-height: 615px) {
-    height: 210px;
+    height: 260px;
   }
 `;
 
@@ -279,6 +321,8 @@ const MakeButton = styled.div`
   cursor: pointer;
   margin-top: 15px;
 `;
+
+const AlertModalBox = styled.div``;
 
 const ExerciseListModal = styled.div`
   padding: 20px 40px 20px 40px;

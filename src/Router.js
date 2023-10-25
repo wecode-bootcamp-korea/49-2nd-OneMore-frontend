@@ -15,7 +15,6 @@ import ExerciseList from './pages/ExerciseList/ExerciseList';
 import SignupTerms from './pages/Signup/SignupTerms';
 import Completed from './pages/Completed/Completed';
 
-
 function Router() {
   return (
     <BrowserRouter>
