@@ -26,6 +26,7 @@ function ExerciseList(props) {
   const [modalCheck, setModalCheck] = useState(false);
   const [routineTitle, setRoutineTitle] = useState('');
   const [loading, setLoading] = useState(false);
+  const [subscriptionState, setSubscriptionState] = useState(0);
 
   const listBox = useRef();
   const getExerciseList = (offset = 0) => {
@@ -42,7 +43,7 @@ function ExerciseList(props) {
     //   });
 
     fetch(
-      `${BASE_API}/exercises?offset=${offset}&limit=${limit}${
+      `${BASE_API}/exercises?limit=${limit}&offset=${offset}${
         category ? `&category=${category}` : ''
       }${equipRequired ? `&equipRequired=${equipRequired}` : ''}`,
       {
@@ -64,6 +65,7 @@ function ExerciseList(props) {
           offset ? [...prevExerciseList, ...newItems] : newItems,
         );
         setLoading(false);
+        setSubscriptionState(result.data.subscriptionState);
       });
   };
 
@@ -177,7 +179,7 @@ function ExerciseList(props) {
     setSearchParams(searchParams);
     navigate('/subscription-orders');
   };
-
+  console.log('구독여부', subscriptionCheck);
   return (
     <ExerciseListStyle>
       <OutContainer>
@@ -192,13 +194,13 @@ function ExerciseList(props) {
                 onClick={() => {
                   SubscriptionClick(true);
                 }}
-                $checked={data.isPremium}
+                $checked={!subscriptionState ? data.isPremium : false}
               />
               <SubscriptionLock
                 onClick={() => {
                   SubscriptionClick(true);
                 }}
-                $checked={data.isPremium}
+                $checked={!subscriptionState ? data.isPremium : false}
               />
               <ExerciseInfo>
                 <ThumbnailBox>

@@ -7,7 +7,7 @@ function SubscriptionOrders() {
   const navigate = useNavigate();
 
   const goToOrders = () => {
-    navigate('/orders');
+    navigate('/order');
   };
   return (
     <SubscriptionBox>

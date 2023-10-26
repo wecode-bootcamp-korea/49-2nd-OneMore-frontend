@@ -120,7 +120,9 @@ function MyRoutine() {
                         </SecondExerciseNameWrapper>
                       </ExerciseContainer>
                       <LastPlayWrapper>
-                        <LastPlay>Last play : {createDate}</LastPlay>
+                        <LastPlay>
+                          Last play : {createDate.slice(0, 10)}
+                        </LastPlay>
                         <TotalDuration>
                           <TotalTime>총 시간</TotalTime>
                           <TotalTimeNumber>{totalDuration}</TotalTimeNumber>
@@ -202,7 +204,8 @@ const RoutineName = styled(LetterForm)`
 const TotalDuration = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+
+  /* background-color: pink; */
 `;
 const MenuImg = styled.img`
   width: 4px;
@@ -295,5 +298,5 @@ const MakeRoutineButton = styled.button`
 `;
 
 const SetCount = styled(LetterForm)`
-  font-size: 18px;
+  font-size: 16px;
 `;
