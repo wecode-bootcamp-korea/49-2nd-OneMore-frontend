@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './styles/Layout';
 import Header from './components/Header/Header';
@@ -20,10 +20,12 @@ import Order from './pages/Order/Order';
 import SubscriptionOrders from './pages/SubscriptionOrders/SubscriptionOrders';
 
 function Router() {
+  const [open, setOpen] = useState(false);
+
   return (
     <BrowserRouter>
       <Layout>
-        <Header />
+        <Header setOpen={setOpen} open={open} />
         <MainContainer>
           <Routes>
             <Route path="/" element={<Main />} />
@@ -48,7 +50,7 @@ function Router() {
             <Route path="/order" element={<Order />} />
           </Routes>
         </MainContainer>
-        <Tab />
+        <Tab setOpen={setOpen} />
       </Layout>
     </BrowserRouter>
   );

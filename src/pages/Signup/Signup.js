@@ -23,7 +23,7 @@ const Signup = () => {
 
   const emailRegex =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-  const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+  const pwRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{4,16}$/;
 
   const isEmailValid = emailRegex.test(userInfo.email);
   const isPwValid = pwRegex.test(userInfo.password);
@@ -33,7 +33,9 @@ const Signup = () => {
   const isValidCheck =
     isEmailValid && isPwValid && isPwChkValid && isNicknameValid;
 
-  const handleSignUp = () => {
+  const handleSignUp = e => {
+    e.preventDefault();
+
     fetch(`${BASE_API}/users/`, {
       method: 'POST',
       headers: {
@@ -63,7 +65,7 @@ const Signup = () => {
       });
   };
   return (
-    <div>
+    <SignupWrap>
       <TextBox>회원가입</TextBox>
       <SignupInputWrap onChange={handleUserInfo}>
         {FIELD_DATA.map(({ name, type, placeholder, label, src, alt }) => (
@@ -85,9 +87,16 @@ const Signup = () => {
       <Button onClick={handleSignUp} disabled={!isValidCheck}>
         회원가입
       </Button>
-    </div>
+    </SignupWrap>
   );
 };
+
+const SignupWrap = styled.form`
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 20px;
+`;
 
 const TextBox = styled.p`
   padding: 40px 0;
@@ -106,7 +115,7 @@ const InputBox = styled.div`
 `;
 
 const InputLabel = styled.p`
-  margin: 8px 5px;
+  margin: 20px 5px 5px;
   font-size: 14px;
 `;
 
