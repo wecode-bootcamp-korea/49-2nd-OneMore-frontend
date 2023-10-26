@@ -175,7 +175,7 @@ function ExerciseList(props) {
     searchParams.delete('routine-id');
     searchParams.delete('iscutomed');
     setSearchParams(searchParams);
-    navigate('/order');
+    navigate('/subscription-orders');
   };
 
   return (
