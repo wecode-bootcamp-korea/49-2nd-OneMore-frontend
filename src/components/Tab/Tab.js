@@ -9,7 +9,7 @@ import {
 } from 'react-icons/bs';
 import { FaDumbbell } from 'react-icons/fa6';
 
-function Tab() {
+function Tab({ setOpen }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -52,6 +52,7 @@ function Tab() {
           onClick={() => {
             handleTabClick(index);
             navigate(item.route);
+            setOpen(false);
           }}
           $active={activeTab === index}
         >
