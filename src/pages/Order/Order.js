@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import CheckBox from '../../components/CheckBox/CheckBox';
+import BASE_API from '../../config';
 
 const Order = () => {
+  const navigate = useNavigate();
   const [isProductExpanded, setProductExpanded] = useState(false);
   // const [paymentAmount, setPaymentAmount] = useState(3900);
 
@@ -27,7 +30,7 @@ const Order = () => {
           alert('결제에 실패했습니다.');
         }
         if (status === 'paid') {
-          fetch(`http://10.58.52.163:8000/payments`, {
+          fetch(`${BASE_API}/payments`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -44,6 +47,7 @@ const Order = () => {
             .then(result => {
               if (result.message === 'SUCESS_SUBSCRIPTION_AND_PAYMENT') {
                 alert('결제완료');
+                navigate('/');
               } else {
                 alert('실패');
               }
