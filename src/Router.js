@@ -17,6 +17,7 @@ import Completed from './pages/Completed/Completed';
 import Feed from './pages/Feed/Feed';
 import Product from './Product/Product';
 import Order from './pages/Order/Order';
+import SubscriptionOrders from './pages/SubscriptionOrders/SubscriptionOrders';
 
 function Router() {
   const [open, setOpen] = useState(false);
@@ -39,6 +40,10 @@ function Router() {
               element={<GoogleLogin />}
             />
             <Route path="/signup" element={<SignupTerms />} />
+            <Route
+              path="/subscription-orders"
+              element={<SubscriptionOrders />}
+            />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/product" element={<Product />} />

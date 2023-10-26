@@ -33,6 +33,10 @@ function Swiper({ list, checkedList, onClick, updateCompletedExercise }) {
   };
 
   const handleGoToNext = () => {
+    if (!localStorage.getItem('completedIds')) {
+      return alert('한 개라도 완료해주세요!');
+    }
+
     if (currentSlide === list.length - 1) {
       handleModalOpen();
     } else {

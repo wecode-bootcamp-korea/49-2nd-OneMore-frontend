@@ -17,6 +17,7 @@ const GoogleLogin = () => {
       })
         .then(response => response.json())
         .then(result => {
+          console.log(result);
           if (result.message === 'SOCIAL_LOGIN_SUCCESS') {
             localStorage.setItem('token', result.accessToken);
             localStorage.setItem('token', result.refreshToken);

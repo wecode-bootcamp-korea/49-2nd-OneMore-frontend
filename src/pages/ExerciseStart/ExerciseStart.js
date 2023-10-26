@@ -13,10 +13,10 @@ function ExerciseStart() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParams = new URLSearchParams(location.search);
-  const routineId = queryParams.get('routineid');
+  const routineId = queryParams.get('routine-id');
 
   const goToComplete = () => {
-    navigate(`/completed?iscustomed=${isCustomed}&routineId=${routineId}`);
+    navigate(`/completed?routine-id=${routineId}&iscustomed=${isCustomed}`);
   };
 
   const handleComplete = id => {
@@ -51,6 +51,7 @@ function ExerciseStart() {
     })
       .then(response => response.json())
       .then(data => {
+        window.localStorage.removeItem('completedIds');
         if (data.message === 'EXERCISE UPDATE SUCCESS') {
           goToComplete();
         }
@@ -70,7 +71,7 @@ function ExerciseStart() {
         return response.json();
       })
       .then(result => {
-        console.log(result);
+        console.log('운동시작 데이터 GET : ', result);
         const exerciseFilterList = result.data.exercises.filter(
           exercise => exercise.isCompleted === 1,
         );
@@ -91,6 +92,7 @@ function ExerciseStart() {
 
   useEffect(() => {
     getExerciseCardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -98,13 +100,22 @@ function ExerciseStart() {
   }, [completedIds]);
 
   useEffect(() => {
-    window.addEventListener('beforeunload', updateCompletedExercise);
+    window.addEventListener(
+      'beforeunload',
+      updateCompletedExercise,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    );
+
     return () => {
-      window.removeEventListener('beforeunload', updateCompletedExercise);
+      window.removeEventListener(
+        'beforeunload',
+        updateCompletedExercise,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      );
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(isCustomed);
   return (
     <ExerciseStartStyle>
       <PaddingContainer>
@@ -134,7 +145,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 16px;
   margin-top: 30px;
-  height: 75vh;
+  height: 670px;
   position: relative;
 `;
 

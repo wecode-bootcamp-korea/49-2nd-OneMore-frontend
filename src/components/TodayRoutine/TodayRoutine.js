@@ -8,7 +8,6 @@ const TodayRoutine = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
-  console.log(token);
   const [todayRoutineData, setTodayRoutineData] = useState({});
   const userNickName = localStorage.getItem('nickname');
 
@@ -33,11 +32,9 @@ const TodayRoutine = () => {
       },
     })
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(result => {
-        console.log(result.data);
         setTodayRoutineData(result.data);
       });
   };
@@ -51,15 +48,16 @@ const TodayRoutine = () => {
       },
       body: JSON.stringify({
         exercises: exerciseIdList,
-        isCustom: false,
+        isCustom: 0,
       }),
     })
       .then(response => {
         return response.json();
       })
       .then(result => {
+        console.log('투데이루틴 : ', result);
         if (result.message === 'SUCCESS') {
-          navigate(`/exercise-start?routineid=${result.routineId}`);
+          navigate(`/exercise-start?routine-id=${result.routineId}`);
           console.log('성공');
         } else console.log('실패');
       });

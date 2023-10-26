@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,9 +12,10 @@ function Nav() {
 
   const removeToken = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('nickname');
+    localStorage.removeItem('completedIds');
     navigate('/login');
   };
-  //console.log(!isToggle);
 
   return (
     <NavBox>
