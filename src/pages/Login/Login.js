@@ -47,7 +47,7 @@ const Login = () => {
   const handleLogin = e => {
     e.preventDefault();
 
-    fetch('http://10.58.52.163:8000/users/login', {
+    fetch(`${BASE_API}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -111,16 +111,12 @@ const Login = () => {
           >
             회원가입
           </Button>
-          <SocialButtonWrap>
-            <IconButton size="large" icon="kakao" onClick={handleKakaoLogin} />
-            <IconButton
-              size="large"
-              icon="google"
-              onClick={handleGoogleLogin}
-            />
-            <IconButton size="large" icon="naver" onClick={handleSignUp} />
-          </SocialButtonWrap>
         </LoginButtonWrap>
+        <SocialButtonWrap>
+          <IconButton size="large" icon="kakao" onClick={handleKakaoLogin} />
+          <IconButton size="large" icon="google" onClick={handleGoogleLogin} />
+          <IconButton size="large" icon="naver" onClick={handleSignUp} />
+        </SocialButtonWrap>
       </fieldset>
     </LoginWrap>
   );
@@ -137,7 +133,7 @@ const LoginWrap = styled.form`
   height: 100%;
   border: 1px solid green;
   background-color: white;
-  padding: 15px;
+  padding: 30px;
 `;
 
 const LoginLegend = styled.legend`
@@ -145,24 +141,30 @@ const LoginLegend = styled.legend`
 `;
 
 const LogoBox = styled.div`
-  height: 250px;
-  margin: 0 50px;
+  height: 300px;
+  margin: 0 30px;
   border: 1px solid gray;
+  /* background-image: url(); */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 `;
 
 const LoginInputWrap = styled.div`
   ${FLEX_COLUMN}
-  margin: 20px 0;
+  margin: 50px 0;
 `;
 
 const LoginButtonWrap = styled.div`
   ${FLEX_COLUMN}
-  margin: 10px 0;
+  margin: 40px 0;
 `;
 
 const SocialButtonWrap = styled.div`
   display: flex;
+  justify-content: center;
   gap: 10px;
+  margin: 50px 0;
 `;
 
 export default Login;

@@ -9,7 +9,7 @@ const KakaoLogin = () => {
 
   useEffect(() => {
     if (code) {
-      fetch(`http://10.58.52.163:8000/users/oauth/kakao?code=${code}`, {
+      fetch(`${BASE_API}/users/oauth/kakao?code=${code}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

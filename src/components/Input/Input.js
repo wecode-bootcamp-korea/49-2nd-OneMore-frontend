@@ -41,7 +41,8 @@ const DefaultInput = styled.input`
   border-left: medium none;
   border-right: medium none;
   border-top: medium none;
-  border-bottom: 1px solid ${({ theme }) => theme.gray};
+  border-bottom: 1px solid
+    ${({ isError, theme }) => (isError ? 'red' : theme.gray)}; // 에러 상태일 때 빨간색
   /* border-radius: 10px; */
   font-size: 15px;
   line-height: 1.5;
