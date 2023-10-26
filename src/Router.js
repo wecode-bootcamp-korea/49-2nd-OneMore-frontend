@@ -15,6 +15,7 @@ import ExerciseList from './pages/ExerciseList/ExerciseList';
 import SignupTerms from './pages/Signup/SignupTerms';
 import Completed from './pages/Completed/Completed';
 import Feed from './pages/Feed/Feed';
+import Order from './pages/Order/Order';
 
 function Router() {
   return (
@@ -34,6 +35,7 @@ function Router() {
             <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
+            <Route path="/order" element={<Order />} />
           </Routes>
         </MainContainer>
         <Tab />
