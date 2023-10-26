@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Filter from '../../components/Filter/Filter';
 import CheckBox from '../../components/CheckBox/CheckBox';
@@ -12,10 +12,11 @@ function ExerciseList(props) {
   const queryParams = new URLSearchParams(location.search);
   const page = queryParams.get('page') || '1';
   const [offset, setOffset] = useState(0);
-  const limit = queryParams.get('limit') || '5';
+  const limit = '5';
   const token = localStorage.getItem('token');
   const category = queryParams.get('category');
   const equipRequired = queryParams.get('equip-required');
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
@@ -27,40 +28,49 @@ function ExerciseList(props) {
   const [loading, setLoading] = useState(false);
 
   const listBox = useRef();
-  const getExerciseList = () => {
-    fetch('/data/getExerciseList.json', {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(result => {
-        const newItems = result.data.exercises;
-        setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
-        setLoading(false);
-      });
-
-    // fetch(`${BASE_API}/exercises?offset=${offset}&limit=${limit}$category=${}$equip-required=${equipRequired}`, {
+  const getExerciseList = (offset = 0) => {
+    // fetch('/data/getExerciseList.json', {
     //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //     authorization: token,
-    //   },
     // })
     //   .then(response => {
-    //     console.log(response);
     //     return response.json();
     //   })
     //   .then(result => {
-    //     console.log(result);
     //     const newItems = result.data.exercises;
     //     setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
     //     setLoading(false);
     //   });
+
+    fetch(
+      `${BASE_API}/exercises?offset=${offset}&limit=${limit}${
+        category ? `&category=${category}` : ''
+      }${equipRequired ? `&equipRequired=${equipRequired}` : ''}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization: token,
+        },
+      },
+    )
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(result => {
+        console.log(result);
+        const newItems = result.data.exercises;
+        setExerciseList(prevExerciseList =>
+          offset ? [...prevExerciseList, ...newItems] : newItems,
+        );
+        setLoading(false);
+      });
   };
 
   const postExerciseList = () => {
-    routineNaming();
+    if (!routineTitle) {
+      return routineNaming();
+    }
 
     fetch(`${BASE_API}/routines`, {
       method: 'POST',
@@ -71,6 +81,7 @@ function ExerciseList(props) {
       body: JSON.stringify({
         exercises: completedIds,
         isCustom: 1,
+        name: routineTitle,
       }),
     })
       .then(response => {
@@ -78,6 +89,11 @@ function ExerciseList(props) {
       })
       .then(result => {
         if (result.message === 'SUCCESS') {
+          searchParams.delete('equip-required');
+          searchParams.delete('category');
+          searchParams.delete('routine-id');
+          searchParams.delete('iscutomed');
+          setSearchParams(searchParams);
           navigate(
             `/exercise-start?routine-id=${result.routineId}&iscustomed=1`,
           );
@@ -97,16 +113,22 @@ function ExerciseList(props) {
   };
 
   useEffect(() => {
+    setOffset(0);
     getExerciseList();
-  }, []);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (!offset) return;
+
+    getExerciseList(offset);
+  }, [offset]);
 
   const handleScroll = () => {
     if (
       listBox.current.scrollHeight - listBox.current.scrollTop ===
       listBox.current.clientHeight
     ) {
-      setOffset(offset + 5);
-      getExerciseList();
+      setOffset(prev => prev + 5);
     }
   };
 
@@ -115,7 +137,6 @@ function ExerciseList(props) {
   };
 
   const AlertmodalCancle = () => {
-    console.log('취소버튼누름');
     setExerciseListCheck(false);
   };
 
@@ -144,13 +165,18 @@ function ExerciseList(props) {
 
   const routineNaming = () => {
     if (!routineTitle) {
-      return alert('한 글자라도 입력해줘요!');
+      alert('한 글자라도 입력해줘요!');
     }
   };
 
-  if (Object.keys(exerciseList).length <= 0) return null;
-
-  console.log(exerciseList);
+  const goToInfoSubscription = () => {
+    searchParams.delete('equip-required');
+    searchParams.delete('category');
+    searchParams.delete('routine-id');
+    searchParams.delete('iscutomed');
+    setSearchParams(searchParams);
+    navigate('/order');
+  };
 
   return (
     <ExerciseListStyle>
@@ -160,49 +186,45 @@ function ExerciseList(props) {
           <Filter category="category" />
         </FilterBox>
         <ExerciseBox ref={listBox} onScroll={handleScroll}>
-          <>
-            {exerciseList.map((data, index) => (
-              <Container key={index}>
-                <SubscriptionBack
-                  onClick={() => {
-                    SubscriptionClick(true);
-                  }}
-                  $checked={data.isPremium}
-                />
-                <SubscriptionLock
-                  onClick={() => {
-                    SubscriptionClick(true);
-                  }}
-                  $checked={data.isPremium}
-                />
-                <ExerciseInfo>
-                  <ThumbnailBox>
-                    <RoutineThumbNail alt={data.name} src={data.thumbnailURL} />
-                  </ThumbnailBox>
-                  <ExerciseInfoBox>
-                    <ExerciseTitle>{data.name}</ExerciseTitle>
-                    <ExerciseDescription>
-                      {data.description}
-                    </ExerciseDescription>
-                    <ExerciseDetail>
-                      <ExerciseTime>{data.durationInMinute}분</ExerciseTime>{' '}
-                      &nbsp;/&nbsp;
-                      <ExerciseCaloriesUsed>
-                        {data.caloriesUsed}kcal
-                      </ExerciseCaloriesUsed>
-                    </ExerciseDetail>
-                  </ExerciseInfoBox>
-                </ExerciseInfo>
-                <CheckBox
-                  size="mediumToLarge"
-                  // checked={completedIds.includes(data.exerciseId)}
-                  onChange={() => {
-                    handleComplete(data.exerciseId);
-                  }}
-                ></CheckBox>
-              </Container>
-            ))}
-          </>
+          {exerciseList.map((data, index) => (
+            <Container key={index}>
+              <SubscriptionBack
+                onClick={() => {
+                  SubscriptionClick(true);
+                }}
+                $checked={data.isPremium}
+              />
+              <SubscriptionLock
+                onClick={() => {
+                  SubscriptionClick(true);
+                }}
+                $checked={data.isPremium}
+              />
+              <ExerciseInfo>
+                <ThumbnailBox>
+                  <RoutineThumbNail alt={data.name} src={data.thumbnailURL} />
+                </ThumbnailBox>
+                <ExerciseInfoBox>
+                  <ExerciseTitle>{data.name}</ExerciseTitle>
+                  <ExerciseDescription>{data.description}</ExerciseDescription>
+                  <ExerciseDetail>
+                    <ExerciseTime>{data.durationInMinute}분</ExerciseTime>{' '}
+                    &nbsp;/&nbsp;
+                    <ExerciseCaloriesUsed>
+                      {data.caloriesUsed}kcal
+                    </ExerciseCaloriesUsed>
+                  </ExerciseDetail>
+                </ExerciseInfoBox>
+              </ExerciseInfo>
+              <CheckBox
+                size="mediumToLarge"
+                // checked={completedIds.includes(data.exerciseId)}
+                onChange={() => {
+                  handleComplete(data.exerciseId);
+                }}
+              ></CheckBox>
+            </Container>
+          ))}
           <MakeButton
             onClick={() => {
               clickMakeBtn(true);
@@ -220,10 +242,16 @@ function ExerciseList(props) {
               구독자 전용 영상이에요! 구독하시겠어요?
             </SubscriptionTitle>
             <SubscriptionBtnBox>
-              <SubscriptionCancleBtn onClick={AlertmodalCancle}>
+              <SubscriptionCancleBtn
+                onClick={() => {
+                  SubscriptionClick(false);
+                }}
+              >
                 취소
               </SubscriptionCancleBtn>
-              <SubsriptionGoBtn>구독하러 가기</SubsriptionGoBtn>
+              <SubsriptionGoBtn onClick={goToInfoSubscription}>
+                구독하러 가기
+              </SubsriptionGoBtn>
             </SubscriptionBtnBox>
           </SubscriptionModal>
         )}
@@ -244,15 +272,13 @@ function ExerciseList(props) {
         <RoutineNameBox
           onChange={handleName}
           placeholder="루틴이름을 지어주세요!"
-        ></RoutineNameBox>
-        <>
-          {arr.map(data => (
-            <ModalContent key={data.id}>
-              <ModalTitle>{data.name}</ModalTitle>
-              <ModalSet>{data.set} set</ModalSet>
-            </ModalContent>
-          ))}
-        </>
+        />
+        {arr.map(data => (
+          <ModalContent key={data.id}>
+            <ModalTitle>{data.name}</ModalTitle>
+            <ModalSet>{data.set} set</ModalSet>
+          </ModalContent>
+        ))}
         <ModalBtnBox>
           <ModalCancleBtn
             onClick={() => {
@@ -319,7 +345,7 @@ const SubscriptionBack = styled.div`
   border-radius: 10px;
   cursor: pointer;
   opacity: 0.7;
-  display: ${props => (props.$checked ? 'none' : 'block')};
+  display: ${props => (props.$checked ? 'block' : 'none')};
 `;
 
 const SubscriptionLock = styled.div`
@@ -332,7 +358,7 @@ const SubscriptionLock = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  display: ${props => (props.$checked ? 'none' : 'block')};
+  display: ${props => (props.$checked ? 'block' : 'none')};
 `;
 
 const ExerciseInfo = styled.div`

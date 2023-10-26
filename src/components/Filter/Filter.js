@@ -100,8 +100,8 @@ const Option = styled.button`
 
 const EQUIPREQUIRED_LIST = [
   { id: 1, text: '전체', equipRequired: null },
-  { id: 2, text: '기구', equipRequired: 1 },
-  { id: 3, text: '맨몸', equipRequired: 2 },
+  { id: 2, text: '맨몸', equipRequired: 0 },
+  { id: 3, text: '기구', equipRequired: 1 },
 ];
 
 const CATEGORY_LIST = [

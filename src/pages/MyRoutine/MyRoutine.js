@@ -18,7 +18,7 @@ function MyRoutine() {
   const routine = queryParams.get('routine');
 
   const goToMyRoutine = id => {
-    navigate(`/exercise-start?routine-id=${routineId}`);
+    navigate(`/exercise-start?routine-id=${id}`);
   };
 
   const goToExerciseList = () => {
@@ -43,6 +43,7 @@ function MyRoutine() {
         return response.json();
       })
       .then(result => {
+        console.log('offset:', offset);
         console.log(result);
         const newItems = result.data;
         setMessage(result.message);
@@ -52,17 +53,17 @@ function MyRoutine() {
         ]);
       });
   };
+
   useEffect(() => {
-    getMyRoutineList();
-  }, []);
+    getMyRoutineList(offset);
+  }, [offset]);
 
   const handleScroll = () => {
     if (
       listBox.current.scrollHeight - listBox.current.scrollTop ===
       listBox.current.clientHeight
     ) {
-      setOffset(offset + 5);
-      getMyRoutineList();
+      setOffset(prev => prev + 5);
     }
   };
   if (message === '') return null;
@@ -174,6 +175,7 @@ const Container = styled.div`
   /* position: relative; */
   margin-bottom: 15px;
   cursor: pointer;
+  padding-bottom: 10px;
 `;
 
 const FilterWrapper = styled.div`

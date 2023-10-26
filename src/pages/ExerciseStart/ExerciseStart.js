@@ -145,7 +145,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 16px;
   margin-top: 30px;
-  height: 75vh;
+  height: 670px;
   position: relative;
 `;
 

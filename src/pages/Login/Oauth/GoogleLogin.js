@@ -6,7 +6,7 @@ const GoogleLogin = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
-  console.log(code);
+
   useEffect(() => {
     if (code) {
       fetch(`${BASE_API}/users/oauth/google/callback?code=${code}`, {
@@ -17,6 +17,7 @@ const GoogleLogin = () => {
       })
         .then(response => response.json())
         .then(result => {
+          console.log(result);
           if (result.message === 'SOCIAL_LOGIN_SUCCESS') {
             localStorage.setItem('token', result.accessToken);
             localStorage.setItem('token', result.refreshToken);
