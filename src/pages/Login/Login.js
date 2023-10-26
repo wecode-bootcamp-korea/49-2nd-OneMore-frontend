@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
+import BASE_API from '../../config';
+import IconButton from '../../components/IconButton/IconButton';
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -18,8 +20,8 @@ const Login = () => {
   const isEmailValid = emailRegex.test(userInfo.email);
   const isPwValid = pwRegex.test(userInfo.password);
   const isValidCheck = isEmailValid && isPwValid;
-  const KAKAO_CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
+  const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URL;
   const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_CALLBACK;
@@ -45,7 +47,7 @@ const Login = () => {
   const handleLogin = e => {
     e.preventDefault();
 
-    fetch('http://10.58.52.243:8000/users/login', {
+    fetch('http://10.58.52.163:8000/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -110,12 +112,13 @@ const Login = () => {
             회원가입
           </Button>
           <SocialButtonWrap>
-            <Button type="button" onClick={handleKakaoLogin}>
-              카카오로그인
-            </Button>
-            <Button type="button" onClick={handleGoogleLogin}>
-              구글로그인
-            </Button>
+            <IconButton size="large" icon="kakao" onClick={handleKakaoLogin} />
+            <IconButton
+              size="large"
+              icon="google"
+              onClick={handleGoogleLogin}
+            />
+            <IconButton size="large" icon="naver" onClick={handleSignUp} />
           </SocialButtonWrap>
         </LoginButtonWrap>
       </fieldset>
@@ -159,6 +162,7 @@ const LoginButtonWrap = styled.div`
 
 const SocialButtonWrap = styled.div`
   display: flex;
+  gap: 10px;
 `;
 
 export default Login;

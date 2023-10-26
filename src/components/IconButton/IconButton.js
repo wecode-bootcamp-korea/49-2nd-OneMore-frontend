@@ -7,7 +7,7 @@ function IconButton({ type = 'button', name, size, icon, onClick, ...props }) {
       type={type}
       name={name}
       size={size}
-      $icon={icon}
+      icon={icon}
       onClick={onClick}
       {...props}
     />
@@ -51,7 +51,7 @@ const DefaultButton = styled.button`
     BUTTON_SIZE[size]?.height || BUTTON_SIZE.medium.height};
   background-image: url(${({ icon }) => BUTTON_IMAGE[icon] || ''});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   cursor: pointer;
 `;

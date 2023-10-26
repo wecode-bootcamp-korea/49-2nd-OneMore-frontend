@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   BsFillFileBarGraphFill,
   BsFillCartFill,
   BsFillChatHeartFill,
   BsFillBookFill,
 } from 'react-icons/bs';
-
 import { FaDumbbell } from 'react-icons/fa6';
 
 function Tab() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const DEFAULT_TAB_ID = 2;
 
@@ -19,6 +19,10 @@ function Tab() {
   const handleTabClick = index => {
     setActiveTab(index);
   };
+
+  const isTabInvisible = TAB_EXCEPTION_PATH.includes(pathname);
+
+  if (isTabInvisible) return null;
 
   const tabItems = [
     {
@@ -95,3 +99,5 @@ const IconName = styled.div`
   font-size: 16px;
   font-weight: 800;
 `;
+
+const TAB_EXCEPTION_PATH = ['/login', '/signup'];

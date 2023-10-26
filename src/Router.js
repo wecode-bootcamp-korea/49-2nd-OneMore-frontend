@@ -30,7 +30,10 @@ function Router() {
             <Route path="/login" element={<Login />} />
             <Route path="/exercise-list" element={<ExerciseList />} />
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
-            <Route path="/oauth/google/callback" element={<GoogleLogin />} />
+            <Route
+              path="/users/oauth/google/callback"
+              element={<GoogleLogin />}
+            />
             <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />

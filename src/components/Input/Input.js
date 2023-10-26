@@ -38,14 +38,16 @@ const DefaultInput = styled.input`
   width: 100%;
   height: ${({ size }) => INPUT_HEIGHT[size].height};
   padding: 4px 10px;
-  border: 1px solid transparent;
-  border-color: #e0e0e0;
-  border-radius: 10px;
+  border-left: medium none;
+  border-right: medium none;
+  border-top: medium none;
+  border-bottom: 1px solid ${({ theme }) => theme.gray};
+  /* border-radius: 10px; */
   font-size: 15px;
   line-height: 1.5;
   outline: none;
-  background-color: ${props =>
-    props.backgroundColor || 'white'}; // 속성에서 받아온 배경 색상을 설정
+  /* background-color: ${props =>
+    props.backgroundColor || 'white'}; // 속성에서 받아온 배경 색상을 설정 */
 
   &::placeholder {
     color: #e0e0e0;
@@ -53,7 +55,7 @@ const DefaultInput = styled.input`
 
   &:hover,
   &:focus {
-    border: 1px solid #8bc34a;
+    border-bottom: 1px solid #8bc34a;
   }
 
   ${props => props.status === 'error' && 'border-color:red'};
