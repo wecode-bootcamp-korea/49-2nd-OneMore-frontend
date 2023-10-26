@@ -16,6 +16,7 @@ import SignupTerms from './pages/Signup/SignupTerms';
 import Completed from './pages/Completed/Completed';
 import Feed from './pages/Feed/Feed';
 import Product from './Product/Product';
+import Order from './pages/Order/Order';
 
 function Router() {
   return (
@@ -31,11 +32,12 @@ function Router() {
             <Route path="/login" element={<Login />} />
             <Route path="/exercise-list" element={<ExerciseList />} />
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
-            <Route path="/oauth/google" element={<GoogleLogin />} />
+            <Route path="/oauth/google/callback" element={<GoogleLogin />} />
             <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/product" element={<Product />} />
+            <Route path="/order" element={<Order />} />
           </Routes>
         </MainContainer>
         <Tab />
