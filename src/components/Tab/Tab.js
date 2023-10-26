@@ -10,7 +10,7 @@ import {
 
 import { FaDumbbell } from 'react-icons/fa6';
 
-function Tab() {
+function Tab({ setOpen }) {
   const navigate = useNavigate();
 
   const DEFAULT_TAB_ID = 2;
@@ -48,6 +48,7 @@ function Tab() {
           onClick={() => {
             handleTabClick(index);
             navigate(item.route);
+            setOpen(false);
           }}
           $active={activeTab === index}
         >
