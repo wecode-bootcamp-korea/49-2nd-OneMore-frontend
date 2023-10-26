@@ -17,6 +17,7 @@ function Completed() {
 
   const goToMain = e => {
     e.preventDefault();
+    searchParams.delete('routine-id');
     searchParams.delete('iscustomed');
     navigate('/');
   };

@@ -11,11 +11,13 @@ function MyRoutine() {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const routineId = queryParams.get('routine-id');
   const page = queryParams.get('page') || '1';
   const limit = queryParams.get('limit') || '5';
+  const routine = queryParams.get('routine');
 
   const goToMyRoutine = id => {
-    navigate(`/exercise-start/${id}`);
+    navigate(`/exercise-start?routine-id=${routineId}`);
   };
 
   const goToExerciseList = () => {
@@ -26,7 +28,9 @@ function MyRoutine() {
   const handleNotHaveMyRoutine = DataLength === 0;
   const token = localStorage.getItem('token');
   const getMyRoutineList = () => {
-    const fetchURL = `${BASE_API}/routines/my?page=${page}&limit=${limit}`;
+    const fetchURL = `${BASE_API}/routines/my?page=${
+      parseInt(page) + 1
+    }&limit=${limit}&routine=${routine}`;
 
     // const fetchURL = `/data/MyRoutine.json`;
 
@@ -59,10 +63,10 @@ function MyRoutine() {
       listBox.current.clientHeight
     ) {
       getMyRoutineList();
-      navigate(`/My-routine?page=${parseInt(page) + 1}&limit=${limit}`);
     }
   };
 
+  if (myRoutineData.length === 0) return null;
   return (
     <div>
       {handleNotHaveMyRoutine ? (
@@ -80,7 +84,7 @@ function MyRoutine() {
                 routineName,
                 totalDuration,
                 exerciseNames,
-                exerciseSetCount,
+                setCounts,
                 createDate,
               } = product;
 
@@ -107,7 +111,7 @@ function MyRoutine() {
                           ))}
                         </FirstExerciseNameWrapper>
                         <SecondExerciseNameWrapper>
-                          {exerciseSetCount.map(setCount => (
+                          {setCounts.map(setCount => (
                             <SetCount>{setCount} set</SetCount>
                           ))}
                         </SecondExerciseNameWrapper>
@@ -125,9 +129,11 @@ function MyRoutine() {
               );
             })}
           </PaddingContainer>
-          <MakeRoutineButton onClick={goToExerciseList}>
-            루틴 만들기
-          </MakeRoutineButton>
+          <Test>
+            <MakeRoutineButton onClick={goToExerciseList}>
+              루틴 만들기
+            </MakeRoutineButton>
+          </Test>
         </ExerciseStartStyle>
       )}
     </div>
@@ -138,9 +144,8 @@ export default MyRoutine;
 const ExerciseStartStyle = styled.div``;
 
 const PaddingContainer = styled.div`
-  width: 100%;
-  padding: 0 15px 0 15px;
-  height: 613px;
+  padding: 0 15px;
+  height: 595px;
   overflow: auto;
 `;
 
@@ -164,13 +169,12 @@ const Container = styled.div`
   background-color: white;
   border-radius: 16px;
   height: auto;
-  position: relative;
+  /* position: relative; */
   margin-bottom: 15px;
   cursor: pointer;
 `;
 
 const FilterWrapper = styled.div`
-  width: 100%;
   margin: 12px 0;
   margin-left: 15px;
 `;
@@ -259,6 +263,13 @@ const TotalTime = styled.span`
   color: ${({ theme }) => theme.green};
 `;
 
+const Test = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
+`;
+
 const MakeRoutineButton = styled.button`
   width: 130px;
   height: 40px;
@@ -270,9 +281,13 @@ const MakeRoutineButton = styled.button`
   align-items: center;
   position: absolute;
   right: 25px;
-  bottom: 20px;
-  top: calc(100% - 60px);
-  right: 25px;
+  bottom: 25px;
+
+  @media (max-width: 1024px) {
+    position: fixed;
+    bottom: 85px;
+    right: 25px;
+  }
 `;
 
 const SetCount = styled(LetterForm)`

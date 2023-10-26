@@ -13,10 +13,10 @@ function ExerciseStart() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParams = new URLSearchParams(location.search);
-  const routineId = queryParams.get('routineid');
+  const routineId = queryParams.get('routine-id');
 
   const goToComplete = () => {
-    navigate(`/completed?iscustomed=${isCustomed}&routineId=${routineId}`);
+    navigate(`/completed?routine-id=${routineId}&iscustomed=${isCustomed}`);
   };
 
   const handleComplete = id => {
@@ -54,6 +54,7 @@ function ExerciseStart() {
         if (data.message === 'EXERCISE UPDATE SUCCESS') {
           goToComplete();
         }
+        localStorage.removeItem('completedIds');
       });
   };
 
@@ -70,7 +71,6 @@ function ExerciseStart() {
         return response.json();
       })
       .then(result => {
-        console.log(result);
         const exerciseFilterList = result.data.exercises.filter(
           exercise => exercise.isCompleted === 1,
         );
@@ -91,6 +91,7 @@ function ExerciseStart() {
 
   useEffect(() => {
     getExerciseCardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -98,13 +99,22 @@ function ExerciseStart() {
   }, [completedIds]);
 
   useEffect(() => {
-    window.addEventListener('beforeunload', updateCompletedExercise);
+    window.addEventListener(
+      'beforeunload',
+      updateCompletedExercise,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    );
+
     return () => {
-      window.removeEventListener('beforeunload', updateCompletedExercise);
+      window.removeEventListener(
+        'beforeunload',
+        updateCompletedExercise,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      );
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(isCustomed);
   return (
     <ExerciseStartStyle>
       <PaddingContainer>

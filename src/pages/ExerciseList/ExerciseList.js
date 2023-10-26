@@ -25,10 +25,32 @@ function ExerciseList(props) {
 
   const listBox = useRef();
   const getExerciseList = () => {
-    fetch('/data/getExerciseList.json', {
-      method: 'GET',
-    })
+    // fetch('/data/getExerciseList.json', {
+    //   method: 'GET',
+    // })
+    //   .then(response => {
+    //     return response.json();
+    //   })
+    //   .then(result => {
+    //     const newItems = result.data.exercises;
+    //     setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
+    //     setLoading(false);
+    //   });
+
+    fetch(
+      `${BASE_API}/exercises/recommended?page=${
+        parseInt(page) + 1
+      }&limit=${limit}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization: token,
+        },
+      },
+    )
       .then(response => {
+        console.log(response);
         return response.json();
       })
       .then(result => {
@@ -36,52 +58,31 @@ function ExerciseList(props) {
         setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
         setLoading(false);
       });
-
-    // fetch(`${BASE_API}/exercises/recommended?page=${parseInt(page)+1}&limit=${limit}`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //     token: token,
-    //   },
-    // })
-    //   .then(response => {
-    //     console.log(response);
-    //     return response.json();
-    //   })
-    //   .then(result => {
-    //     console.log(result.data);
-    //     setTodayRoutineData(result.data);
-    //   });
   };
 
   const postExerciseList = () => {
-    fetch('/data/getExerciseList.json', {
+    fetch(`${BASE_API}/routines`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: token,
+      },
+      body: JSON.stringify({
+        exercises: completedIds,
+        isCustom: 1,
+      }),
     })
       .then(response => {
         return response.json();
       })
       .then(result => {
-        const newItems = result.data.exercises;
-        setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
-        setLoading(false);
+        if (result.message === 'SUCCESS') {
+          navigate(
+            `/exercise-start?routine-id=${result.routineId}&iscustomed=1`,
+          );
+          console.log('성공');
+        } else console.log('실패');
       });
-
-    // fetch(`${BASE_API}/exercises/recommended?page=${parseInt(page)+1}&limit=${limit}`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //     token: token,
-    //   },
-    // })
-    //   .then(response => {
-    //     console.log(response);
-    //     return response.json();
-    //   })
-    //   .then(result => {
-    //     console.log(result.data);
-    //     setTodayRoutineData(result.data);
-    //   });
   };
 
   const handleComplete = id => {
@@ -304,6 +305,7 @@ const SubscriptionBack = styled.div`
   position: absolute;
   border-radius: 10px;
   cursor: pointer;
+  opacity: 0.7;
 `;
 
 const SubscriptionLock = styled.div`
@@ -361,15 +363,17 @@ const MakeButton = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 15px;
-  right: 5px;
 
-  margin-left: auto;
   cursor: pointer;
-  margin-top: 15px;
+
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
 
   @media (max-width: 1024px) {
-    right: 30px;
+    position: fixed;
+    bottom: 85px;
+    right: 25px;
   }
 `;
 

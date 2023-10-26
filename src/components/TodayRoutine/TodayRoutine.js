@@ -33,11 +33,9 @@ const TodayRoutine = () => {
       },
     })
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(result => {
-        console.log(result.data);
         setTodayRoutineData(result.data);
       });
   };
@@ -51,7 +49,7 @@ const TodayRoutine = () => {
       },
       body: JSON.stringify({
         exercises: exerciseIdList,
-        isCustom: false,
+        isCustom: 0,
       }),
     })
       .then(response => {
@@ -59,7 +57,9 @@ const TodayRoutine = () => {
       })
       .then(result => {
         if (result.message === 'SUCCESS') {
-          navigate(`/exercise-start?routineid=${result.routineId}`);
+          navigate(
+            `/exercise-start?routine-id=${result.routineId}&iscustomed=0`,
+          );
           console.log('성공');
         } else console.log('실패');
       });

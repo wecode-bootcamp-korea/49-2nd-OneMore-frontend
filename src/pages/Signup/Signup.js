@@ -53,7 +53,6 @@ const Signup = () => {
         throw new Error('communication failure');
       })
       .then(result => {
-        console.log(result);
         if (result.message === 'USER_CREATED') {
           alert('회원가입 완료');
           navigate('/login');

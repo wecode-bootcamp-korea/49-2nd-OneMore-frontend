@@ -16,13 +16,6 @@ function Feed() {
         setGetFeedData(data.data);
       });
   }, []);
-  console.log(getFeedData);
-
-  // "routineId": 1,
-  //   "nickName": "권순우",
-  //   "profileImage": "",
-  //   "feedImage": "13:89",
-  //   "content": "2023-10-23T03:48:12.000Z"
 
   return (
     <div>
