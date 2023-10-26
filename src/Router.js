@@ -14,7 +14,7 @@ import GoogleLogin from './pages/Login/Oauth/GoogleLogin';
 import ExerciseList from './pages/ExerciseList/ExerciseList';
 import SignupTerms from './pages/Signup/SignupTerms';
 import Completed from './pages/Completed/Completed';
-
+import Feed from './pages/Feed/Feed';
 
 function Router() {
   return (
@@ -24,7 +24,7 @@ function Router() {
         <MainContainer>
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/exercise-start/:id" element={<ExerciseStart />} />
+            <Route path="/exercise-start" element={<ExerciseStart />} />
             <Route path="/not-have-routine" element={<NotHaveRoutine />} />
             <Route path="/my-routine" element={<MyCustomRoutine />} />
             <Route path="/login" element={<Login />} />
@@ -33,6 +33,7 @@ function Router() {
             <Route path="/oauth/google" element={<GoogleLogin />} />
             <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
+            <Route path="/feed" element={<Feed />} />
           </Routes>
         </MainContainer>
         <Tab />
