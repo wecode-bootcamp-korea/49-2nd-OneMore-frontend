@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './styles/Layout';
 import Header from './components/Header/Header';
@@ -18,12 +18,16 @@ import Feed from './pages/Feed/Feed';
 import Product from './Product/Product';
 import Order from './pages/Order/Order';
 import Report from './pages/Report/Report';
+import SubscriptionOrders from './pages/SubscriptionOrders/SubscriptionOrders';
+
 
 function Router() {
+  const [open, setOpen] = useState(false);
+
   return (
     <BrowserRouter>
       <Layout>
-        <Header />
+        <Header setOpen={setOpen} open={open} />
         <MainContainer>
           <Routes>
             <Route path="/" element={<Main />} />
@@ -33,8 +37,15 @@ function Router() {
             <Route path="/login" element={<Login />} />
             <Route path="/exercise-list" element={<ExerciseList />} />
             <Route path="/oauth/kakao" element={<KakaoLogin />} />
-            <Route path="/oauth/google/callback" element={<GoogleLogin />} />
+            <Route
+              path="/users/oauth/google/callback"
+              element={<GoogleLogin />}
+            />
             <Route path="/signup" element={<SignupTerms />} />
+            <Route
+              path="/subscription-orders"
+              element={<SubscriptionOrders />}
+            />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/product" element={<Product />} />
@@ -42,7 +53,7 @@ function Router() {
             <Route path="/report" element={<Report />} />
           </Routes>
         </MainContainer>
-        <Tab />
+        <Tab setOpen={setOpen} />
       </Layout>
     </BrowserRouter>
   );

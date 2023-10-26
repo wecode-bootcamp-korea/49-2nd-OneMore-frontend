@@ -74,9 +74,10 @@ const Order = () => {
       </SectionWrap>
       <SectionWrap>
         <SectionText>쿠폰/포인트</SectionText>
-        <ProductBox>
-          <div />
-        </ProductBox>
+        <ProductDesc>
+          <p>포인트</p>
+          <p>0원</p>
+        </ProductDesc>
       </SectionWrap>
       <SectionWrap>
         <SectionText>
@@ -101,18 +102,17 @@ const Order = () => {
         <SectionText>약관동의</SectionText>
         <CheckWrap>
           {PAYMENT_AGREEMENT.map(data => (
-            <CheckBox
-              key={data.id}
-              shape="round"
-              size="small"
-              label={data.label}
-            />
+            <CheckboxWrap key={data.id}>
+              <CheckBox shape="round" size="small" label={data.label} />
+            </CheckboxWrap>
           ))}
         </CheckWrap>
+      </SectionWrap>
+      <ButtonWrap expanded={isProductExpanded}>
         <Button onClick={handlePayment}>
           {/* 총 {paymentAmount}원 결제하기 */}총 3,900원 결제하기
         </Button>
-      </SectionWrap>
+      </ButtonWrap>
     </OrderWrap>
   );
 };
@@ -145,12 +145,12 @@ const ProductBox = styled.div`
 const ProductDesc = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 20px;
 `;
 
 const SectionText = styled.p`
   margin: 10px;
-  font-size: 15px;
+  font-size: 18x;
   font-weight: 700;
 `;
 
@@ -173,7 +173,18 @@ const PaymentBox = styled.p`
 `;
 
 const CheckWrap = styled.div`
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 30px 10px;
+  gap: 10px;
+`;
+
+const CheckboxWrap = styled.div`
+  display: flex;
+`;
+
+const ButtonWrap = styled.div`
+  margin-top: ${props => (props.expanded ? '20px' : '40px')} 0;
 `;
 
 export default Order;

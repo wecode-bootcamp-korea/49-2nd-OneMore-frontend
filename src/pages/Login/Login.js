@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
+import BASE_API from '../../config';
+import IconButton from '../../components/IconButton/IconButton';
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
@@ -18,8 +20,8 @@ const Login = () => {
   const isEmailValid = emailRegex.test(userInfo.email);
   const isPwValid = pwRegex.test(userInfo.password);
   const isValidCheck = isEmailValid && isPwValid;
-  const KAKAO_CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
+  const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URL;
   const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_CALLBACK;
@@ -45,7 +47,7 @@ const Login = () => {
   const handleLogin = e => {
     e.preventDefault();
 
-    fetch('http://10.58.52.243:8000/users/login', {
+    fetch(`${BASE_API}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,15 +111,12 @@ const Login = () => {
           >
             회원가입
           </Button>
-          <SocialButtonWrap>
-            <Button type="button" onClick={handleKakaoLogin}>
-              카카오로그인
-            </Button>
-            <Button type="button" onClick={handleGoogleLogin}>
-              구글로그인
-            </Button>
-          </SocialButtonWrap>
         </LoginButtonWrap>
+        <SocialButtonWrap>
+          <IconButton size="large" icon="kakao" onClick={handleKakaoLogin} />
+          <IconButton size="large" icon="google" onClick={handleGoogleLogin} />
+          <IconButton size="large" icon="naver" onClick={handleSignUp} />
+        </SocialButtonWrap>
       </fieldset>
     </LoginWrap>
   );
@@ -134,7 +133,7 @@ const LoginWrap = styled.form`
   height: 100%;
   border: 1px solid green;
   background-color: white;
-  padding: 15px;
+  padding: 30px;
 `;
 
 const LoginLegend = styled.legend`
@@ -142,23 +141,30 @@ const LoginLegend = styled.legend`
 `;
 
 const LogoBox = styled.div`
-  height: 250px;
-  margin: 0 50px;
+  height: 300px;
+  margin: 0 30px;
   border: 1px solid gray;
+  /* background-image: url(); */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 `;
 
 const LoginInputWrap = styled.div`
   ${FLEX_COLUMN}
-  margin: 20px 0;
+  margin: 50px 0;
 `;
 
 const LoginButtonWrap = styled.div`
   ${FLEX_COLUMN}
-  margin: 10px 0;
+  margin: 40px 0;
 `;
 
 const SocialButtonWrap = styled.div`
   display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 50px 0;
 `;
 
 export default Login;

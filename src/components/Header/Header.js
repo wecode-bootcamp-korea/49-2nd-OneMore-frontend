@@ -5,24 +5,15 @@ import Nav from './Nav/Nav';
 import PrevButton from '../PrevButton/PrevButton';
 import IconButton from '../IconButton/IconButton';
 
-function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+function Header({ setOpen, open }) {
   const { pathname } = useLocation();
   const handleOpen = () => {
-    setIsOpen(!isOpen);
+    setOpen(!open);
   };
-  // const isPrevButtonVisible = [
-  //   '/report',
-  //   '/product-list',
-  //   '/',
-  //   '/feed',
-  //   '/info',
-  // ].includes(pathname);
 
   const isPrevButtonVisible = PREV_BUTTON_PATH.includes(pathname);
   const isHeaderInvisible = HEADER_EXCEPTION_PATH.includes(pathname);
   if (isHeaderInvisible) return null;
-
   return (
     <>
       <HeaderStyle>
@@ -33,7 +24,7 @@ function Header() {
         <IconButton size="small" icon="hamberger" onClick={handleOpen} />
       </HeaderStyle>
 
-      {isOpen && <Nav />}
+      {open && <Nav />}
     </>
   );
 }
@@ -48,17 +39,9 @@ const HeaderStyle = styled.div`
   background-color: #8bc34a;
 `;
 
-// const PrevButton = styled.div`
-//   width: 20px;
-//   height: 20px;
-//   background-color: pink;
-//   display: ${props => (props.$isVisible ? 'none' : 'block')};
-// `;
-
 const PrevButtonBox = styled.div`
   width: 26px;
   height: 26px;
-  //background-color: yellow;
 `;
 
 const Logo = styled.div`
@@ -67,13 +50,6 @@ const Logo = styled.div`
   letter-spacing: 0.3px;
   color: #fff;
 `;
-
-// const HamburgerButton = styled.div`
-//   width: 26px;
-//   height: 26px;
-//   background-color: pink;
-//   cursor: pointer;
-// `;
 
 const PREV_BUTTON_PATH = ['/report', '/product-list', '/', '/feed', '/info'];
 const HEADER_EXCEPTION_PATH = ['/login', '/signup'];
