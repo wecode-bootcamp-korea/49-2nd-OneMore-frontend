@@ -6,48 +6,48 @@ import BASE_API from '../../config';
 
 const TodayRoutine = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
+  console.log(token);
   const [todayRoutineData, setTodayRoutineData] = useState({});
-  const userNickName = localStorage.getItem('userNickname');
+  const userNickName = localStorage.getItem('nickname');
 
   const exerciseIdList =
     todayRoutineData.exercises?.map(({ exerciseId }) => exerciseId) || [];
 
   const getTodayRoutine = () => {
-    fetch('/data/getTodayRoutine.json', {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(result => {
-        setTodayRoutineData(result.data);
-      });
-    // fetch(`${BASE_API}/exercises/recommended`, {
+    // fetch('/data/getTodayRoutine.json', {
     //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //     token: token,
-    //   },
     // })
     //   .then(response => {
-    //     console.log(response);
     //     return response.json();
     //   })
     //   .then(result => {
-    //     console.log(result.data);
     //     setTodayRoutineData(result.data);
     //   });
+    fetch(`${BASE_API}/exercises/recommended`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: token,
+      },
+    })
+      .then(response => {
+        console.log(response);
+        return response.json();
+      })
+      .then(result => {
+        console.log(result.data);
+        setTodayRoutineData(result.data);
+      });
   };
-
-  const token = localStorage.getItem('token');
 
   const postMakeTodayRoutine = () => {
     fetch(`${BASE_API}/routines`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        token: token,
+        authorization: token,
       },
       body: JSON.stringify({
         exercises: exerciseIdList,
@@ -59,7 +59,7 @@ const TodayRoutine = () => {
       })
       .then(result => {
         if (result.message === 'SUCCESS') {
-          navigate(`/exercise-start/${result.routineId}`);
+          navigate(`/exercise-start?routineid=${result.routineId}`);
           console.log('성공');
         } else console.log('실패');
       });
@@ -141,7 +141,6 @@ const CommonTextStyles = styled.span`
   font-feature-settings:
     'clig' off,
     'liga' off;
-  font-family: Inter;
   font-style: normal;
   line-height: 18px;
 `;

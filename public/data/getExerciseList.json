@@ -5,11 +5,12 @@
       {
         "exerciseId": 1,
         "name": "팔굽혀펴기",
-        "description": "힘든만큼 보람차거든요",
+        "description": "힘든만큼 보람차거든요 힘든만큼 보람차거든요",
         "thumbnailURL": "https://one-more.s3.ap-northeast-2.amazonaws.com/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-ios-16-glyph/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-90.png",
         "durationInMinute": 3,
         "isPremium": false,
-        "caloriesUsed": 215
+        "caloriesUsed": 215,
+        "set": 1
       },
       {
         "exerciseId": 2,
@@ -18,7 +19,8 @@
         "thumbnailURL": "https://one-more.s3.ap-northeast-2.amazonaws.com/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-ios-16-glyph/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-90.png",
         "durationInMinute": 6,
         "isPremium": false,
-        "caloriesUsed": 300
+        "caloriesUsed": 300,
+        "set": 2
       },
       {
         "exerciseId": 3,
@@ -27,7 +29,28 @@
         "thumbnailURL": "https://one-more.s3.ap-northeast-2.amazonaws.com/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-ios-16-glyph/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-90.png",
         "durationInMinute": 1,
         "isPremium": false,
-        "caloriesUsed": 400
+        "caloriesUsed": 400,
+        "set": 1
+      },
+      {
+        "exerciseId": 4,
+        "name": "테스트4",
+        "description": "1초가 1시간 같을껄?",
+        "thumbnailURL": "https://one-more.s3.ap-northeast-2.amazonaws.com/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-ios-16-glyph/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-90.png",
+        "durationInMinute": 1,
+        "isPremium": false,
+        "caloriesUsed": 400,
+        "set": 1
+      },
+      {
+        "exerciseId": 5,
+        "name": "테스트5",
+        "description": "1초가 1시간 같을껄?",
+        "thumbnailURL": "https://one-more.s3.ap-northeast-2.amazonaws.com/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-ios-16-glyph/icons8-%E1%84%86%E1%85%AE%E1%86%AF%E1%84%85%E1%85%B5-%E1%84%8E%E1%85%B5%E1%84%85%E1%85%AD-90.png",
+        "durationInMinute": 1,
+        "isPremium": false,
+        "caloriesUsed": 400,
+        "set": 1
       }
     ],
     "selected": [2]
