@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import BASE_API from '../../../config';
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
@@ -8,15 +9,12 @@ const GoogleLogin = () => {
 
   useEffect(() => {
     if (code) {
-      fetch(
-        `http://10.58.52.147:8000/users/oauth/google/callback?code=${code}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      fetch(`${BASE_API}/users/oauth/google/callback?code=${code}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+      })
         .then(response => response.json())
         .then(result => {
           if (result.message === 'SOCIAL_LOGIN_SUCCESS') {
