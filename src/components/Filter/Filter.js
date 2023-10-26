@@ -9,18 +9,18 @@ function Filter(props) {
 
   const machineClick = id => {
     if (id === null) {
-      searchParams.delete('machine');
+      searchParams.delete('equip-required');
     } else {
-      searchParams.set('machine', id);
+      searchParams.set('equip-required', id);
     }
     setSearchParams(searchParams);
   };
 
   const partClick = id => {
     if (id === null) {
-      searchParams.delete('part');
+      searchParams.delete('category');
     } else {
-      searchParams.set('part', id);
+      searchParams.set('category', id);
     }
     setSearchParams(searchParams);
   };
@@ -36,14 +36,14 @@ function Filter(props) {
 
   return (
     <>
-      {props.category === 'machine' ? (
+      {props.category === 'equipRequired' ? (
         <FilterBox>
-          {MACHINE_LIST.map(({ id, text, machine }) => (
+          {EQUIPREQUIRED_LIST.map(({ id, text, equipRequired }) => (
             <Option
               key={id}
               $text={text}
-              onClick={() => machineClick(machine)}
-              $isActive={queryParams.get('machine') == machine}
+              onClick={() => machineClick(equipRequired)}
+              $isActive={queryParams.get('equip-required') == equipRequired}
             >
               {text}
             </Option>
@@ -51,14 +51,14 @@ function Filter(props) {
         </FilterBox>
       ) : null}
 
-      {props.category === 'part' ? (
+      {props.category === 'category' ? (
         <FilterBox>
-          {PART_LIST.map(({ id, text, part }) => (
+          {CATEGORY_LIST.map(({ id, text, category }) => (
             <Option
               key={id}
               $text={text}
-              onClick={() => partClick(part)}
-              $isActive={queryParams.get('part') == part}
+              onClick={() => partClick(category)}
+              $isActive={queryParams.get('category') == category}
             >
               {text}
             </Option>
@@ -98,17 +98,17 @@ const Option = styled.button`
   }
 `;
 
-const MACHINE_LIST = [
-  { id: 1, text: '전체', machine: null },
-  { id: 2, text: '기구', machine: 1 },
-  { id: 3, text: '맨몸', machine: 2 },
+const EQUIPREQUIRED_LIST = [
+  { id: 1, text: '전체', equipRequired: null },
+  { id: 2, text: '기구', equipRequired: 1 },
+  { id: 3, text: '맨몸', equipRequired: 2 },
 ];
 
-const PART_LIST = [
-  { id: 1, text: '전체', part: null },
-  { id: 2, text: '전신', part: 1 },
-  { id: 3, text: '상체', part: 2 },
-  { id: 4, text: '하체', part: 3 },
+const CATEGORY_LIST = [
+  { id: 1, text: '전체', category: null },
+  { id: 2, text: '전신', category: 1 },
+  { id: 3, text: '상체', category: 2 },
+  { id: 4, text: '하체', category: 3 },
 ];
 
 const ROUTINE_LIST = [

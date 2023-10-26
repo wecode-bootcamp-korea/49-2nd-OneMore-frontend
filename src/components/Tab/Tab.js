@@ -28,7 +28,7 @@ function Tab() {
     },
     {
       icon: <BsFillCartFill size="100%" />,
-      route: '/product-list',
+      route: '/product',
       label: '상품',
     },
     { icon: <FaDumbbell size="100%" />, route: '/', label: '메인' },

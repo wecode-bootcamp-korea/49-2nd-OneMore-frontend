@@ -22,7 +22,6 @@ function Header() {
   const isPrevButtonVisible = PREV_BUTTON_PATH.includes(pathname);
   const isHeaderInvisible = HEADER_EXCEPTION_PATH.includes(pathname);
   if (isHeaderInvisible) return null;
-
   return (
     <>
       <HeaderStyle>

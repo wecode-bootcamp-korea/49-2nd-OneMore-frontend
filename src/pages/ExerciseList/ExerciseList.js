@@ -11,8 +11,11 @@ function ExerciseList(props) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const page = queryParams.get('page') || '1';
-  const limit = queryParams.get('limit') || '10';
+  const [offset, setOffset] = useState(0);
+  const limit = queryParams.get('limit') || '5';
   const token = localStorage.getItem('token');
+  const category = queryParams.get('category');
+  const equipRequired = queryParams.get('equip-required');
 
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
@@ -25,32 +28,10 @@ function ExerciseList(props) {
 
   const listBox = useRef();
   const getExerciseList = () => {
-    // fetch('/data/getExerciseList.json', {
-    //   method: 'GET',
-    // })
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(result => {
-    //     const newItems = result.data.exercises;
-    //     setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
-    //     setLoading(false);
-    //   });
-
-    fetch(
-      `${BASE_API}/exercises/recommended?page=${
-        parseInt(page) + 1
-      }&limit=${limit}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          authorization: token,
-        },
-      },
-    )
+    fetch('/data/getExerciseList.json', {
+      method: 'GET',
+    })
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(result => {
@@ -58,9 +39,29 @@ function ExerciseList(props) {
         setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
         setLoading(false);
       });
+
+    // fetch(`${BASE_API}/exercises?offset=${offset}&limit=${limit}$category=${}$equip-required=${equipRequired}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //     authorization: token,
+    //   },
+    // })
+    //   .then(response => {
+    //     console.log(response);
+    //     return response.json();
+    //   })
+    //   .then(result => {
+    //     console.log(result);
+    //     const newItems = result.data.exercises;
+    //     setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
+    //     setLoading(false);
+    //   });
   };
 
   const postExerciseList = () => {
+    routineNaming();
+
     fetch(`${BASE_API}/routines`, {
       method: 'POST',
       headers: {
@@ -104,6 +105,7 @@ function ExerciseList(props) {
       listBox.current.scrollHeight - listBox.current.scrollTop ===
       listBox.current.clientHeight
     ) {
+      setOffset(offset + 5);
       getExerciseList();
     }
   };
@@ -113,7 +115,8 @@ function ExerciseList(props) {
   };
 
   const AlertmodalCancle = () => {
-    setSubscriptionCheck(false);
+    console.log('취소버튼누름');
+    setExerciseListCheck(false);
   };
 
   const clickMakeBtn = status => {
@@ -139,14 +142,22 @@ function ExerciseList(props) {
     setRoutineTitle(e.target.value);
   };
 
+  const routineNaming = () => {
+    if (!routineTitle) {
+      return alert('한 글자라도 입력해줘요!');
+    }
+  };
+
   if (Object.keys(exerciseList).length <= 0) return null;
+
+  console.log(exerciseList);
 
   return (
     <ExerciseListStyle>
       <OutContainer>
         <FilterBox>
-          <Filter category="machine" />
-          <Filter category="part" />
+          <Filter category="equipRequired" />
+          <Filter category="category" />
         </FilterBox>
         <ExerciseBox ref={listBox} onScroll={handleScroll}>
           <>
@@ -156,11 +167,13 @@ function ExerciseList(props) {
                   onClick={() => {
                     SubscriptionClick(true);
                   }}
+                  $checked={data.isPremium}
                 />
                 <SubscriptionLock
                   onClick={() => {
                     SubscriptionClick(true);
                   }}
+                  $checked={data.isPremium}
                 />
                 <ExerciseInfo>
                   <ThumbnailBox>
@@ -248,7 +261,7 @@ function ExerciseList(props) {
           >
             취소
           </ModalCancleBtn>
-          <ModalOkBtn>확인</ModalOkBtn>
+          <ModalOkBtn onClick={postExerciseList}>확인</ModalOkBtn>
         </ModalBtnBox>
       </ExerciseListModal>
     </ExerciseListStyle>
@@ -306,6 +319,7 @@ const SubscriptionBack = styled.div`
   border-radius: 10px;
   cursor: pointer;
   opacity: 0.7;
+  display: ${props => (props.$checked ? 'none' : 'block')};
 `;
 
 const SubscriptionLock = styled.div`
@@ -318,6 +332,7 @@ const SubscriptionLock = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+  display: ${props => (props.$checked ? 'none' : 'block')};
 `;
 
 const ExerciseInfo = styled.div`

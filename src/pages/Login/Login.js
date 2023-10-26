@@ -13,31 +13,29 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // VALIDATION CHECK
   const emailRegex =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-  const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+  const pwRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{4,16}$/;
   const isEmailValid = emailRegex.test(userInfo.email);
   const isPwValid = pwRegex.test(userInfo.password);
   const isValidCheck = isEmailValid && isPwValid;
+  const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URL;
+  // const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=65d419410e82bef270a76e21b1ffab75&redirect_uri=http://localhost:3000/oauth/kakao&response_type=code`;
+
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_CALLBACK;
+  const GOOGLE_URL = `https://accounts.google.com/o/oauth2/auth?client_id=575455547412-sus9quu2fa6jlm4sonfslejoqegs0lhb.apps.googleusercontent.com&redirect_uri=http://localhost:3000/users/oauth/google/callback&response_type=code&scope=email%20profile`;
 
   const handleUserInfo = e => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
   };
-  // KAKAO LOGIN
-  const KAKAO_CLIENT_ID = process.env.REACT_APP_REST_API_KEY_KAKAO;
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL_KAKAO;
-  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
   const handleKakaoLogin = e => {
     window.location.href = KAKAO_URL;
   };
-
-  // GOOGLE LOGIN
-  const GOOGLE_CLIENT_ID = process.env.REACT_APP_REST_API_KEY;
-  const GOOGLE_REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
-  const GOOGLE_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${GOOGLE_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${GOOGLE_REDIRECT_URI}`;
 
   const handleGoogleLogin = e => {
     window.location.href = GOOGLE_URL;

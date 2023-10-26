@@ -51,10 +51,10 @@ function ExerciseStart() {
     })
       .then(response => response.json())
       .then(data => {
+        window.localStorage.removeItem('completedIds');
         if (data.message === 'EXERCISE UPDATE SUCCESS') {
           goToComplete();
         }
-        localStorage.removeItem('completedIds');
       });
   };
 
@@ -71,6 +71,7 @@ function ExerciseStart() {
         return response.json();
       })
       .then(result => {
+        console.log('운동시작 데이터 GET : ', result);
         const exerciseFilterList = result.data.exercises.filter(
           exercise => exercise.isCompleted === 1,
         );

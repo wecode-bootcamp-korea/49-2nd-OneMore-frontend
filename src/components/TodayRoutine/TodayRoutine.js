@@ -8,7 +8,6 @@ const TodayRoutine = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
-  console.log(token);
   const [todayRoutineData, setTodayRoutineData] = useState({});
   const userNickName = localStorage.getItem('nickname');
 
@@ -56,10 +55,9 @@ const TodayRoutine = () => {
         return response.json();
       })
       .then(result => {
+        console.log('투데이루틴 : ', result);
         if (result.message === 'SUCCESS') {
-          navigate(
-            `/exercise-start?routine-id=${result.routineId}&iscustomed=0`,
-          );
+          navigate(`/exercise-start?routine-id=${result.routineId}`);
           console.log('성공');
         } else console.log('실패');
       });

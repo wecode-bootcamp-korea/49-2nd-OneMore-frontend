@@ -7,12 +7,13 @@ import BASE_API from '../../config';
 
 function MyRoutine() {
   const [myRoutineData, setMyRoutineData] = useState([]);
+  const [message, setMessage] = useState('');
   const listBox = useRef();
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const routineId = queryParams.get('routine-id');
-  const page = queryParams.get('page') || '1';
+  const [offset, setOffset] = useState(0);
   const limit = queryParams.get('limit') || '5';
   const routine = queryParams.get('routine');
 
@@ -25,12 +26,9 @@ function MyRoutine() {
   };
   const DataLength = myRoutineData.length;
 
-  const handleNotHaveMyRoutine = DataLength === 0;
   const token = localStorage.getItem('token');
   const getMyRoutineList = () => {
-    const fetchURL = `${BASE_API}/routines/my?page=${
-      parseInt(page) + 1
-    }&limit=${limit}&routine=${routine}`;
+    const fetchURL = `${BASE_API}/routines/my?offset=${offset}&limit=${limit}`;
 
     // const fetchURL = `/data/MyRoutine.json`;
 
@@ -47,6 +45,7 @@ function MyRoutine() {
       .then(result => {
         console.log(result);
         const newItems = result.data;
+        setMessage(result.message);
         setMyRoutineData(prevMyRoutineList => [
           ...prevMyRoutineList,
           ...newItems,
@@ -62,14 +61,17 @@ function MyRoutine() {
       listBox.current.scrollHeight - listBox.current.scrollTop ===
       listBox.current.clientHeight
     ) {
+      setOffset(offset + 5);
       getMyRoutineList();
     }
   };
+  if (message === '') return null;
 
-  if (myRoutineData.length === 0) return null;
+  console.log(myRoutineData);
+
   return (
     <div>
-      {handleNotHaveMyRoutine ? (
+      {DataLength === 0 ? (
         <NotHaveRoutine />
       ) : (
         <ExerciseStartStyle>

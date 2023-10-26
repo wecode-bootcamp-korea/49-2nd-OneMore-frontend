@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import BASE_API from '../../../config';
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
-
+  console.log(code);
   useEffect(() => {
     if (code) {
-      fetch(`http://url:8000/users/oauth/google?code=${code}`, {
+      fetch(`${BASE_API}/users/oauth/google/callback?code=${code}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ const GoogleLogin = () => {
           }
         });
     }
-  }, []);
+  }, [code, navigate]);
 
   return <div />;
 };
