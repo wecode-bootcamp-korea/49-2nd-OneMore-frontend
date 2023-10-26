@@ -6,6 +6,7 @@ function Feed() {
   const [getFeedData, setGetFeedData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFeed, setSelectedFeed] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
   const listBox = useRef();
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +19,9 @@ function Feed() {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
   // const goToMyRoutine = id => {
   //   navigate(`/exercise-start/${id}`);
   // };
@@ -60,14 +64,14 @@ function Feed() {
             const { routineId, nickName, profileImage, feedImage, content } =
               product;
             return (
-              <One
+              <FeedBorder
                 key={routineId}
                 onClick={() => {
                   handleModalOpen(product);
                 }}
               >
                 <FeedImage alt={nickName} src={feedImage}></FeedImage>
-              </One>
+              </FeedBorder>
             );
           })}
         </GridContainer>
@@ -94,9 +98,14 @@ function Feed() {
             <FeedImage alt="피드 이미지" src={selectedFeed?.feedImage} />
           </FeedImageWrapper>
           <ContentWrapper>
+            <HeartWrapper onClick={handleLike}>
+              {isLiked ? (
+                <FilledHeart alt="하트" src="/images/heart.png" />
+              ) : (
+                <EmptyHeart alt="빈하트" src="/images/emptyHeart.png" />
+              )}
+            </HeartWrapper>
             <Comment>{selectedFeed?.content}</Comment>
-            <Comment />
-            <Comment />
           </ContentWrapper>
         </FeedModal>
       )}
@@ -119,15 +128,6 @@ const PaddingContainer = styled.div`
   border-radius: 16px;
 `;
 
-const ModalWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 500px;
-  padding: 0 15px 0 15px;
-  top: 44%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
 const MakeRoutineButton = styled.button`
   width: 130px;
   height: 40px;
@@ -144,22 +144,17 @@ const MakeRoutineButton = styled.button`
   right: 25px;
 `;
 
-const ScrollContainer = styled.div`
-  width: 100%;
-  height: 600px;
-  overflow: auto;
-`;
-
 const GridContainer = styled.div`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   border-radius: 16px;
   position: relative;
+  cursor: pointer;
 `;
 
-const One = styled.div`
+const FeedBorder = styled.div`
   border: 0.25px solid gray;
   display: flex;
   justify-content: center;
@@ -174,7 +169,7 @@ const FeedImage = styled.img`
 
 const FeedModal = styled.div`
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -232,10 +227,27 @@ const FeedImageWrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: auto;
+  height: 40%;
+  gap: 8px;
   padding: 15px 15px 0px 15px;
+  overflow-y: auto;
 `;
 
 const Comment = styled.p`
   font-size: 16px;
+  white-space: pre-line;
+  word-break: break-all;
+`;
+
+const HeartWrapper = styled.div``;
+const FilledHeart = styled.img`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+
+const EmptyHeart = styled.img`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 `;
