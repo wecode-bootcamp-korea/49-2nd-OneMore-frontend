@@ -8,12 +8,15 @@ const GoogleLogin = () => {
 
   useEffect(() => {
     if (code) {
-      fetch(`http://url:8000/users/oauth/google?code=${code}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+      fetch(
+        `http://10.58.52.147:8000/users/oauth/google/callback?code=${code}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
         .then(response => response.json())
         .then(result => {
           if (result.message === 'SOCIAL_LOGIN_SUCCESS') {
@@ -28,7 +31,7 @@ const GoogleLogin = () => {
           }
         });
     }
-  }, []);
+  }, [code, navigate]);
 
   return <div />;
 };
