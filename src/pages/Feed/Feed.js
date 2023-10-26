@@ -7,6 +7,7 @@ function Feed() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFeed, setSelectedFeed] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
   const listBox = useRef();
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,15 +17,25 @@ function Feed() {
 
   const handleModalOpen = feed => {
     setSelectedFeed(feed);
-    setIsModalOpen(!isModalOpen);
+    checkPermission();
   };
-
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   const handleLike = () => {
     setIsLiked(!isLiked);
   };
-  // const goToMyRoutine = id => {
-  //   navigate(`/exercise-start/${id}`);
-  // };
+
+  let test = 0; // 조건
+
+  const checkPermission = () => {
+    if (test === 0) {
+      //구독조건 넣어주기 나중에
+      setIsModalOpen(!hasPermission);
+    } else {
+      alert('구독 서비스 입니다');
+    }
+  };
 
   const getFeedDataList = () => {
     const fetchURL = `/data/feed.json`;
@@ -54,8 +65,6 @@ function Feed() {
     }
   };
 
-  console.log(selectedFeed?.profileImage, '<<<<');
-
   return (
     <ExerciseStartStyle>
       <PaddingContainer ref={listBox} onScroll={handleScroll}>
@@ -78,7 +87,6 @@ function Feed() {
       </PaddingContainer>
 
       {isModalOpen && (
-        // <Modal feed={selectedFeed} onClose={handleModalClose} />
         <FeedModal>
           <TopWrapper>
             <UserWrapper>
@@ -91,7 +99,7 @@ function Feed() {
               <NickName>{selectedFeed?.nickName}</NickName>
             </UserWrapper>
             <ButtonWrapper>
-              <ExitButton onClick={handleModalOpen}>X</ExitButton>
+              <ExitButton onClick={handleModalClose}>X</ExitButton>
             </ButtonWrapper>
           </TopWrapper>
           <FeedImageWrapper>
@@ -110,7 +118,7 @@ function Feed() {
         </FeedModal>
       )}
 
-      <MakeRoutineButton>피드</MakeRoutineButton>
+      <MakeRoutineButton>글쓰기</MakeRoutineButton>
     </ExerciseStartStyle>
   );
 }
