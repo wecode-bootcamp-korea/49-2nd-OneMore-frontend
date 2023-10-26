@@ -17,7 +17,7 @@ import Completed from './pages/Completed/Completed';
 import Feed from './pages/Feed/Feed';
 import Product from './Product/Product';
 import Order from './pages/Order/Order';
-import Analyze from './pages/Analyze/Analyze';
+import Report from './pages/Report/Report';
 
 function Router() {
   return (
@@ -39,7 +39,7 @@ function Router() {
             <Route path="/feed" element={<Feed />} />
             <Route path="/product" element={<Product />} />
             <Route path="/order" element={<Order />} />
-            <Route path="/analyze" element={<Analyze />} />
+            <Route path="/report" element={<Report />} />
           </Routes>
         </MainContainer>
         <Tab />
