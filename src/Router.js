@@ -47,7 +47,7 @@ function Router() {
             <Route path="/order" element={<Order />} />
             <Route path="/orderdone" element={<OrderDone />} />
             <Route
-              path="/subscriptionorders"
+              path="/subscription-orders"
               element={<SubscriptionOrders />}
             />
             <Route path="/loginswiper" element={<LoginSwiper />} />
