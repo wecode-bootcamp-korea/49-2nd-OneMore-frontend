@@ -47,19 +47,16 @@ const Login = () => {
   const handleLogin = e => {
     e.preventDefault();
 
-    fetch(
-      `http://ec2-43-202-191-26.ap-northeast-2.compute.amazonaws.com/users/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: userInfo.email,
-          password: userInfo.password,
-        }),
+    fetch(`${BASE_API}/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({
+        email: userInfo.email,
+        password: userInfo.password,
+      }),
+    })
       .then(response => {
         if (response.status === 200) {
           return response.json();
