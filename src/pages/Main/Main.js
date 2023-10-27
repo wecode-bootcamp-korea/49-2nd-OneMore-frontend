@@ -11,7 +11,7 @@ function Main(props) {
   const token = localStorage.getItem('token');
   useEffect(() => {
     if (!token) {
-      navigate('/login');
+      navigate('/loginswiper');
     }
   }, []);
   if (!token) return null;

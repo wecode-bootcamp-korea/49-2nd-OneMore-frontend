@@ -52,5 +52,5 @@ const Logo = styled.div`
 `;
 
 const PREV_BUTTON_PATH = ['/report', '/product-list', '/', '/feed', '/info'];
-const HEADER_EXCEPTION_PATH = ['/login', '/signup'];
+const HEADER_EXCEPTION_PATH = ['/login', '/signup', '/loginswiper'];
 export default Header;

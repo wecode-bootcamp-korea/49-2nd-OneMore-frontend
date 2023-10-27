@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './styles/Layout';
 import Header from './components/Header/Header';
@@ -17,17 +17,15 @@ import Completed from './pages/Completed/Completed';
 import Feed from './pages/Feed/Feed';
 import Product from './Product/Product';
 import Order from './pages/Order/Order';
-import Report from './pages/Report/Report';
 import SubscriptionOrders from './pages/SubscriptionOrders/SubscriptionOrders';
-
+import OrderDone from './pages/OrderDone/OrderDone';
+import LoginSwiper from './pages/LoginSwiper/LoginSwiper';
 
 function Router() {
-  const [open, setOpen] = useState(false);
-
   return (
     <BrowserRouter>
       <Layout>
-        <Header setOpen={setOpen} open={open} />
+        <Header />
         <MainContainer>
           <Routes>
             <Route path="/" element={<Main />} />
@@ -42,18 +40,19 @@ function Router() {
               element={<GoogleLogin />}
             />
             <Route path="/signup" element={<SignupTerms />} />
-            <Route
-              path="/subscription-orders"
-              element={<SubscriptionOrders />}
-            />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
-            <Route path="/product" element={<Product />} />
+            <Route path="/product-list" element={<Product />} />
             <Route path="/order" element={<Order />} />
-            <Route path="/report" element={<Report />} />
+            <Route path="/orderdone" element={<OrderDone />} />
+            <Route
+              path="/subscriptionorders"
+              element={<SubscriptionOrders />}
+            />
+            <Route path="/loginswiper" element={<LoginSwiper />} />
           </Routes>
         </MainContainer>
-        <Tab setOpen={setOpen} />
+        <Tab />
       </Layout>
     </BrowserRouter>
   );
