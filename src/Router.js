@@ -43,7 +43,7 @@ function Router() {
             <Route path="/signup" element={<SignupTerms />} />
             <Route path="/completed" element={<Completed />} />
             <Route path="/feed" element={<Feed />} />
-            <Route path="/product-list" element={<Product />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/order" element={<Order />} />
             <Route path="/orderdone" element={<OrderDone />} />
             <Route
