@@ -101,4 +101,4 @@ const IconName = styled.div`
   font-weight: 800;
 `;
 
-const TAB_EXCEPTION_PATH = ['/login', '/signup'];
+const TAB_EXCEPTION_PATH = ['/login', '/signup', '/loginswiper'];

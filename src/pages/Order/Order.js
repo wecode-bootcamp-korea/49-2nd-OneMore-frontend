@@ -47,7 +47,7 @@ const Order = () => {
             .then(result => {
               if (result.message === 'SUCESS_SUBSCRIPTION_AND_PAYMENT') {
                 alert('결제완료');
-                navigate('/');
+                navigate('/orderdone');
               } else {
                 alert('실패');
               }
