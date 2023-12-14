@@ -6,44 +6,39 @@ import CheckBox from '../../components/CheckBox/CheckBox';
 import BASE_API from '../../config';
 import RoutineThumbNail from '../../components/RoutineThumbNail/RoutineThumbNail';
 
-function ExerciseList(props) {
+function ExerciseList() {
+  //로그인 확인
+  const token = localStorage.getItem('token');
+
+  //불러오는 데이터 갯수
+  const dataLimit = 5;
+
+  // 라이브러리 활용
   const navigate = useNavigate();
   const location = useLocation();
+
+  //query Pameter
+  const [searchParams, setSearchParams] = useSearchParams();
   const queryParams = new URLSearchParams(location.search);
-  const page = queryParams.get('page') || '1';
-  const [offset, setOffset] = useState(0);
-  const limit = '5';
-  const token = localStorage.getItem('token');
   const category = queryParams.get('category');
   const equipRequired = queryParams.get('equip-required');
-  const [searchParams, setSearchParams] = useSearchParams();
 
+  //State
+  const [offset, setOffset] = useState(0);
   const [exerciseList, setExerciseList] = useState([]);
   const [completedIds, setCompletedIds] = useState([]);
-  const [routineId, setRoutineId] = useState();
   const [subscriptionCheck, setSubscriptionCheck] = useState(false);
   const [exerciseListCheck, setExerciseListCheck] = useState(false);
   const [modalCheck, setModalCheck] = useState(false);
   const [routineTitle, setRoutineTitle] = useState('');
-  const [loading, setLoading] = useState(false);
   const [subscriptionState, setSubscriptionState] = useState(0);
+  const [routineList, setRoutineList] = useState([]);
 
-  const listBox = useRef();
-  const getExerciseList = (offset = 0) => {
-    // fetch('/data/getExerciseList.json', {
-    //   method: 'GET',
-    // })
-    //   .then(response => {
-    //     return response.json();
-    //   })
-    //   .then(result => {
-    //     const newItems = result.data.exercises;
-    //     setExerciseList(prevExerciseList => [...prevExerciseList, ...newItems]);
-    //     setLoading(false);
-    //   });
-
+  // [백엔드 통신]
+  // 운동 리스트 가져오기
+  const getExerciseList = () => {
     fetch(
-      `${BASE_API}/exercises?limit=${limit}&offset=${offset}${
+      `${BASE_API}/exercises?limit=${dataLimit}&offset=${offset}${
         category ? `&category=${category}` : ''
       }${equipRequired ? `&equipRequired=${equipRequired}` : ''}`,
       {
@@ -55,22 +50,25 @@ function ExerciseList(props) {
       },
     )
       .then(response => {
-        console.log(response);
         return response.json();
       })
       .then(result => {
-        console.log(result);
         const newItems = result.data.exercises;
         setExerciseList(prevExerciseList =>
           offset ? [...prevExerciseList, ...newItems] : newItems,
         );
-        setLoading(false);
         setSubscriptionState(result.data.subscriptionState);
       });
   };
 
+  // 운동으로 루틴 만들기
   const postExerciseList = () => {
     if (!routineTitle) {
+      const routineNaming = () => {
+        if (!routineTitle) {
+          alert('한 글자라도 입력해줘요!');
+        }
+      };
       return routineNaming();
     }
 
@@ -91,95 +89,108 @@ function ExerciseList(props) {
       })
       .then(result => {
         if (result.message === 'SUCCESS') {
-          searchParams.delete('equip-required');
-          searchParams.delete('category');
-          searchParams.delete('routine-id');
-          searchParams.delete('iscutomed');
-          setSearchParams(searchParams);
           navigate(
             `/exercise-start?routine-id=${result.routineId}&iscustomed=1`,
           );
-          console.log('성공');
-        } else console.log('실패');
+        }
       });
   };
 
+  // 운동 리스트 체크 목록
   const handleComplete = id => {
     const hasId = completedIds.includes(id);
-
     if (hasId) {
+      // completedId가 id와 다른 것만 저장
       setCompletedIds(completedIds.filter(completedId => completedId !== id));
     } else {
       setCompletedIds(completedIds.concat(id));
     }
   };
 
+  // 체크박스 체크 로직
+  const checkBoxCheck = parameter => {
+    return completedIds.indexOf(parameter) >= 0;
+  };
+
+  // 무한스크롤 로직
+  const listBox = useRef();
+  const handleScroll = () => {
+    if (
+      listBox.current.scrollHeight - listBox.current.scrollTop ===
+      listBox.current.clientHeight
+    ) {
+      setOffset(prev => prev + dataLimit);
+    }
+  };
+
+  // 구독 체크
+  const SubscriptionClick = status => {
+    setSubscriptionCheck(status);
+  };
+
+  // 운동 최소 선택 모달 닫기
+  const AlertmodalCancle = () => {
+    setExerciseListCheck(false);
+  };
+
+  // 루틴 만들기 버튼
+  const clickMakeBtn = () => {
+    //아무것도 체크 안했을 경우, 안내 모달
+    if (completedIds.length === 0) {
+      return setExerciseListCheck(true);
+    }
+    setModalCheck(true);
+  };
+
+  // 루틴 모달 닫기
+  const exitRoutineModal = () => {
+    setModalCheck(false);
+  };
+
+  const routineListFunciton = () => {
+    console.log(completedIds);
+    setRoutineList([]);
+    for (let i = 0; i < exerciseList.length; i++) {
+      if (completedIds.indexOf(exerciseList[i].exerciseId) >= 0) {
+        setRoutineList(prevRoutineList => [
+          ...prevRoutineList,
+          {
+            name: exerciseList[i].name,
+            set: exerciseList[i].set,
+            id: exerciseList[i].exerciseId,
+          },
+        ]);
+      }
+    }
+  };
+
+  // 루틴 이름 짓기
+  const handleName = e => {
+    setRoutineTitle(e.target.value);
+  };
+
+  // 구독 하러 가기
+  const goToInfoSubscription = () => {
+    navigate('/subscription-orders');
+  };
+
+  //useEffect
   useEffect(() => {
     setOffset(0);
     getExerciseList();
   }, [searchParams]);
 
   useEffect(() => {
-    if (!offset) return;
-
+    if (offset === 0) {
+      return;
+    }
     getExerciseList(offset);
   }, [offset]);
 
-  const handleScroll = () => {
-    if (
-      listBox.current.scrollHeight - listBox.current.scrollTop ===
-      listBox.current.clientHeight
-    ) {
-      setOffset(prev => prev + 5);
-    }
-  };
+  useEffect(() => {
+    routineListFunciton();
+  }, [completedIds.length]);
 
-  const SubscriptionClick = status => {
-    setSubscriptionCheck(status);
-  };
-
-  const AlertmodalCancle = () => {
-    setExerciseListCheck(false);
-  };
-
-  const clickMakeBtn = status => {
-    if (completedIds.length === 0) {
-      return setExerciseListCheck(true);
-    }
-    setModalCheck(status);
-  };
-
-  let checkedEx = [...exerciseList];
-  let arr = [];
-  for (let i = 0; i < checkedEx.length; i++) {
-    if (completedIds.indexOf(checkedEx[i].exerciseId) >= 0) {
-      arr.push({
-        name: checkedEx[i].name,
-        set: checkedEx[i].set,
-        id: checkedEx[i].exerciseId,
-      });
-    }
-  }
-
-  const handleName = e => {
-    setRoutineTitle(e.target.value);
-  };
-
-  const routineNaming = () => {
-    if (!routineTitle) {
-      alert('한 글자라도 입력해줘요!');
-    }
-  };
-
-  const goToInfoSubscription = () => {
-    searchParams.delete('equip-required');
-    searchParams.delete('category');
-    searchParams.delete('routine-id');
-    searchParams.delete('iscutomed');
-    setSearchParams(searchParams);
-    navigate('/subscription-orders');
-  };
-  console.log('구독여부', subscriptionCheck);
   return (
     <ExerciseListStyle>
       <OutContainer>
@@ -188,8 +199,8 @@ function ExerciseList(props) {
           <Filter category="category" />
         </FilterBox>
         <ExerciseBox ref={listBox} onScroll={handleScroll}>
-          {exerciseList.map((data, index) => (
-            <Container key={index}>
+          {exerciseList.map(data => (
+            <Container key={data.exerciseId}>
               <SubscriptionBack
                 onClick={() => {
                   SubscriptionClick(true);
@@ -220,22 +231,21 @@ function ExerciseList(props) {
               </ExerciseInfo>
               <CheckBox
                 size="mediumToLarge"
-                // checked={completedIds.includes(data.exerciseId)}
                 onChange={() => {
                   handleComplete(data.exerciseId);
                 }}
+                checked={checkBoxCheck(data.exerciseId)}
               ></CheckBox>
             </Container>
           ))}
           <MakeButton
             onClick={() => {
-              clickMakeBtn(true);
+              clickMakeBtn();
             }}
           >
             루틴 만들기
           </MakeButton>
         </ExerciseBox>
-        {loading && <p>Loading...</p>}
       </OutContainer>
       <SubscriptionModalBox>
         {subscriptionCheck && (
@@ -275,7 +285,7 @@ function ExerciseList(props) {
           onChange={handleName}
           placeholder="루틴이름을 지어주세요!"
         />
-        {arr.map(data => (
+        {routineList.map(data => (
           <ModalContent key={data.id}>
             <ModalTitle>{data.name}</ModalTitle>
             <ModalSet>{data.set} set</ModalSet>
@@ -284,7 +294,7 @@ function ExerciseList(props) {
         <ModalBtnBox>
           <ModalCancleBtn
             onClick={() => {
-              clickMakeBtn(false);
+              exitRoutineModal();
             }}
           >
             취소
@@ -307,7 +317,6 @@ const FilterBox = styled.div`
   margin-top: 15px;
   gap: 10px;
   width: 100%;
-
   display: flex;
   flex-direction: column;
 `;
