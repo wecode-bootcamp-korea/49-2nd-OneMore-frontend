@@ -63,6 +63,7 @@ function ExerciseList() {
 
   // 운동으로 루틴 만들기
   const postExerciseList = () => {
+    const idArray = routineList.map(item => item.id);
     if (!routineTitle) {
       const routineNaming = () => {
         if (!routineTitle) {
@@ -79,7 +80,7 @@ function ExerciseList() {
         authorization: token,
       },
       body: JSON.stringify({
-        exercises: completedIds,
+        exercises: idArray,
         isCustom: 1,
         name: routineTitle,
       }),
@@ -97,19 +98,34 @@ function ExerciseList() {
   };
 
   // 운동 리스트 체크 목록
-  const handleComplete = id => {
-    const hasId = completedIds.includes(id);
-    if (hasId) {
-      // completedId가 id와 다른 것만 저장
-      setCompletedIds(completedIds.filter(completedId => completedId !== id));
+  const handleComplete = data => {
+    // data.exerciseId와 일치하는 요소를 찾음
+    const existingIndex = routineList.findIndex(
+      item => item.id === data.exerciseId,
+    );
+
+    if (existingIndex !== -1) {
+      // 일치하는 요소가 있으면 해당 요소를 제외한 배열을 생성하여 업데이트
+      setRoutineList(prevRoutineList => [
+        ...prevRoutineList.slice(0, existingIndex),
+        ...prevRoutineList.slice(existingIndex + 1),
+      ]);
     } else {
-      setCompletedIds(completedIds.concat(id));
+      // 일치하는 요소가 없으면 새로운 요소 추가
+      setRoutineList(prevRoutineList => [
+        ...prevRoutineList,
+        {
+          name: data.name,
+          set: data.setCounts,
+          id: data.exerciseId,
+        },
+      ]);
     }
   };
 
   // 체크박스 체크 로직
   const checkBoxCheck = parameter => {
-    return completedIds.indexOf(parameter) >= 0;
+    return routineList.some(item => item.id === parameter);
   };
 
   // 무한스크롤 로직
@@ -136,7 +152,7 @@ function ExerciseList() {
   // 루틴 만들기 버튼
   const clickMakeBtn = () => {
     //아무것도 체크 안했을 경우, 안내 모달
-    if (completedIds.length === 0) {
+    if (routineList.length === 0) {
       return setExerciseListCheck(true);
     }
     setModalCheck(true);
@@ -145,23 +161,6 @@ function ExerciseList() {
   // 루틴 모달 닫기
   const exitRoutineModal = () => {
     setModalCheck(false);
-  };
-
-  const routineListFunciton = () => {
-    console.log(completedIds);
-    setRoutineList([]);
-    for (let i = 0; i < exerciseList.length; i++) {
-      if (completedIds.indexOf(exerciseList[i].exerciseId) >= 0) {
-        setRoutineList(prevRoutineList => [
-          ...prevRoutineList,
-          {
-            name: exerciseList[i].name,
-            set: exerciseList[i].set,
-            id: exerciseList[i].exerciseId,
-          },
-        ]);
-      }
-    }
   };
 
   // 루틴 이름 짓기
@@ -187,9 +186,7 @@ function ExerciseList() {
     getExerciseList(offset);
   }, [offset]);
 
-  useEffect(() => {
-    routineListFunciton();
-  }, [completedIds.length]);
+  console.log(routineList);
 
   return (
     <ExerciseListStyle>
@@ -232,7 +229,7 @@ function ExerciseList() {
               <CheckBox
                 size="mediumToLarge"
                 onChange={() => {
-                  handleComplete(data.exerciseId);
+                  handleComplete(data);
                 }}
                 checked={checkBoxCheck(data.exerciseId)}
               ></CheckBox>
