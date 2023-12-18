@@ -30,35 +30,6 @@ function Tab({ setOpen }) {
   const isTabInvisible = TAB_EXCEPTION_PATH.includes(pathname);
   if (isTabInvisible) return null;
 
-  // Tab 아이콘 모음
-  const tabItems = [
-    {
-      icon: <BsFillFileBarGraphFill size="100%" />,
-      route: '/report',
-      label: '분석',
-      number: 0,
-    },
-    {
-      icon: <BsFillCartFill size="100%" />,
-      route: '/product',
-      label: '상품',
-      number: 1,
-    },
-    { icon: <FaDumbbell size="100%" />, route: '/', label: '메인', number: 2 },
-    {
-      icon: <BsFillChatHeartFill size="100%" />,
-      route: '/feed',
-      label: '피드',
-      number: 3,
-    },
-    {
-      icon: <BsFillBookFill size="100%" />,
-      route: '/info',
-      label: '정보',
-      number: 4,
-    },
-  ];
-
   return (
     <TabStyle>
       {tabItems.map(item => (
@@ -117,3 +88,32 @@ const IconName = styled.div`
 `;
 
 const TAB_EXCEPTION_PATH = ['/login', '/signup', '/loginswiper'];
+
+// Tab 아이콘 모음
+const tabItems = [
+  {
+    icon: <BsFillFileBarGraphFill size="100%" />,
+    route: '/report',
+    label: '분석',
+    number: 0,
+  },
+  {
+    icon: <BsFillCartFill size="100%" />,
+    route: '/product',
+    label: '상품',
+    number: 1,
+  },
+  { icon: <FaDumbbell size="100%" />, route: '/', label: '메인', number: 2 },
+  {
+    icon: <BsFillChatHeartFill size="100%" />,
+    route: '/feed',
+    label: '피드',
+    number: 3,
+  },
+  {
+    icon: <BsFillBookFill size="100%" />,
+    route: '/info',
+    label: '정보',
+    number: 4,
+  },
+];
