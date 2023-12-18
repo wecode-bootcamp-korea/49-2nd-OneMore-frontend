@@ -26,7 +26,6 @@ function ExerciseList() {
   //State
   const [offset, setOffset] = useState(0);
   const [exerciseList, setExerciseList] = useState([]);
-  const [completedIds, setCompletedIds] = useState([]);
   const [subscriptionCheck, setSubscriptionCheck] = useState(false);
   const [exerciseListCheck, setExerciseListCheck] = useState(false);
   const [modalCheck, setModalCheck] = useState(false);
