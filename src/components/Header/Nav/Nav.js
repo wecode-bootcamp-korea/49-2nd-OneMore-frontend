@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Nav() {
+function Nav({ handleOpen }) {
   const [isToggle, setIsToggle] = useState(false);
   const navigate = useNavigate();
 
@@ -28,8 +28,14 @@ function Nav() {
             <MyPageList>식단 체크리스트</MyPageList>
           </MyPage>
         </NavList>
-
-        <NavList onClick={removeToken}>로그아웃</NavList>
+        <NavList
+          onClick={() => {
+            handleOpen();
+            removeToken();
+          }}
+        >
+          로그아웃
+        </NavList>
       </NavWrap>
     </NavBox>
   );
