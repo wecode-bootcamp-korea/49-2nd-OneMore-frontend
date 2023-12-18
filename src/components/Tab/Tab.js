@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
@@ -20,41 +20,27 @@ function Tab({ setOpen }) {
     setActiveTab(index);
   };
 
+  useEffect(() => {
+    if (pathname === '/') {
+      setActiveTab(2);
+    }
+  }, [pathname]);
+
+  // 로그인, 회원가입, 로그인 슬라이드시, Tab이 안 보이게함
   const isTabInvisible = TAB_EXCEPTION_PATH.includes(pathname);
-
   if (isTabInvisible) return null;
-
-  const tabItems = [
-    {
-      icon: <BsFillFileBarGraphFill size="100%" />,
-      route: '/report',
-      label: '분석',
-    },
-    {
-      icon: <BsFillCartFill size="100%" />,
-      route: '/product',
-      label: '상품',
-    },
-    { icon: <FaDumbbell size="100%" />, route: '/', label: '메인' },
-    {
-      icon: <BsFillChatHeartFill size="100%" />,
-      route: '/feed',
-      label: '피드',
-    },
-    { icon: <BsFillBookFill size="100%" />, route: '/info', label: '정보' },
-  ];
 
   return (
     <TabStyle>
-      {tabItems.map((item, index) => (
+      {tabItems.map(item => (
         <TabList
-          key={index}
+          key={item.number}
           onClick={() => {
-            handleTabClick(index);
+            handleTabClick(item.number);
             navigate(item.route);
             setOpen(false);
           }}
-          $active={activeTab === index}
+          $active={activeTab === item.number}
         >
           <IconBox>{item.icon}</IconBox>
           <IconName>{item.label}</IconName>
@@ -102,3 +88,32 @@ const IconName = styled.div`
 `;
 
 const TAB_EXCEPTION_PATH = ['/login', '/signup', '/loginswiper'];
+
+// Tab 아이콘 모음
+const tabItems = [
+  {
+    icon: <BsFillFileBarGraphFill size="100%" />,
+    route: '/report',
+    label: '분석',
+    number: 0,
+  },
+  {
+    icon: <BsFillCartFill size="100%" />,
+    route: '/product',
+    label: '상품',
+    number: 1,
+  },
+  { icon: <FaDumbbell size="100%" />, route: '/', label: '메인', number: 2 },
+  {
+    icon: <BsFillChatHeartFill size="100%" />,
+    route: '/feed',
+    label: '피드',
+    number: 3,
+  },
+  {
+    icon: <BsFillBookFill size="100%" />,
+    route: '/info',
+    label: '정보',
+    number: 4,
+  },
+];

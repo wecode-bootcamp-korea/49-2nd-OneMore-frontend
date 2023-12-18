@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Nav from './Nav/Nav';
@@ -24,7 +24,7 @@ function Header({ setOpen, open }) {
         <IconButton size="small" icon="hamberger" onClick={handleOpen} />
       </HeaderStyle>
 
-      {open && <Nav />}
+      {open && <Nav handleOpen={handleOpen} />}
     </>
   );
 }
